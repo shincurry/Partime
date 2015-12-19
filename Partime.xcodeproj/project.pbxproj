@@ -14,6 +14,7 @@
 		881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */; };
 		881FCA191C23BF1300989FDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA181C23BF1300989FDF /* Main.storyboard */; };
 		881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA1F1C23CDF000989FDF /* LoginViewController.swift */; };
+		8875B5841C241AD40050A735 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875B5831C241AD40050A735 /* Account.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		881FCA121C23AF2800989FDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		881FCA181C23BF1300989FDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		881FCA1F1C23CDF000989FDF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8875B5831C241AD40050A735 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,33 +75,14 @@
 		881FCA051C23AF2800989FDF /* Partime */ = {
 			isa = PBXGroup;
 			children = (
-				881FCA1E1C23CDAF00989FDF /* ViewController */,
+				881FCA211C23CF3700989FDF /* Views */,
 				881FCA1D1C23CD9B00989FDF /* Model */,
 				881FCA1C1C23CD9500989FDF /* API */,
-				881FCA1B1C23CD7D00989FDF /* Stroyboard */,
-				881FCA1A1C23CD7100989FDF /* Views */,
 				881FCA061C23AF2800989FDF /* AppDelegate.swift */,
 				881FCA0D1C23AF2800989FDF /* Assets.xcassets */,
 				881FCA121C23AF2800989FDF /* Info.plist */,
 			);
 			path = Partime;
-			sourceTree = "<group>";
-		};
-		881FCA1A1C23CD7100989FDF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		881FCA1B1C23CD7D00989FDF /* Stroyboard */ = {
-			isa = PBXGroup;
-			children = (
-				881FCA0A1C23AF2800989FDF /* Login.storyboard */,
-				881FCA181C23BF1300989FDF /* Main.storyboard */,
-				881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */,
-			);
-			name = Stroyboard;
 			sourceTree = "<group>";
 		};
 		881FCA1C1C23CD9500989FDF /* API */ = {
@@ -112,17 +95,45 @@
 		881FCA1D1C23CD9B00989FDF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8875B5831C241AD40050A735 /* Account.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
 		};
-		881FCA1E1C23CDAF00989FDF /* ViewController */ = {
+		881FCA211C23CF3700989FDF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				881FCA241C23CF6F00989FDF /* LaunchScreenView */,
+				881FCA231C23CF6300989FDF /* MainView */,
+				881FCA221C23CF3F00989FDF /* LoginView */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		881FCA221C23CF3F00989FDF /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				881FCA0A1C23AF2800989FDF /* Login.storyboard */,
+				881FCA1F1C23CDF000989FDF /* LoginViewController.swift */,
+			);
+			name = LoginView;
+			sourceTree = "<group>";
+		};
+		881FCA231C23CF6300989FDF /* MainView */ = {
 			isa = PBXGroup;
 			children = (
 				881FCA081C23AF2800989FDF /* ViewController.swift */,
-				881FCA1F1C23CDF000989FDF /* LoginViewController.swift */,
+				881FCA181C23BF1300989FDF /* Main.storyboard */,
 			);
-			name = ViewController;
+			name = MainView;
+			sourceTree = "<group>";
+		};
+		881FCA241C23CF6F00989FDF /* LaunchScreenView */ = {
+			isa = PBXGroup;
+			children = (
+				881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */,
+			);
+			name = LaunchScreenView;
 			sourceTree = "<group>";
 		};
 		F6590DFA02D3469DEE09240C /* Pods */ = {
@@ -259,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */,
+				8875B5841C241AD40050A735 /* Account.swift in Sources */,
 				881FCA091C23AF2800989FDF /* ViewController.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
 			);
@@ -375,9 +387,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Partime/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.windisco.Partime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -387,9 +401,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Partime/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.windisco.Partime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

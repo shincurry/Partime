@@ -9,8 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private var isLogin: Bool = false;
 
+    
     override func viewDidLoad() {
+        isLogin = false;
+        if (isLogin) {
+            print("Login");
+        } else {
+            print("not login");
+        }
+        
+
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }

@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KfV-yB-Cnh">
     <dependencies>
-        <deployment identifier="iOS"/>
+        <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="n7B-XT-Ced">
             <objects>
-                <viewController id="KfV-yB-Cnh" sceneMemberID="viewController">
+                <viewController id="KfV-yB-Cnh" customClass="ViewController" customModule="Partime" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pVk-aE-sIW"/>
                         <viewControllerLayoutGuide type="bottom" id="WXU-xt-SZE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tw2-Pz-MNj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HKl-dV-GyR">
+                                <rect key="frame" x="268" y="97" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="93H-UA-eDR" kind="show" id="nrQ-JT-tIK"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M6x-Qn-D5k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="413" y="365"/>
+            <point key="canvasLocation" x="675" y="328"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="upN-em-jPK">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Login" id="93H-UA-eDR" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L2o-ui-aoK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1180.5" y="526"/>
         </scene>
     </scenes>
 </document>
