@@ -7,30 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		881F41271C475AEA0043DAC9 /* JobsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */; };
+		881F412A1C4788A10043DAC9 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41291C4788A10043DAC9 /* LocationViewController.swift */; };
+		881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */; };
+		881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */; };
 		881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA061C23AF2800989FDF /* AppDelegate.swift */; };
-		881FCA091C23AF2800989FDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA081C23AF2800989FDF /* ViewController.swift */; };
+		881FCA091C23AF2800989FDF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA081C23AF2800989FDF /* MainViewController.swift */; };
 		881FCA0C1C23AF2800989FDF /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0A1C23AF2800989FDF /* Login.storyboard */; };
 		881FCA0E1C23AF2800989FDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0D1C23AF2800989FDF /* Assets.xcassets */; };
 		881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */; };
 		881FCA191C23BF1300989FDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA181C23BF1300989FDF /* Main.storyboard */; };
 		881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA1F1C23CDF000989FDF /* LoginViewController.swift */; };
+		883EDCA91C25578D00C41ED8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */; };
 		8875B5841C241AD40050A735 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875B5831C241AD40050A735 /* Account.swift */; };
+		8897BA711C325C72000DD480 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA701C325C72000DD480 /* ProfileViewController.swift */; };
+		8897BA731C325CB6000DD480 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA721C325CB6000DD480 /* SearchViewController.swift */; };
+		8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA741C325CE1000DD480 /* HomeViewController.swift */; };
+		88FD54941C259C4100186276 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FD54931C259C4100186276 /* LaunchScreenViewController.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		105B38B2F88D07E963522799 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A4744E080D01621C52CD786 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewCell.swift; sourceTree = "<group>"; };
+		881F41291C4788A10043DAC9 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailsViewController.swift; sourceTree = "<group>"; };
 		881FCA031C23AF2800989FDF /* Partime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Partime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		881FCA061C23AF2800989FDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		881FCA081C23AF2800989FDF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		881FCA081C23AF2800989FDF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		881FCA0B1C23AF2800989FDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		881FCA0D1C23AF2800989FDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		881FCA101C23AF2800989FDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		881FCA121C23AF2800989FDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		881FCA181C23BF1300989FDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		881FCA1F1C23CDF000989FDF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8875B5831C241AD40050A735 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		8897BA701C325C72000DD480 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		8897BA721C325CB6000DD480 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		8897BA741C325CE1000DD480 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		88FD54931C259C4100186276 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +133,7 @@
 			children = (
 				881FCA0A1C23AF2800989FDF /* Login.storyboard */,
 				881FCA1F1C23CDF000989FDF /* LoginViewController.swift */,
+				883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */,
 			);
 			name = LoginView;
 			sourceTree = "<group>";
@@ -122,8 +141,15 @@
 		881FCA231C23CF6300989FDF /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				881FCA081C23AF2800989FDF /* ViewController.swift */,
+				881FCA081C23AF2800989FDF /* MainViewController.swift */,
 				881FCA181C23BF1300989FDF /* Main.storyboard */,
+				8897BA701C325C72000DD480 /* ProfileViewController.swift */,
+				8897BA721C325CB6000DD480 /* SearchViewController.swift */,
+				8897BA741C325CE1000DD480 /* HomeViewController.swift */,
+				881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */,
+				881F41291C4788A10043DAC9 /* LocationViewController.swift */,
+				881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */,
+				881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -132,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */,
+				88FD54931C259C4100186276 /* LaunchScreenViewController.swift */,
 			);
 			name = LaunchScreenView;
 			sourceTree = "<group>";
@@ -271,8 +298,17 @@
 			files = (
 				881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */,
 				8875B5841C241AD40050A735 /* Account.swift in Sources */,
-				881FCA091C23AF2800989FDF /* ViewController.swift in Sources */,
+				881FCA091C23AF2800989FDF /* MainViewController.swift in Sources */,
+				8897BA731C325CB6000DD480 /* SearchViewController.swift in Sources */,
+				883EDCA91C25578D00C41ED8 /* RegisterViewController.swift in Sources */,
+				881F412A1C4788A10043DAC9 /* LocationViewController.swift in Sources */,
+				8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
+				881F41271C475AEA0043DAC9 /* JobsTableViewCell.swift in Sources */,
+				8897BA711C325C72000DD480 /* ProfileViewController.swift in Sources */,
+				88FD54941C259C4100186276 /* LaunchScreenViewController.swift in Sources */,
+				881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */,
+				881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

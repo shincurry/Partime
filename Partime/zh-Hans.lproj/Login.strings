@@ -1,0 +1,15 @@
+
+/* Class = "UIButton"; normalTitle = "Sign In"; ObjectID = "Age-s9-7k3"; */
+"Age-s9-7k3.normalTitle" = "Sign In";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "ONX-7y-7xx"; */
+"ONX-7y-7xx.text" = "Username";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "RVU-sL-mnv"; */
+"RVU-sL-mnv.normalTitle" = "Sign Up";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "boK-lE-iCN"; */
+"boK-lE-iCN.text" = "Password";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "lcO-tI-MS8"; */
+"lcO-tI-MS8.text" = "Login";

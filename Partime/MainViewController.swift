@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     private var isLogin: Bool = false;
 
     
@@ -19,10 +19,13 @@ class ViewController: UIViewController {
         } else {
             print("not login");
         }
+        super.viewDidLoad()
         
 
         
-        super.viewDidLoad()
+//        tabBarController!.tabBar.barTintColor = UIColor.whiteColor()
+//        tabBarController!.tabBar.tintColor = UIColor.whiteColor()
+//        tabBarController!.tabBarController!.tabBar.barTintColor = UIColor.whiteColor()
         // Do any additional setup after loading the view, typically from a nib.
     }
 

@@ -41,13 +41,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBAction func signInButton(sender: UIButton) {
-        let username = usernameTextField.text!
-        let password = passwordTextField.text!
-        
-        if (!username.isEmpty && !password.isEmpty) {
-            print(username)
-            print(password)
+        if Account.verify(username: usernameTextField.text!, password: passwordTextField.text!) {
+            
+        } else {
+            
         }
+
     }
 
     @IBAction func signUpButton(sender: UIButton) {
@@ -97,7 +96,7 @@ extension LoginViewController {
 }
 
 // MARK: Delegate - set Keyboard Return Key
-extension LoginViewController : UITextFieldDelegate {
+extension LoginViewController: UITextFieldDelegate {
     func setTextFieldDelegate() {
         usernameTextField.delegate = self
         passwordTextField.delegate = self
