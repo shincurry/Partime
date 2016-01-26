@@ -9,23 +9,9 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private var isLogin: Bool = false;
-
     
     override func viewDidLoad() {
-        isLogin = false;
-        if (isLogin) {
-            print("Login");
-        } else {
-            print("not login");
-        }
-        super.viewDidLoad()
-        
-
-        
-//        tabBarController!.tabBar.barTintColor = UIColor.whiteColor()
-//        tabBarController!.tabBar.tintColor = UIColor.whiteColor()
-//        tabBarController!.tabBarController!.tabBar.barTintColor = UIColor.whiteColor()
+        super.viewDidLoad()        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -33,7 +19,5 @@ class MainViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 

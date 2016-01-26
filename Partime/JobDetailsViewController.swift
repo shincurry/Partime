@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import Spring
 
 class JobDetailsViewController: UIViewController {
-
+    var id: Int?
     var isFaved = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favButton.setImage(UIImage(named: isFaved ? "Faved" : "Fav"), forState: .Normal)
+        favButton.tintColor = isFaved ? UIColor(red: 1.000, green: 0.318, blue: 0.333, alpha: 1.00) : UIColor.grayColor()
+
         // Do any additional setup after loading the view.
     }
 
@@ -23,7 +25,7 @@ class JobDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var favButton: UIButton!
+    @IBOutlet weak var favButton: SpringButton!
 
     /*
     // MARK: - Navigation
@@ -36,29 +38,20 @@ class JobDetailsViewController: UIViewController {
     */
     
     @IBAction func favButtonClicked(sender: UIButton) {
-        
-        favButton.setImage(UIImage(named: isFaved ? "Fav" : "Faved"), forState: .Normal)
-//        if let image = UIImage(named: isFaved ? "Fav" : "Faved") {
-//            favButton.layer.contents = image.CGImage
-//        }
-        
-        let animation = CAKeyframeAnimation(keyPath: "transform.scale")
-        animation.values = [0.1, 1.0, 1.5]
-        animation.keyTimes = [0.0, 0.5, 0.8, 1.0]
-        animation.calculationMode = kCAAnimationLinear
-        
+        favButton.animation = "pop"
         isFaved = !isFaved
-        
-        favButton.layer.addAnimation(animation, forKey: "SHOW")
- 
-        //        CAKeyframeAnimation *k = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-        //        k.values = @[@(0.1),@(1.0),@(1.5)];
-        //        k.keyTimes = @[@(0.0),@(0.5),@(0.8),@(1.0)];
-        //        k.calculationMode = kCAAnimationLinear;
-        //
-        //        i++;
-        //        [self.button1.layer addAnimation:k forKey:@"SHOW"];
-        //        [self.image1.layer addAnimation:k forKey:@"SHOW"];
+        if isFaved {
+            favButton.tintColor = UIColor(red: 1.000, green: 0.318, blue: 0.333, alpha: 1.00)
+            favButton.force = 2.2
+            favButton.duration = 0.8
+            favButton.animate()
+        } else {
+            favButton.tintColor = UIColor.grayColor()
+            favButton.animation = "pop"
+            favButton.force = 1
+            favButton.duration = 1.2
+            favButton.animate()
+        }
     }
 
 }

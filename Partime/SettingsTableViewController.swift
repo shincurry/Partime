@@ -12,6 +12,7 @@ class SettingsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
         // Do any additional setup after loading the view.
     }
 
@@ -19,7 +20,6 @@ class SettingsViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -30,13 +30,11 @@ class SettingsViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
+
+extension SettingsViewController {
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
+    }
     
-//    let numbersOfRowInSection = [1, 2, 2]
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        print(numbersOfRowInSection[section])
-//        return numbersOfRowInSection[section]
-//    }
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 3
-//    }
 }

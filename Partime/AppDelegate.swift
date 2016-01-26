@@ -12,10 +12,24 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if let window = UIApplication.sharedApplication().keyWindow {
+            window.tintColor = UIColor(hue: 0, saturation: 62, brightness: 65, alpha: 1)
+        }
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if defaults.boolForKey("isNotFirstLaunch") {
+            print("not first launch")
+        } else {
+            print("first launch")
+            defaults.setBool(true, forKey: "isNotFirstLaunch")
+        }
+
+        
         return true
     }
 

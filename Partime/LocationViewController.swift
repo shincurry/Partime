@@ -38,10 +38,9 @@ class LocationViewController: UIViewController {
 
 }
 
-// MARK: - Location TableView
+// MARK: - Location TableView Delegate and DataSource
 extension LocationViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        print("numberOfSectionsInTableView")
         return 1
     }
     
@@ -50,8 +49,6 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationTableViewCell", forIndexPath: indexPath)
-//        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "locationTableViewCell")
-        print("ok")
         if let label = cell.textLabel {
             label.text = tempLocation[indexPath.row % 7]
         }
