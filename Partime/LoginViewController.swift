@@ -15,9 +15,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         setTextFieldDelegate()
         
-        
-        
-        usernameTextField.leftView = UIImageView(image: UIImage(named: "Username"))
+        usernameTextField.leftView = SpringImageView(image: UIImage(named: "Username"))
+//            UIImageView(image: UIImage(named: "Username"))
         usernameTextField.leftViewMode = .Always
         if let view = usernameTextField.leftView {
             view.tintColor = UIColor.grayColor()
@@ -28,8 +27,6 @@ class LoginViewController: UIViewController {
         if let view = passwordTextField.leftView {
             view.tintColor = UIColor.grayColor()
         }
-        
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,9 +54,21 @@ class LoginViewController: UIViewController {
         passwordTextField.resignFirstResponder()
     }
     
-    var isUsernameOK = false
-    var isPasswordOK = false
-    var isLoginOK = false
+
+    var loginStatus = false
+    var loginType = FormatType.ID
+    var username: String {
+        get {
+           return usernameTextField.text!
+        }
+    }
+    var password: String {
+        get {
+            return passwordTextField.text!
+        }
+    }
+    
+    let login = YXLogin()
     
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var inputAccountView: UIView!
@@ -69,12 +78,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: SpringButton!
     
     @IBAction func loginButtonClicked(sender: UIButton) {
-        if Account.verify(username: usernameTextField.text!, password: passwordTextField.text!) {
+        if Account.verify(username: username, password: password) {
             
         } else {
             loginButton.animation = "shake"
             loginButton.delay = 0.2
-            loginButton.force = 1.4
+            loginButton.force = 1.0
             loginButton.duration = 0.8
             loginButton.curve = "spring"
             loginButton.animate()
@@ -83,9 +92,12 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func signUpButtonClicked(sender: UIButton) {
-        
+        // segue to new view
     }
     
+    @IBAction func forgotPassword(sender: UIButton) {
+        // segue to new view
+    }
     
 }
 
@@ -136,48 +148,54 @@ extension LoginViewController: UITextFieldDelegate {
     
     
     @IBAction func usernameTextChanged(sender: UITextField) {
-        // temp verify input text
-        print("usernameTextChanged")
-        if let text = sender.text {
-            if text.characters.count > 6 {
-                isUsernameOK = true
-            } else {
-                isUsernameOK = false
-            }
-        }
-        loginButtonAnimate()
-        
-        
+        let (accountResult, typeResult, passwordResult)  = login.verify(account: username, password: password)
+        changeTextFieldIcon(typeResult)
+        loginButtonAnimate(accountResult && passwordResult)
     }
     @IBAction func passwordTextChanged(sender: UITextField) {
-        print("passwordTextChanged")
-        if let text = sender.text {
-            if text.characters.count > 6 {
-                isPasswordOK = true
-            } else {
-                isPasswordOK = false
-            }
-        }
-        loginButtonAnimate()
+        let (accountResult, typeResult, passwordResult)  = login.verify(account: username, password: password)
+        changeTextFieldIcon(typeResult)
+        loginButtonAnimate(accountResult && passwordResult)
     }
     
-    private func loginButtonAnimate() {
+    private func loginButtonAnimate(current: Bool) {
         loginButton.animation = "pop"
         loginButton.force = 0.3
-        if isLoginOK {
-            if !isPasswordOK || !isUsernameOK {
-                isLoginOK = false
-                
+        
+        if current != loginStatus {
+            loginStatus = current
+            if loginStatus {
+                loginButton.backgroundColor = UIColor(red: 0.039, green: 0.633, blue: 1.000, alpha: 1.00)
+            } else {
                 loginButton.backgroundColor = UIColor(red: 0.871, green: 0.110, blue: 0.157, alpha: 1.00)
-
-                loginButton.animate()
             }
-        } else {
-            if isUsernameOK && isPasswordOK {
-                isLoginOK = true
-                loginButton.backgroundColor = UIColor(red: 0.039, green: 0.376, blue: 1.000, alpha: 1.00)
-                loginButton.animate()
+            loginButton.animate()
+        }
+    }
+    
+    private func changeTextFieldIcon(var type: FormatType) {
+        guard let view = usernameTextField.leftView as? SpringImageView else {
+            print("have no left view")
+            return
+        }
+        if (type == .None) {
+            type = .ID
+        }
+        
+        if loginType != type {
+            switch type {
+            case .Email:
+                view.image = UIImage(named: "Mail")
+            case .PhoneNumber:
+                view.image = UIImage(named: "Telephone")
+            default:
+                view.image = UIImage(named: "Username")
             }
+            view.animation = "swing"
+            view.curve = "easeOut"
+            view.duration = 0.5
+            view.animate()
+            loginType = type
         }
     }
 

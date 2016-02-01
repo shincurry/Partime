@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DGActivityIndicatorView
 
 class GalaryDetailsViewController: UIViewController {
     
@@ -17,6 +18,14 @@ class GalaryDetailsViewController: UIViewController {
         actionBarButton.enabled = false
         loadWebPage()
         // Do any additional setup after loading the view.
+        
+        loaderView = DGActivityIndicatorView(type: .BallSpinFadeLoader, tintColor: UIColor.grayColor(), size: 32.0)
+        
+        if let loader = loaderView {
+            loader.frame.origin = CGPoint(x: view.frame.size.width / 2.0, y: view.frame.size.height / 2.0 - 60)
+            webView.addSubview(loader)
+            loader.startAnimating()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +47,7 @@ class GalaryDetailsViewController: UIViewController {
         }
     }
     
+    var loaderView: DGActivityIndicatorView?
     
     @IBOutlet weak var actionBarButton: UIBarButtonItem!
     @IBOutlet weak var webView: UIWebView!
@@ -63,10 +73,13 @@ extension GalaryDetailsViewController: UIWebViewDelegate {
     func webViewDidFinishLoad(webView: UIWebView) {
         if webView.stringByEvaluatingJavaScriptFromString("document.readyState") == "complete" {
             navigationItem.title = webView.stringByEvaluatingJavaScriptFromString("document.title")
+            if let loader = loaderView {
+                loader.stopAnimating()
+                loader.hidden = true
+            }
             if let colorString = webView.stringByEvaluatingJavaScriptFromString("document.body.style.backgroundColor") {
-                let color = initColorWith(string: colorString)
-                view.backgroundColor = color
-                // BUG: change color not work
+                view.backgroundColor = initColorWith(string: colorString)
+
             }
             
 
@@ -90,8 +103,8 @@ extension GalaryDetailsViewController: UIWebViewDelegate {
             var color = (colorString as NSString).substringFromIndex(4)
             color = (color as NSString).substringToIndex(color.characters.count-1)
             let colorStringArray = color.componentsSeparatedByString(", ")
-            let colorArray = colorStringArray.map({ c in return CGFloat(Int(c)!) })
-            return UIColor(red: colorArray[0], green: colorArray[1], blue: colorArray[2], alpha: 1.00)
+            let colorArray = colorStringArray.map({ c in return Float(c)! / 255.0 })
+            return UIColor(colorLiteralRed: colorArray[0], green: colorArray[1], blue: colorArray[2], alpha: 1.00)
         } else {
             return UIColor.whiteColor()
         }

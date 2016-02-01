@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Spring
 
 class SearchViewController: UIViewController {
 
@@ -15,14 +16,13 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+//        jobSearchBar.scopeButtonTitles = ["test1", "test2"]
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     
     @IBOutlet weak var jobSearchBar: UISearchBar!
@@ -37,6 +37,9 @@ class SearchViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func filter(sender: UIButton) {
+        
+    }
     
 }
 

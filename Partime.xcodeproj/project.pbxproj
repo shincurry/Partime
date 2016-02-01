@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A43371C58D5EB00E498BC /* YXFormat.swift */; };
+		880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A43391C58DA2E00E498BC /* YXLogin.swift */; };
 		881F41271C475AEA0043DAC9 /* JobsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */; };
 		881F412A1C4788A10043DAC9 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41291C4788A10043DAC9 /* LocationViewController.swift */; };
 		881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		105B38B2F88D07E963522799 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A4744E080D01621C52CD786 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		880A43371C58D5EB00E498BC /* YXFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXFormat.swift; sourceTree = "<group>"; };
+		880A43391C58DA2E00E498BC /* YXLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXLogin.swift; sourceTree = "<group>"; };
 		881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewCell.swift; sourceTree = "<group>"; };
 		881F41291C4788A10043DAC9 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +163,8 @@
 		884296E21C4B70C700DCB641 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				880A43371C58D5EB00E498BC /* YXFormat.swift */,
+				880A43391C58DA2E00E498BC /* YXLogin.swift */,
 			);
 			name = Tool;
 			sourceTree = "<group>";
@@ -305,6 +311,8 @@
 				8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
 				881F41271C475AEA0043DAC9 /* JobsTableViewCell.swift in Sources */,
+				880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */,
+				880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */,
 				8859B6541C48E71D001D2011 /* GalaryDetailsViewController.swift in Sources */,
 				88FD54941C259C4100186276 /* LaunchScreenViewController.swift in Sources */,
 				881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */,

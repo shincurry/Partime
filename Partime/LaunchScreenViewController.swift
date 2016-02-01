@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DGActivityIndicatorView
 
 class LaunchScreenViewController: UIViewController {
 
@@ -14,27 +15,26 @@ class LaunchScreenViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        print("viewDidLoad")
+        launchingView = DGActivityIndicatorView(type: .BallBeat, tintColor: UIColor.grayColor(), size: 32.0)
+        
+        if let launch = launchingView {
+            launch.frame.origin = CGPoint(x: view.frame.size.width / 2.0, y: view.frame.size.height / 2.0)
+            view.addSubview(launch)
+            print("launch")
+            launch.startAnimating()
+        } else {
+            print("failed")
+        }
     }
+    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    
-    //MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     
-        if segue.identifier == "" {
-            
-        }
-        
-//        let nextView = segue.destinationViewController
-      //  Get the new view controller using segue.destinationViewController.
-         //Pass the selected object to the new view controller.
-    }
-    
+    var launchingView: DGActivityIndicatorView?
 
 }
