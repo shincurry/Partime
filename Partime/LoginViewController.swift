@@ -13,10 +13,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTextFieldDelegate()
         
         usernameTextField.leftView = SpringImageView(image: UIImage(named: "Username"))
-//            UIImageView(image: UIImage(named: "Username"))
         usernameTextField.leftViewMode = .Always
         if let view = usernameTextField.leftView {
             view.tintColor = UIColor.grayColor()
@@ -141,11 +139,6 @@ extension LoginViewController {
 
 // MARK: Delegate - username and password text field delegate
 extension LoginViewController: UITextFieldDelegate {
-    func setTextFieldDelegate() {
-        usernameTextField.delegate = self
-        passwordTextField.delegate = self
-    }
-    
     
     @IBAction func usernameTextChanged(sender: UITextField) {
         let (accountResult, typeResult, passwordResult)  = login.verify(account: username, password: password)

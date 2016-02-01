@@ -20,8 +20,16 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         initialGalary()
         initialJobsTableView()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selection = jobsTableView.indexPathForSelectedRow {
+            jobsTableView.deselectRowAtIndexPath(selection, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,6 +103,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// BUG: 图片轮播有时候会乱跳
 // MARK: - Galary Scroll View
 extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {

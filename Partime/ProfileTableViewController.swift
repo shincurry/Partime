@@ -19,6 +19,13 @@ class ProfileTableViewController: UITableViewController {
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selection = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selection, animated: true)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

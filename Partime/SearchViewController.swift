@@ -9,10 +9,7 @@
 import UIKit
 import Spring
 
-class SearchViewController: UIViewController {
-
-    var dismissKeyboardGesture: UITapGestureRecognizer?
-    
+class SearchViewController: UIViewController {    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
