@@ -20,8 +20,8 @@ enum SelectionStatus {
  *  isShow Data Struct
  */
 struct EditViewControl {
-    // (是否可以展开编辑 Cell, 是否显示)
-    private let defaultHiddenStatus = [[(false, false)], [(true, false), (false, true), (true, false), (false, true), (true, false), (false, true), (false, false)], [(false, false), (false, false)]]
+    // (是否可以展开编辑 Cell, 是否隐藏)
+    private let defaultHiddenStatus = [[(true, false), (false, true)], [(true, false), (false, true), (true, false), (false, true), (true, false), (false, true), (false, false)], [(false, false), (false, false)]]
     
     var currentHiddenStatus: [[(Bool, Bool)]]
     init() {
@@ -77,6 +77,7 @@ class EditProfileTableViewController: UITableViewController {
     
     // MARK: - Gender Picker Properties
     let gender = ["Male", "Female"]
+    
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var genderPicker: UIPickerView!
 
@@ -110,6 +111,10 @@ extension EditProfileTableViewController {
         let isHidden = editControl.currentHiddenStatus[indexPath.section][indexPath.row].1
         
         switch (indexPath.section, indexPath.row) {
+        // Avatar Cell
+        case (0, 1):
+            break
+            
         // Nickname Cell
         case (1, 1):
             if isHidden {
@@ -162,8 +167,23 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
 
 // MARK: - Nickname TextField Delegate
 extension EditProfileTableViewController {
-    
     @IBAction func editingChanged(sender: UITextField) {
         nicknameLabel.text = nicknameTextField.text
+        // 当清空输入框重新输入文本的时候需要重新 Layout Label
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) {
+            cell.layoutSubviews()
+        }
     }
+}
+
+
+extension EditProfileTableViewController {
+    
+    @IBAction func selectPhoto(sender: UIButton) {
+        print("selectPhoto")
+    }
+    @IBAction func takePhoto(sender: UIButton) {
+        print("takePhoto")
+    }
+    
 }

@@ -13,9 +13,6 @@ enum Gender : String {
     case Male = "男"
     case Female = "女"
     
-    func getString() {
-        
-    }
 }
 
 class Account {

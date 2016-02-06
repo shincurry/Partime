@@ -51,11 +51,9 @@ class ProfileTableViewController: UITableViewController {
         tableView.backgroundColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
         
         walletCellImage.tintColor = UIColor(red: 0.961, green: 0.486, blue: 0.000, alpha: 1.00)
-        //        walletCellImage.tintColor = UIColor(hue: 30.37 / 360.0, saturation: 0.71, brightness: 0.62, alpha: 1.00)
         favoriteCellImage.tintColor = UIColor(red: 0.945, green: 0.769, blue: 0.059, alpha: 1.00)
         jobCellImage.tintColor = UIColor(red: 0.031, green: 0.376, blue: 0.659, alpha: 1.00)
         settingCellImage.tintColor = UIColor(red: 0.278, green: 0.278, blue: 0.278, alpha: 1.00)
-        
     }
     
     
@@ -68,6 +66,8 @@ class ProfileTableViewController: UITableViewController {
 //    }
 }
 
+
+// MARK: - Profile Table View Delegate
 extension ProfileTableViewController {
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)

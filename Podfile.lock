@@ -1,11 +1,17 @@
 PODS:
   - Alamofire (3.1.4)
   - DGActivityIndicatorView (2.0)
+  - Realm (0.98.0):
+    - Realm/Headers (= 0.98.0)
+  - Realm/Headers (0.98.0)
+  - RealmSwift (0.98.0):
+    - Realm (= 0.98.0)
   - Spring (1.0.3)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - DGActivityIndicatorView
+  - RealmSwift
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift2`)
 
 EXTERNAL SOURCES:
@@ -21,6 +27,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
+  Realm: 28efc598b8b1b378d27a222d9fc037a29ae68642
+  RealmSwift: 7ef4b9ee449d711cd5a7d69a3af1cc5cd0efb619
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
 
 COCOAPODS: 0.39.0

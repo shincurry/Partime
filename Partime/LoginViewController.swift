@@ -107,7 +107,7 @@ extension LoginViewController {
         animationDuration =  info.objectForKey(UIKeyboardAnimationDurationUserInfoKey) as? NSTimeInterval
         let keyboardRect = info.objectForKey(UIKeyboardFrameEndUserInfoKey)?.CGRectValue!
         let inputViewFrame = inputAccountView.frame
-        let move = loginView.frame.origin.y + inputViewFrame.origin.y + inputViewFrame.size.height + (keyboardRect?.size.height)! - view.frame.size.height
+        let move = loginView.frame.origin.y + inputViewFrame.origin.y + inputViewFrame.size.height + (keyboardRect?.size.height)! - view.frame.size.height - 20
         if (move > 0) {
             UIView.animateWithDuration(animationDuration!, animations: {
                 self.view.bounds.origin.y = move
