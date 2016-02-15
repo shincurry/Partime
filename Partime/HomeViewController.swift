@@ -25,18 +25,10 @@ class HomeViewController: UIViewController {
 //        initialJobsTableView()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-//        if let selection = jobsTableView.indexPathForSelectedRow {
-//            jobsTableView.deselectRowAtIndexPath(selection, animated: true)
-//        }
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     @IBOutlet weak var galaryScrollView: UIScrollView!
     @IBOutlet weak var galaryPageControl: UIPageControl!
@@ -73,6 +65,7 @@ extension HomeViewController: UIScrollViewDelegate {
         let scrollViewWidth = galaryScrollView.frame.size.width
         let offsetX = galaryScrollView.contentOffset.x
         let currentPage = (Int)((offsetX + scrollViewWidth / 2) / scrollViewWidth)
+//        let currentPage = (Int)((offsetX+scrollViewWidth) / scrollViewWidth - 1)
         galaryPageControl.currentPage = currentPage
     }
     
@@ -82,11 +75,9 @@ extension HomeViewController: UIScrollViewDelegate {
         let galaryY: CGFloat = 0
         
         for index in 0..<galaryTotalCount {
-            let imageView = UIImageView()
             let imageX = CGFloat(index) * galaryWidth
-            imageView.frame = CGRectMake(imageX, galaryY, galaryWidth, galaryHeight)
-            let imageName = "GalaryDefault-\(index+1)"
-            imageView.image = UIImage(named: imageName)
+            let imageView = UIImageView(frame: CGRectMake(imageX, galaryY, galaryWidth, galaryHeight))
+            imageView.image = UIImage(named: "GalaryDefault-\(index+1)")
             imageView.contentMode = .ScaleAspectFill
             galaryScrollView.addSubview(imageView)
         }
@@ -101,16 +92,10 @@ extension HomeViewController: UIScrollViewDelegate {
     }
     
     func nextGalaryImage() {
-        var currentPage = galaryPageControl.currentPage
-        currentPage = ++currentPage >= galaryTotalCount ? 0 : currentPage
+        let currentPage = (galaryPageControl.currentPage + 1) % galaryTotalCount
         let galaryViewWidth = galaryScrollView.frame.size.width
         let offsetX = CGFloat(currentPage) * galaryViewWidth
         galaryScrollView.setContentOffset(CGPointMake(offsetX, 0), animated: true)
-    }
-    @IBAction func galaryCurrentPageChange(sender: UIPageControl) {
-        let imageX = CGFloat(galaryPageControl.currentPage) * galaryScrollView.frame.size.width
-        galaryScrollView.setContentOffset(CGPointMake(imageX, 0), animated: true)
-        
     }
 }
 
@@ -123,16 +108,32 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // temp code
+        if section == 1 {
+            return 1
+        }
+        if section == 2 {
+            return 2
+        }
+        
         return 4
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HomeNavigatorCell", forIndexPath: indexPath) as! HomeNavigatorCollectionViewCell
+        if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FullHomeNavigatorCell", forIndexPath: indexPath) as! FullHomeNavigatorCollectionViewCell
+            cell.backgroundColor = UIColor.whiteColor()
+            cell.picture.image = UIImage(named: "./beifang/f1.jpg")
+            return cell
+        }
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HalfHomeNavigatorCell", forIndexPath: indexPath) as! HalfHomeNavigatorCollectionViewCell
         cell.backgroundColor = UIColor.whiteColor()
+        cell.icon.image = UIImage(named: "./beifang/b\(indexPath.row%3 + 1).jpg")
         return cell
     }
     
@@ -142,13 +143,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         } else {
             return CGSize(width: 50, height: 30)
         }
-        
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+
         let totalWidth = homeCollection.frame.width
+        let cellHeight = CGFloat(70)
+
+        if indexPath.section == 1 {
+            return CGSize(width: totalWidth, height: cellHeight + 20)
+        }
         let cellWidth = totalWidth / 2.0 - 1.0
-        let cellHeight = CGFloat(75)
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
