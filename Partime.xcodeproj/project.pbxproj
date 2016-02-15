@@ -25,6 +25,7 @@
 		8875B5841C241AD40050A735 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875B5831C241AD40050A735 /* Account.swift */; };
 		8897BA731C325CB6000DD480 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA721C325CB6000DD480 /* SearchViewController.swift */; };
 		8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA741C325CE1000DD480 /* HomeViewController.swift */; };
+		88B4CBBF1C71AD30006FAC65 /* HomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4CBBE1C71AD30006FAC65 /* HomeNavigatorCollectionViewCell.swift */; };
 		88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */; };
 		88FD54941C259C4100186276 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FD54931C259C4100186276 /* LaunchScreenViewController.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
@@ -53,6 +54,7 @@
 		8875B5831C241AD40050A735 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		8897BA721C325CB6000DD480 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8897BA741C325CE1000DD480 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		88B4CBBE1C71AD30006FAC65 /* HomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		88FD54931C259C4100186276 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				881FCA181C23BF1300989FDF /* Main.storyboard */,
 				881FCA081C23AF2800989FDF /* MainViewController.swift */,
 				8897BA741C325CE1000DD480 /* HomeViewController.swift */,
+				88B4CBBE1C71AD30006FAC65 /* HomeNavigatorCollectionViewCell.swift */,
 				8897BA721C325CB6000DD480 /* SearchViewController.swift */,
 				884296E71C4B7A9200DCB641 /* ProfileTableViewController.swift */,
 				881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */,
@@ -313,6 +316,7 @@
 				884296E81C4B7A9200DCB641 /* ProfileTableViewController.swift in Sources */,
 				8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
+				88B4CBBF1C71AD30006FAC65 /* HomeNavigatorCollectionViewCell.swift in Sources */,
 				881F41271C475AEA0043DAC9 /* JobsTableViewCell.swift in Sources */,
 				880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */,
 				880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */,

@@ -22,14 +22,14 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         initialGalary()
-        initialJobsTableView()
+//        initialJobsTableView()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if let selection = jobsTableView.indexPathForSelectedRow {
-            jobsTableView.deselectRowAtIndexPath(selection, animated: true)
-        }
+//        if let selection = jobsTableView.indexPathForSelectedRow {
+//            jobsTableView.deselectRowAtIndexPath(selection, animated: true)
+//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,13 +41,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var galaryScrollView: UIScrollView!
     @IBOutlet weak var galaryPageControl: UIPageControl!
     let galaryTotalCount = 3
+
     
-    @IBOutlet weak var jobsTableView: UITableView!
-    @IBAction func showMoreButton(sender: UIButton) {
-        
-    }
-    
-    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var homeCollection: UICollectionView!
 
     
     // MARK: - Navigation
@@ -68,39 +64,6 @@ class HomeViewController: UIViewController {
     }
 
 
-}
-
-// MARK: - UITableView Delegate and DataSource
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("JobTableViewCell", forIndexPath: indexPath) as! JobsTableViewCell
-        cell.initialization(index: indexPath.row, title: "Disco cashier", salary: "100 / day", time: "7:00 - 17:00", workplace: "CQ")
-        return cell
-    }
-    
-    private func initialJobsTableView() {
-        jobsTableView.delegate = self
-        jobsTableView.dataSource = self
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(36)
-    }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headerView
-    }
-    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.alpha = 0.8
-    }
 }
 
 // BUG: 图片轮播有时候会乱跳
@@ -149,5 +112,39 @@ extension HomeViewController: UIScrollViewDelegate {
         galaryScrollView.setContentOffset(CGPointMake(imageX, 0), animated: true)
         
     }
+}
+
+
+/// MARK: - Home Navigator Collection Delegate and DataSource
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    private func initialCollection() {
+//        homeCollection.delegate = self
+        homeCollection.backgroundColor = UIColor.whiteColor()
+        
+    }
+    
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HomeNavigatorCell", forIndexPath: indexPath) as! HomeNavigatorCollectionViewCell
+        cell.backgroundColor = UIColor.whiteColor()
+        return cell
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let totalWidth = homeCollection.frame.width
+        let cellWidth = totalWidth / 2.0 - 1.0
+        print("cellWidth = \(cellWidth)")
+        let cellHeight = CGFloat(75)
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
 }
