@@ -141,18 +141,11 @@
 			children = (
 				881FCA181C23BF1300989FDF /* Main.storyboard */,
 				881FCA081C23AF2800989FDF /* MainViewController.swift */,
-				8897BA741C325CE1000DD480 /* HomeViewController.swift */,
-				88B4CBBE1C71AD30006FAC65 /* HomeNavigatorCollectionViewCell.swift */,
+				88B4CBC01C71C07B006FAC65 /* HomeGroup */,
+				88B4CBC11C71C093006FAC65 /* ProfileGroup */,
 				8897BA721C325CB6000DD480 /* SearchViewController.swift */,
-				884296E71C4B7A9200DCB641 /* ProfileTableViewController.swift */,
 				881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */,
 				881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */,
-				881F41291C4788A10043DAC9 /* LocationViewController.swift */,
-				881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */,
-				8859B6531C48E71D001D2011 /* GalaryDetailsViewController.swift */,
-				881FCA1F1C23CDF000989FDF /* LoginViewController.swift */,
-				883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */,
-				88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -173,6 +166,29 @@
 				880A43391C58DA2E00E498BC /* YXLogin.swift */,
 			);
 			name = Tool;
+			sourceTree = "<group>";
+		};
+		88B4CBC01C71C07B006FAC65 /* HomeGroup */ = {
+			isa = PBXGroup;
+			children = (
+				881F41291C4788A10043DAC9 /* LocationViewController.swift */,
+				8897BA741C325CE1000DD480 /* HomeViewController.swift */,
+				88B4CBBE1C71AD30006FAC65 /* HomeNavigatorCollectionViewCell.swift */,
+				8859B6531C48E71D001D2011 /* GalaryDetailsViewController.swift */,
+			);
+			name = HomeGroup;
+			sourceTree = "<group>";
+		};
+		88B4CBC11C71C093006FAC65 /* ProfileGroup */ = {
+			isa = PBXGroup;
+			children = (
+				884296E71C4B7A9200DCB641 /* ProfileTableViewController.swift */,
+				881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */,
+				881FCA1F1C23CDF000989FDF /* LoginViewController.swift */,
+				883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */,
+				88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */,
+			);
+			name = ProfileGroup;
 			sourceTree = "<group>";
 		};
 		F6590DFA02D3469DEE09240C /* Pods */ = {
