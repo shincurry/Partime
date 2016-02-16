@@ -90,6 +90,14 @@ class EditProfileTableViewController: UITableViewController {
     @IBAction func dateChanged(sender: UIDatePicker) {
         dateLabel.text = dateFormatter.stringFromDate(datePicker.date)
     }
+    
+    
+    @IBOutlet weak var introduceText: UITextView!
+    @IBOutlet weak var restOfCharactersCount: UILabel!
+    
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
 }
 
 // MARK: - Table View Delegate
@@ -186,4 +194,18 @@ extension EditProfileTableViewController {
         print("takePhoto")
     }
     
+}
+
+extension EditProfileTableViewController: UITextViewDelegate {
+    func textViewDidChange(textView: UITextView) {
+        let length = textView.text.characters.count
+        if length > 140 {
+            restOfCharactersCount.textColor = UIColor.redColor()
+            saveButton.enabled = false
+        } else {
+            restOfCharactersCount.textColor = UIColor.lightGrayColor()
+            saveButton.enabled = true
+        }
+        restOfCharactersCount.text = String(140 - length)
+    }
 }

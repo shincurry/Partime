@@ -388,7 +388,7 @@
                                     <outletCollection property="gestureRecognizers" destination="3t8-u7-Hm4" appends="YES" id="eQd-45-Pdh"/>
                                 </connections>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qb6-TW-Suj">
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qb6-TW-Suj">
                                 <rect key="frame" x="163" y="90.5" width="49" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="xXn-pt-AcJ"/>
@@ -1356,7 +1356,7 @@
             </objects>
             <point key="canvasLocation" x="1486.5" y="500.5"/>
         </scene>
-        <!--Edit Profile Table View Controller-->
+        <!--Edit-->
         <scene sceneID="Gaa-2l-fYt">
             <objects>
                 <tableViewController id="WDs-RN-yGW" customClass="EditProfileTableViewController" customModule="Partime" customModuleProvider="target" sceneMemberID="viewController">
@@ -1640,21 +1640,24 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="d7T-1W-6bJ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="200" id="d7T-1W-6bJ">
                                         <rect key="frame" x="0.0" y="772" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d7T-1W-6bJ" id="flY-Py-v8G">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="About Me..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="riR-O6-tsf">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="riR-O6-tsf">
                                                     <rect key="frame" x="20" y="8" width="335" height="183.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="WDs-RN-yGW" id="hBW-Gz-kaq"/>
+                                                    </connections>
                                                 </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="31" translatesAutoresizingMaskIntoConstraints="NO" id="M62-df-Cmb">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="31" translatesAutoresizingMaskIntoConstraints="NO" id="M62-df-Cmb">
                                                     <rect key="frame" x="317" y="173" width="50" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="8EJ-u8-B6e"/>
@@ -1683,6 +1686,9 @@
                             <outlet property="delegate" destination="WDs-RN-yGW" id="WEZ-Aq-ZSJ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Edit" id="QsR-kI-pFf">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="h8u-cr-s1P"/>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1200"/>
                     <connections>
@@ -1690,8 +1696,11 @@
                         <outlet property="datePicker" destination="61B-qn-aJ7" id="65E-Fd-ios"/>
                         <outlet property="genderLabel" destination="tfq-D6-0tp" id="SmG-ql-0oS"/>
                         <outlet property="genderPicker" destination="Uhu-7P-rWK" id="cDl-cQ-6YN"/>
+                        <outlet property="introduceText" destination="riR-O6-tsf" id="WWY-02-lWW"/>
                         <outlet property="nicknameLabel" destination="YLf-r8-nCg" id="0Ct-If-a82"/>
                         <outlet property="nicknameTextField" destination="FAr-aH-4yh" id="acq-q1-7pO"/>
+                        <outlet property="restOfCharactersCount" destination="M62-df-Cmb" id="BI9-KU-se7"/>
+                        <outlet property="saveButton" destination="h8u-cr-s1P" id="2pp-wg-qnj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AJz-rW-4ls" userLabel="First Responder" sceneMemberID="firstResponder"/>

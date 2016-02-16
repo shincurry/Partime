@@ -65,7 +65,6 @@ extension HomeViewController: UIScrollViewDelegate {
         let scrollViewWidth = galaryScrollView.frame.size.width
         let offsetX = galaryScrollView.contentOffset.x
         let currentPage = (Int)((offsetX + scrollViewWidth / 2) / scrollViewWidth)
-//        let currentPage = (Int)((offsetX+scrollViewWidth) / scrollViewWidth - 1)
         galaryPageControl.currentPage = currentPage
     }
     
@@ -83,7 +82,7 @@ extension HomeViewController: UIScrollViewDelegate {
         }
         
         let contentWidth = galaryWidth * CGFloat(galaryTotalCount)
-        galaryScrollView.contentSize = CGSizeMake(contentWidth, 0    )
+        galaryScrollView.contentSize = CGSizeMake(contentWidth, 0)
         galaryScrollView.delegate = self
         galaryPageControl.numberOfPages = galaryTotalCount
         galaryPageControl.currentPage = 0
