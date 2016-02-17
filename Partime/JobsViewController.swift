@@ -31,20 +31,6 @@ class JobsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    let testData = ["Apple", "Google", "Microsoft", "Facebook"]
 }
 
-extension JobsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return testData.count
-    }
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return testData[row]
-        
-    }
-}
+

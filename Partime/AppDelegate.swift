@@ -16,9 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        if let window = UIApplication.sharedApplication().keyWindow {
-            window.tintColor = UIColor(hue: 0, saturation: 62, brightness: 65, alpha: 1)
-        }
+//        if let window = UIApplication.sharedApplication().keyWindow {
+//            window.tintColor = UIColor(hue: 0, saturation: 62, brightness: 65, alpha: 1)
+//        }
         
         let defaults = NSUserDefaults.standardUserDefaults()
         
@@ -27,9 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             print("first launch")
             defaults.setBool(true, forKey: "isNotFirstLaunch")
+            defaults.setObject("位置", forKey: "location")
         }
-
         
+        print("ok")
         return true
     }
 

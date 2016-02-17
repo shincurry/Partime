@@ -474,7 +474,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fUd-3k-MY3">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="homeNavigatorCollectionHeader" id="fUd-3k-MY3">
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
@@ -837,30 +837,7 @@
                     <view key="view" contentMode="scaleToFill" id="plQ-6F-61T">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffJ-oi-MpN" userLabel="Filter View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="J7S-VY-XqR"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ffJ-oi-MpN" firstAttribute="top" secondItem="TtL-Fe-clb" secondAttribute="bottom" id="82G-vw-ANj"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ffJ-oi-MpN" secondAttribute="trailing" constant="-20" id="BdA-oC-RJT"/>
-                            <constraint firstAttribute="trailing" secondItem="ffJ-oi-MpN" secondAttribute="trailing" id="Fc7-0H-R5z"/>
-                            <constraint firstItem="ffJ-oi-MpN" firstAttribute="leading" secondItem="plQ-6F-61T" secondAttribute="leadingMargin" constant="-20" id="LX0-PF-ior"/>
-                            <constraint firstItem="ffJ-oi-MpN" firstAttribute="top" secondItem="TtL-Fe-clb" secondAttribute="bottom" id="bpo-xf-HKb"/>
-                            <constraint firstItem="ffJ-oi-MpN" firstAttribute="leading" secondItem="plQ-6F-61T" secondAttribute="leading" id="vJS-rf-6df"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="BdA-oC-RJT"/>
-                                <exclude reference="LX0-PF-ior"/>
-                            </mask>
-                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Jobs" image="TabBackpack" id="sUq-B8-svO"/>
                     <navigationItem key="navigationItem" title="All Jobs" id="B1a-LR-S5s"/>

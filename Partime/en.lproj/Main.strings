@@ -1,0 +1,264 @@
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "1tK-qK-oxT"; */
+"1tK-qK-oxT.title" = "Item";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "1z8-jq-Trj"; */
+"1z8-jq-Trj.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UITableViewSection"; headerTitle = "Manage"; ObjectID = "2HP-CP-bFZ"; */
+"2HP-CP-bFZ.headerTitle" = "Manage";
+
+/* Class = "UITableViewSection"; headerTitle = "Manage"; ObjectID = "2iM-7S-ror"; */
+"2iM-7S-ror.headerTitle" = "Manage";
+
+/* Class = "UINavigationItem"; title = "Loading..."; ObjectID = "2x5-rM-BEf"; */
+"2x5-rM-BEf.title" = "Loading...";
+
+/* Class = "UILabel"; text = "Birthday"; ObjectID = "3eE-q6-kGn"; */
+"3eE-q6-kGn.text" = "Birthday";
+
+/* Class = "UILabel"; text = "Gender"; ObjectID = "4bd-vg-55H"; */
+"4bd-vg-55H.text" = "Gender";
+
+/* Class = "UILabel"; text = "Temp Edit Profile"; ObjectID = "5Rc-D3-DcI"; */
+"5Rc-D3-DcI.text" = "Temp Edit Profile";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "68l-yU-ON8"; */
+"68l-yU-ON8.title" = "Item";
+
+/* Class = "UILabel"; text = "Dicos cashier"; ObjectID = "6bH-NX-stL"; */
+"6bH-NX-stL.text" = "Dicos cashier";
+
+/* Class = "UINavigationItem"; title = "Profile"; ObjectID = "75W-B6-8sw"; */
+"75W-B6-8sw.title" = "Profile";
+
+/* Class = "UILabel"; text = "Balance"; ObjectID = "7MB-3a-w6y"; */
+"7MB-3a-w6y.text" = "Balance";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "7iu-5f-nVt"; */
+"7iu-5f-nVt.title" = "Item";
+
+/* Class = "UILabel"; text = "Chongqing"; ObjectID = "7yV-kA-IBB"; */
+"7yV-kA-IBB.text" = "Chongqing";
+
+/* Class = "UILabel"; text = "0.0"; ObjectID = "80H-kn-Fbv"; */
+"80H-kn-Fbv.text" = "0.0";
+
+/* Class = "UILabel"; text = "Clear Cache"; ObjectID = "9Fv-fy-dQw"; */
+"9Fv-fy-dQw.text" = "Clear Cache";
+
+/* Class = "UILabel"; text = "My Favorites"; ObjectID = "AaS-7P-Xvs"; */
+"AaS-7P-Xvs.text" = "My Favorites";
+
+/* Class = "UINavigationItem"; title = "All Jobs"; ObjectID = "B1a-LR-S5s"; */
+"B1a-LR-S5s.title" = "All Jobs";
+
+/* Class = "UINavigationItem"; title = "Search"; ObjectID = "CfQ-EQ-X39"; */
+"CfQ-EQ-X39.title" = "Search";
+
+/* Class = "UILabel"; text = "Switch"; ObjectID = "FBS-wK-XHT"; */
+"FBS-wK-XHT.text" = "Switch";
+
+/* Class = "UIButton"; normalTitle = "Select a photo"; ObjectID = "FBi-UX-XAL"; */
+"FBi-UX-XAL.normalTitle" = "Select a photo";
+
+/* Class = "UILabel"; text = "Switch"; ObjectID = "FDz-oy-wOt"; */
+"FDz-oy-wOt.text" = "Switch";
+
+/* Class = "UILabel"; text = "Introduce"; ObjectID = "GEM-F1-Tdc"; */
+"GEM-F1-Tdc.text" = "Introduce";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "HCL-Kc-D13"; */
+"HCL-Kc-D13.text" = "¥";
+
+/* Class = "UIBarButtonItem"; title = "Location ▾"; ObjectID = "HRp-0h-1MW"; */
+"HRp-0h-1MW.title" = "Location ▾";
+
+/* Class = "UIButton"; normalTitle = "Take a photo"; ObjectID = "HlR-K8-zkA"; */
+"HlR-K8-zkA.normalTitle" = "Take a photo";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "Inl-nm-y9B"; */
+"Inl-nm-y9B.text" = "Location";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "Ip7-0v-oBm"; */
+"Ip7-0v-oBm.normalTitle" = "Login";
+
+/* Class = "UINavigationItem"; title = "Details"; ObjectID = "J5S-rt-FC8"; */
+"J5S-rt-FC8.title" = "Details";
+
+/* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "K9t-9k-YYS"; */
+"K9t-9k-YYS.headerTitle" = "About";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "LL2-Sp-2wa"; */
+"LL2-Sp-2wa.text" = "Username";
+
+/* Class = "UILabel"; text = "Clear Cache"; ObjectID = "Lws-cr-ghE"; */
+"Lws-cr-ghE.text" = "Clear Cache";
+
+/* Class = "UILabel"; text = "140"; ObjectID = "M62-df-Cmb"; */
+"M62-df-Cmb.text" = "140";
+
+/* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "Myi-mF-vY3"; */
+"Myi-mF-vY3.headerTitle" = "Settings";
+
+/* Class = "UILabel"; text = "description text here"; ObjectID = "Nnf-8e-FK9"; */
+"Nnf-8e-FK9.text" = "description text here";
+
+/* Class = "UILabel"; text = "About Partime"; ObjectID = "OSk-eB-Qf2"; */
+"OSk-eB-Qf2.text" = "About Partime";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "PIf-dY-Z3H"; */
+"PIf-dY-Z3H.title" = "Profile";
+
+/* Class = "UINavigationItem"; title = "Login"; ObjectID = "QJC-y0-k8H"; */
+"QJC-y0-k8H.title" = "Login";
+
+/* Class = "UILabel"; text = "1995-1-1"; ObjectID = "QJO-9e-V8n"; */
+"QJO-9e-V8n.text" = "1995-1-1";
+
+/* Class = "UINavigationItem"; title = "Edit"; ObjectID = "QsR-kI-pFf"; */
+"QsR-kI-pFf.title" = "Edit";
+
+/* Class = "UILabel"; text = "About Partime"; ObjectID = "RIH-MU-GXe"; */
+"RIH-MU-GXe.text" = "About Partime";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "RrB-eT-qzi"; */
+"RrB-eT-qzi.text" = "Title";
+
+/* Class = "UILabel"; text = "Clear Cache"; ObjectID = "SZu-DU-cGM"; */
+"SZu-DU-cGM.text" = "Clear Cache";
+
+/* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "Uke-BS-Iti"; */
+"Uke-BS-Iti.headerTitle" = "About";
+
+/* Class = "UILabel"; text = "About Company"; ObjectID = "V2C-rT-D5c"; */
+"V2C-rT-D5c.text" = "About Company";
+
+/* Class = "UILabel"; text = "My Wallet"; ObjectID = "WWZ-hc-9K5"; */
+"WWZ-hc-9K5.text" = "My Wallet";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "XRi-1c-EHv"; */
+"XRi-1c-EHv.text" = "Location";
+
+/* Class = "UILabel"; text = "Steve"; ObjectID = "YLf-r8-nCg"; */
+"YLf-r8-nCg.text" = "Steve";
+
+/* Class = "UILabel"; text = "7:00 - 17:00"; ObjectID = "ahQ-3v-Z4L"; */
+"ahQ-3v-Z4L.text" = "7:00 - 17:00";
+
+/* Class = "UITableViewSection"; headerTitle = " "; ObjectID = "cmM-Gu-YXD"; */
+"cmM-Gu-YXD.headerTitle" = " ";
+
+/* Class = "UILabel"; text = "Rate"; ObjectID = "dYH-L8-5ey"; */
+"dYH-L8-5ey.text" = "Rate";
+
+/* Class = "UILabel"; text = "My Jobs"; ObjectID = "e2A-vX-smE"; */
+"e2A-vX-smE.text" = "My Jobs";
+
+/* Class = "UITableViewSection"; headerTitle = " "; ObjectID = "eaG-B8-Mrf"; */
+"eaG-B8-Mrf.headerTitle" = " ";
+
+/* Class = "UITableViewSection"; headerTitle = " "; ObjectID = "ef1-hs-pNx"; */
+"ef1-hs-pNx.headerTitle" = " ";
+
+/* Class = "UINavigationItem"; title = "Home"; ObjectID = "efN-WF-tIY"; */
+"efN-WF-tIY.title" = "Home";
+
+/* Class = "UIBarButtonItem"; title = "Sign Up"; ObjectID = "f5O-Ea-YBQ"; */
+"f5O-Ea-YBQ.title" = "Sign Up";
+
+/* Class = "UISearchBar"; faf-DQ-1Vd.scopeButtonTitles[0] = "Title1"; ObjectID = "faf-DQ-1Vd"; */
+"faf-DQ-1Vd.scopeButtonTitles[0]" = "Title1";
+
+/* Class = "UISearchBar"; faf-DQ-1Vd.scopeButtonTitles[1] = "Title2"; ObjectID = "faf-DQ-1Vd"; */
+"faf-DQ-1Vd.scopeButtonTitles[1]" = "Title2";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "gFV-Hx-eBJ"; */
+"gFV-Hx-eBJ.title" = "Settings";
+
+/* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "h8u-cr-s1P"; */
+"h8u-cr-s1P.title" = "Save";
+
+/* Class = "UILabel"; text = "Change Avatar"; ObjectID = "hBH-ye-oxm"; */
+"hBH-ye-oxm.text" = "Change Avatar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "hOS-sO-3eC"; */
+"hOS-sO-3eC.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Version Update"; ObjectID = "jli-kL-zT1"; */
+"jli-kL-zT1.text" = "Version Update";
+
+/* Class = "UILabel"; text = "Version Update"; ObjectID = "kL7-4t-oOz"; */
+"kL7-4t-oOz.text" = "Version Update";
+
+/* Class = "UILabel"; text = "About Company"; ObjectID = "kaR-Kr-v6p"; */
+"kaR-Kr-v6p.text" = "About Company";
+
+/* Class = "UILabel"; text = "★★★★☆"; ObjectID = "kf9-q8-F5h"; */
+"kf9-q8-F5h.text" = "★★★★☆";
+
+/* Class = "UITextField"; placeholder = "Email, ID or Phone Number"; ObjectID = "l8Y-gb-UEy"; */
+"l8Y-gb-UEy.placeholder" = "Email, ID or Phone Number";
+
+/* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "mFH-SW-nQJ"; */
+"mFH-SW-nQJ.headerTitle" = "About";
+
+/* Class = "UILabel"; text = "Change to"; ObjectID = "o3y-Bt-Ymv"; */
+"o3y-Bt-Ymv.text" = "Change to";
+
+/* Class = "UILabel"; text = "Nickname"; ObjectID = "pCa-9q-BaV"; */
+"pCa-9q-BaV.text" = "Nickname";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "pOm-X0-EK4"; */
+"pOm-X0-EK4.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "Chongqing"; ObjectID = "pWr-gH-tN6"; */
+"pWr-gH-tN6.text" = "Chongqing";
+
+/* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "pYv-Ze-8BP"; */
+"pYv-Ze-8BP.headerTitle" = "Settings";
+
+/* Class = "UILabel"; text = "You are not logged in."; ObjectID = "pi2-WO-cxn"; */
+"pi2-WO-cxn.text" = "You are not logged in.";
+
+/* Class = "UILabel"; text = "Switch"; ObjectID = "pyV-05-IrB"; */
+"pyV-05-IrB.text" = "Switch";
+
+/* Class = "UITableViewSection"; headerTitle = "Settings"; ObjectID = "qfP-Bf-ew3"; */
+"qfP-Bf-ew3.headerTitle" = "Settings";
+
+/* Class = "UITabBarItem"; title = "Jobs"; ObjectID = "sUq-B8-svO"; */
+"sUq-B8-svO.title" = "Jobs";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "sjq-nq-YlP"; */
+"sjq-nq-YlP.text" = "Settings";
+
+/* Class = "UITableViewSection"; headerTitle = " "; ObjectID = "spU-dJ-oyb"; */
+"spU-dJ-oyb.headerTitle" = " ";
+
+/* Class = "UILabel"; text = "Version Update"; ObjectID = "tAK-zu-TWb"; */
+"tAK-zu-TWb.text" = "Version Update";
+
+/* Class = "UILabel"; text = "Male"; ObjectID = "tfq-D6-0tp"; */
+"tfq-D6-0tp.text" = "Male";
+
+/* Class = "UIButton"; normalTitle = "Forgot password?"; ObjectID = "u2p-Tk-dUz"; */
+"u2p-Tk-dUz.normalTitle" = "Forgot password?";
+
+/* Class = "UILabel"; text = "About Partime"; ObjectID = "x89-UV-Ask"; */
+"x89-UV-Ask.text" = "About Partime";
+
+/* Class = "UILabel"; text = "Place: "; ObjectID = "xs5-72-dhx"; */
+"xs5-72-dhx.text" = "Place: ";
+
+/* Class = "UILabel"; text = "About Company"; ObjectID = "yPm-Of-vil"; */
+"yPm-Of-vil.text" = "About Company";
+
+/* Class = "UITableViewSection"; headerTitle = "Manage"; ObjectID = "yen-Ii-rsX"; */
+"yen-Ii-rsX.headerTitle" = "Manage";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "zge-iB-lqI"; */
+"zge-iB-lqI.title" = "Home";
+
+/* Class = "UILabel"; text = "Details"; ObjectID = "zlH-6I-aJm"; */
+"zlH-6I-aJm.text" = "Details";
