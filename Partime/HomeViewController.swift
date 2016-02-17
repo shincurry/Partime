@@ -9,6 +9,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +18,8 @@ class HomeViewController: UIViewController {
         if let tab = tabBarController {
             tab.tabBar.tintColor = UIColor.whiteColor()
         }
+        
+        locationButton.title = defaults.valueForKey("location") as! String + " ▾"
     }
     
     override func viewDidLayoutSubviews() {
@@ -28,6 +31,17 @@ class HomeViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBOutlet weak var locationButton: UIBarButtonItem!
+    var location: String {
+        get {
+            return defaults.valueForKey("location") as! String
+        }
+        set {
+            defaults.setObject(newValue, forKey: "location")
+            locationButton.title = newValue + " ▾"
+        }
     }
     
     @IBOutlet weak var galaryScrollView: UIScrollView!

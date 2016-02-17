@@ -44,7 +44,7 @@ func =~ (lhs: String, rhs: String) -> Bool {
     return MyRegex(rhs).match(lhs)
 }
 
-class YXFormat {
+class YXFormat: NSObject {
     func verifyByAccount(text: String) -> (Bool, FormatType) {
         if verifyByPhoneNumber(text) {
             return (true, .PhoneNumber)

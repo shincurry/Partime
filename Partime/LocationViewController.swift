@@ -12,8 +12,6 @@ class LocationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationsTableView.delegate = self
-        locationsTableView.dataSource = self
         // Do any additional setup after loading the view.
     }
 
@@ -24,34 +22,38 @@ class LocationViewController: UIViewController {
     
     @IBOutlet weak var locationsTableView: UITableView!
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let identifier = segue.identifier {
+            switch identifier {
+                case "unwindToHomeViewController":
+                let destination = segue.destinationViewController as! HomeViewController
+                if let index = locationsTableView.indexPathForSelectedRow {
+                    destination.location = Location.location[index.row]
+                }
+                print("ok")
+            default:
+                break
+            }
+        }
+        
     }
-    */
-    
-    let tempLocation = ["重庆", "成都", "上海", "北京", "南京", "香港", "澳门"]
 
 }
 
 // MARK: - Location TableView Delegate and DataSource
 extension LocationViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 26
+        return Location.location.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("locationTableViewCell", forIndexPath: indexPath)
-        if let label = cell.textLabel {
-            label.text = tempLocation[indexPath.row % 7]
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("LocationTableViewCell", forIndexPath: indexPath)
+
+        cell.textLabel!.text = Location.location[indexPath.row]
+
         return cell
     }
 }

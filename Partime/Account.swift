@@ -15,7 +15,7 @@ enum Gender : String {
     
 }
 
-class Account {
+class Account: NSObject {
     var username : String?;
     //var password : String;
     var gender : Gender?;

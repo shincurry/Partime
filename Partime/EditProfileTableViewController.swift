@@ -21,7 +21,7 @@ enum SelectionStatus {
  */
 struct EditViewControl {
     // (是否可以展开编辑 Cell, 是否隐藏)
-    private let defaultHiddenStatus = [[(true, false), (false, true)], [(true, false), (false, true), (true, false), (false, true), (true, false), (false, true), (false, false)], [(false, false), (false, false)]]
+    private let defaultHiddenStatus = [[(true, false), (false, true)], [(true, false), (false, true), (true, false), (false, true), (true, false), (false, true), (true, false), (false, true)], [(false, false), (false, false)]]
     
     var currentHiddenStatus: [[(Bool, Bool)]]
     init() {
@@ -92,6 +92,12 @@ class EditProfileTableViewController: UITableViewController {
     }
     
     
+    var location: Array<String>?
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var locationPicker: UIPickerView!
+    
+    
+    
     @IBOutlet weak var introduceText: UITextView!
     @IBOutlet weak var restOfCharactersCount: UILabel!
     
@@ -158,19 +164,50 @@ extension EditProfileTableViewController {
 // MARK: - Gender Picker Delegate and Datasource
 extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
+        switch pickerView {
+        case genderPicker:
+            return 1
+        case locationPicker:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return gender.count
+        switch pickerView {
+        case genderPicker:
+            return gender.count
+        case locationPicker:
+            return Location.location.count
+        default:
+            return 0
+        }
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return gender[row]
+        switch pickerView {
+        case genderPicker:
+            return gender[row]
+        case locationPicker:
+            return Location.location[row]
+        default:
+            return ""
+        }
+        
     }
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        genderLabel.text = gender[row]
+        switch pickerView {
+        case genderPicker:
+            genderLabel.text = gender[row]
+        case locationPicker:
+            locationLabel.text = Location.location[row]
+        default:
+            break
+        }
+        
     }
+
 }
 
 // MARK: - Nickname TextField Delegate
