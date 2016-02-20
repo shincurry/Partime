@@ -7,19 +7,33 @@
 //
 
 import UIKit
+import CoreLocation
 
 class Location: NSObject {
-    static var location: [String] = { _ in
+
+    static var allCities: [(String, [String])] = {
+        var data = [(String, [String])]()
         if let dataPath = NSBundle.mainBundle().pathForResource("address", ofType: "plist") {
-            if let locationDictionary = NSDictionary(contentsOfFile: dataPath) {
-                if let locationArray = locationDictionary["address"] as! [AnyObject]? {
-                    return locationArray.map({ local in
-                        let local = local as! NSDictionary
-                        return local["name"] as! String
+            if let locationDictionary = NSArray(contentsOfFile: dataPath) as? [NSDictionary] {
+                for local in locationDictionary {
+                    let province = local["state"] as! String
+                    let cities = (local["cities"] as! [NSDictionary]).map({ city in
+                        return city["city"] as! String
                     })
+                    data.append((province, cities))
                 }
             }
         }
-        return []
+        return data
     }()
+    
+    static var hotCities = ["重庆", "北京", "上海", "深圳", "香港", "广州", "北京", "上海", "深圳", "香港", "广州"]
+    
+    lazy var manager = CLLocationManager()
+}
+
+extension Location: CLLocationManagerDelegate {
+    func startLocation() {
+        print("start")
+    }
 }

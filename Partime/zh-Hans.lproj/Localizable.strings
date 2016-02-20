@@ -5,3 +5,11 @@
   Created by ShinCurry on 16/2/17.
   Copyright © 2016年 ShinCurry. All rights reserved.
 */
+
+/* Gender Picker */
+"male" = "Male";
+"female" = "Female";
+
+/* Location */
+"currentLocation" = "当前位置";
+"hotLocation" = "热门位置";

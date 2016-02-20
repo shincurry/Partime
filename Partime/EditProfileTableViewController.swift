@@ -76,7 +76,7 @@ class EditProfileTableViewController: UITableViewController {
     
     
     // MARK: - Gender Picker Properties
-    let gender = ["Male", "Female"]
+    let gender = [NSLocalizedString("male", comment: ""), NSLocalizedString("female", comment: "")]
     
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var genderPicker: UIPickerView!
@@ -161,14 +161,14 @@ extension EditProfileTableViewController {
     }
 }
 
-// MARK: - Gender Picker Delegate and Datasource
+// MARK: - Picker Delegate and Datasource
 extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         switch pickerView {
         case genderPicker:
             return 1
         case locationPicker:
-            return 1
+            return 2
         default:
             return 0
         }
@@ -179,7 +179,8 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         case genderPicker:
             return gender.count
         case locationPicker:
-            return Location.location.count
+            let select = locationPicker.selectedRowInComponent(0)
+            return Location.allCities[select].1.count
         default:
             return 0
         }
@@ -190,7 +191,12 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         case genderPicker:
             return gender[row]
         case locationPicker:
-            return Location.location[row]
+            if component == 0 {
+                return Location.allCities[row].0
+            } else {
+                let select = locationPicker.selectedRowInComponent(0)
+                return Location.allCities[select].1[row]
+            }
         default:
             return ""
         }
@@ -201,7 +207,12 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         case genderPicker:
             genderLabel.text = gender[row]
         case locationPicker:
-            locationLabel.text = Location.location[row]
+            let select = locationPicker.selectedRowInComponent(0)
+            if component == 0 {
+                locationPicker.selectRow(0, inComponent: 1, animated: true)
+                locationPicker.reloadComponent(1)
+            }
+            locationLabel.text = Location.allCities[select].0 + " " + Location.allCities[select].1[row]
         default:
             break
         }

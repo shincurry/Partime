@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A43371C58D5EB00E498BC /* YXFormat.swift */; };
 		880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A43391C58DA2E00E498BC /* YXLogin.swift */; };
-		880DEE131C733CF500594D30 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 880DEE121C733CF500594D30 /* address.plist */; };
 		8813C2411C73548800E05B32 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813C2401C73548800E05B32 /* Location.swift */; };
 		881F41271C475AEA0043DAC9 /* JobsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */; };
-		881F412A1C4788A10043DAC9 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41291C4788A10043DAC9 /* LocationViewController.swift */; };
+		881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41291C4788A10043DAC9 /* LocationTableViewController.swift */; };
 		881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */; };
 		881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */; };
 		881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA061C23AF2800989FDF /* AppDelegate.swift */; };
@@ -20,6 +19,8 @@
 		881FCA0E1C23AF2800989FDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0D1C23AF2800989FDF /* Assets.xcassets */; };
 		881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */; };
 		881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA1F1C23CDF000989FDF /* LoginViewController.swift */; };
+		882829A31C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882829A21C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift */; };
+		882829A51C78B582009CEE5F /* LocationHotCitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882829A41C78B582009CEE5F /* LocationHotCitiesTableViewCell.swift */; };
 		883EDCA91C25578D00C41ED8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */; };
 		884296E81C4B7A9200DCB641 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884296E71C4B7A9200DCB641 /* ProfileTableViewController.swift */; };
 		8858A38D1C7203FB00EE86E5 /* beifang in Resources */ = {isa = PBXBuildFile; fileRef = 8858A38C1C7203FB00EE86E5 /* beifang */; };
@@ -32,6 +33,7 @@
 		88BF94181C744098002F8FA7 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BF94171C744098002F8FA7 /* JobsViewController.swift */; };
 		88BF94311C745534002F8FA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88BF94331C745534002F8FA7 /* Main.storyboard */; };
 		88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88BF943C1C74598B002F8FA7 /* Localizable.strings */; };
+		88D3CC3E1C78585800A37E14 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88D3CC3D1C78585800A37E14 /* address.plist */; };
 		88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
 /* End PBXBuildFile section */
@@ -41,10 +43,9 @@
 		1A4744E080D01621C52CD786 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		880A43371C58D5EB00E498BC /* YXFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXFormat.swift; sourceTree = "<group>"; };
 		880A43391C58DA2E00E498BC /* YXLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXLogin.swift; sourceTree = "<group>"; };
-		880DEE121C733CF500594D30 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		8813C2401C73548800E05B32 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewCell.swift; sourceTree = "<group>"; };
-		881F41291C4788A10043DAC9 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		881F41291C4788A10043DAC9 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailsViewController.swift; sourceTree = "<group>"; };
 		881FCA031C23AF2800989FDF /* Partime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Partime.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +55,10 @@
 		881FCA101C23AF2800989FDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		881FCA121C23AF2800989FDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		881FCA1F1C23CDF000989FDF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8828299C1C78A928009CEE5F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		8828299F1C78AAE0009CEE5F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		882829A21C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHotCitiesCollectionViewCell.swift; sourceTree = "<group>"; };
+		882829A41C78B582009CEE5F /* LocationHotCitiesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHotCitiesTableViewCell.swift; sourceTree = "<group>"; };
 		883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		884296E71C4B7A9200DCB641 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		8858A38C1C7203FB00EE86E5 /* beifang */ = {isa = PBXFileReference; lastKnownFileType = folder; name = beifang; path = ../beifang; sourceTree = "<group>"; };
@@ -67,11 +72,10 @@
 		88BF94301C745499002F8FA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		88BF94321C745534002F8FA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		88BF94341C745539002F8FA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		88BF94361C74586F002F8FA7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		88BF94371C74586F002F8FA7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		88BF943B1C74598B002F8FA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		88BF943D1C74598D002F8FA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		88BF943E1C74598E002F8FA7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		88D3CC3D1C78585800A37E14 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,7 +128,7 @@
 				881FCA061C23AF2800989FDF /* AppDelegate.swift */,
 				881FCA0D1C23AF2800989FDF /* Assets.xcassets */,
 				881FCA121C23AF2800989FDF /* Info.plist */,
-				880DEE121C733CF500594D30 /* address.plist */,
+				88D3CC3D1C78585800A37E14 /* address.plist */,
 				8858A38C1C7203FB00EE86E5 /* beifang */,
 				88BF943C1C74598B002F8FA7 /* Localizable.strings */,
 			);
@@ -191,7 +195,9 @@
 		88B4CBC01C71C07B006FAC65 /* HomeGroup */ = {
 			isa = PBXGroup;
 			children = (
-				881F41291C4788A10043DAC9 /* LocationViewController.swift */,
+				881F41291C4788A10043DAC9 /* LocationTableViewController.swift */,
+				882829A41C78B582009CEE5F /* LocationHotCitiesTableViewCell.swift */,
+				882829A21C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift */,
 				8897BA741C325CE1000DD480 /* HomeViewController.swift */,
 				88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */,
 				8858A3901C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift */,
@@ -284,9 +290,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88D3CC3E1C78585800A37E14 /* address.plist in Resources */,
 				881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */,
 				88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */,
-				880DEE131C733CF500594D30 /* address.plist in Resources */,
 				881FCA0E1C23AF2800989FDF /* Assets.xcassets in Resources */,
 				88BF94311C745534002F8FA7 /* Main.storyboard in Resources */,
 				8858A38D1C7203FB00EE86E5 /* beifang in Resources */,
@@ -355,7 +361,7 @@
 				8897BA731C325CB6000DD480 /* SearchViewController.swift in Sources */,
 				88BF94181C744098002F8FA7 /* JobsViewController.swift in Sources */,
 				883EDCA91C25578D00C41ED8 /* RegisterViewController.swift in Sources */,
-				881F412A1C4788A10043DAC9 /* LocationViewController.swift in Sources */,
+				881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */,
 				884296E81C4B7A9200DCB641 /* ProfileTableViewController.swift in Sources */,
 				8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
@@ -364,8 +370,10 @@
 				880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */,
 				880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */,
 				88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */,
+				882829A31C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift in Sources */,
 				8858A3911C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift in Sources */,
 				8859B6541C48E71D001D2011 /* GalaryDetailsViewController.swift in Sources */,
+				882829A51C78B582009CEE5F /* LocationHotCitiesTableViewCell.swift in Sources */,
 				881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */,
 				881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */,
 			);
@@ -379,7 +387,7 @@
 			children = (
 				881FCA101C23AF2800989FDF /* Base */,
 				88BF94301C745499002F8FA7 /* en */,
-				88BF94361C74586F002F8FA7 /* zh-Hans */,
+				8828299C1C78A928009CEE5F /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -389,7 +397,7 @@
 			children = (
 				88BF94321C745534002F8FA7 /* Base */,
 				88BF94341C745539002F8FA7 /* en */,
-				88BF94371C74586F002F8FA7 /* zh-Hans */,
+				8828299F1C78AAE0009CEE5F /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

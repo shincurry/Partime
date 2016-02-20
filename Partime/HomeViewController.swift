@@ -142,12 +142,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.backgroundColor = UIColor.whiteColor()
             cell.picture.image = UIImage(named: "./beifang/f1.jpg")
             return cell
+        } else {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HalfHomeNavigatorCell", forIndexPath: indexPath) as! HalfHomeNavigatorCollectionViewCell
+            cell.backgroundColor = UIColor.whiteColor()
+            cell.icon.image = UIImage(named: "./beifang/b\(indexPath.row%3 + 1).jpg")
+            return cell
         }
-        
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HalfHomeNavigatorCell", forIndexPath: indexPath) as! HalfHomeNavigatorCollectionViewCell
-        cell.backgroundColor = UIColor.whiteColor()
-        cell.icon.image = UIImage(named: "./beifang/b\(indexPath.row%3 + 1).jpg")
-        return cell
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

@@ -501,7 +501,7 @@
                     <navigationItem key="navigationItem" title="Home" id="efN-WF-tIY">
                         <barButtonItem key="leftBarButtonItem" title="Location ▾" id="HRp-0h-1MW">
                             <connections>
-                                <segue destination="ObC-jF-cXv" kind="show" identifier="showLocationSegue" id="pqA-gD-aRT"/>
+                                <segue destination="2d0-gM-fWK" kind="show" identifier="showLocationSegue" id="tW5-06-19z"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="NavSearch" id="74k-Lb-A02">
@@ -570,66 +570,130 @@
             </objects>
             <point key="canvasLocation" x="1316.5" y="-1499.5"/>
         </scene>
-        <!--Location View Controller-->
-        <scene sceneID="9BT-1C-GMo">
+        <!--Location Table View Controller-->
+        <scene sceneID="MF7-YV-Yir">
             <objects>
-                <viewController id="ObC-jF-cXv" customClass="LocationViewController" customModule="Partime" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PYt-pW-84d"/>
-                        <viewControllerLayoutGuide type="bottom" id="CBJ-7Q-q9s"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iCc-8l-jQo">
+                <tableViewController id="2d0-gM-fWK" customClass="LocationTableViewController" customModule="Partime" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ta4-Uv-ETB">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="u6N-Hg-sBM">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationTableViewCell" textLabel="XRi-1c-EHv" style="IBUITableViewCellStyleDefault" id="Tt8-mR-3wt">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tt8-mR-3wt" id="8Wx-QC-UwZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XRi-1c-EHv">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="44.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="rbl-8b-Lzp" kind="unwind" identifier="unwindToHomeViewController" unwindAction="unwindToViewController:" id="lnJ-7H-TLq"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="ObC-jF-cXv" id="uea-ue-EHC"/>
-                                    <outlet property="delegate" destination="ObC-jF-cXv" id="Cb5-BV-p0t"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="u6N-Hg-sBM" firstAttribute="bottom" secondItem="CBJ-7Q-q9s" secondAttribute="top" id="0Rd-SL-p91"/>
-                            <constraint firstItem="u6N-Hg-sBM" firstAttribute="leading" secondItem="iCc-8l-jQo" secondAttribute="leading" id="C2G-JA-1BU"/>
-                            <constraint firstItem="u6N-Hg-sBM" firstAttribute="top" secondItem="PYt-pW-84d" secondAttribute="bottom" id="HWE-M5-rXG"/>
-                            <constraint firstAttribute="trailing" secondItem="u6N-Hg-sBM" secondAttribute="trailing" id="YE6-1s-rLG"/>
-                        </constraints>
-                    </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCurrentCityCell" textLabel="Bgc-EZ-4Fo" style="IBUITableViewCellStyleDefault" id="c2G-q6-qDU">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c2G-q6-qDU" id="E6d-Yh-V70">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bgc-EZ-4Fo">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LocationHotCitiesTableViewCell" rowHeight="140" id="H8R-nA-iGc" customClass="LocationHotCitiesTableViewCell" customModule="Partime" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="140"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H8R-nA-iGc" id="WBm-Ih-bDG">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="139.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="p31-43-KFl">
+                                            <rect key="frame" x="16" y="16" width="311" height="107.5"/>
+                                            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="1" id="Fmx-Rv-QwP">
+                                                <size key="itemSize" width="74" height="32"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HotCitiesCollectionCell" id="l5t-eU-H9J" customClass="LocationHotCitiesCollectionViewCell" customModule="Partime" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="74" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="74" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJm-TE-IMx">
+                                                                <rect key="frame" x="0.0" y="0.0" width="74" height="32"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <state key="normal" title="Location">
+                                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <segue destination="EEC-A1-fEi" kind="unwind" identifier="unwindHotCitiesToHomeViewController" unwindAction="unwindToViewController:" id="4Dn-3j-iRE"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="VJm-TE-IMx" secondAttribute="trailing" constant="-8" id="Hmx-FK-3UL"/>
+                                                        <constraint firstItem="VJm-TE-IMx" firstAttribute="leading" secondItem="l5t-eU-H9J" secondAttribute="leadingMargin" constant="-8" id="bHt-Ww-r2i"/>
+                                                        <constraint firstItem="VJm-TE-IMx" firstAttribute="top" secondItem="l5t-eU-H9J" secondAttribute="topMargin" constant="-8" id="w2W-f7-eEJ"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="VJm-TE-IMx" secondAttribute="bottom" constant="-8" id="zdM-WQ-xBk"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="hotCityButton" destination="VJm-TE-IMx" id="AeH-1d-xBH"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                            <connections>
+                                                <outlet property="dataSource" destination="H8R-nA-iGc" id="6z8-2P-EWh"/>
+                                                <outlet property="delegate" destination="H8R-nA-iGc" id="d0C-vh-ygX"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="p31-43-KFl" firstAttribute="top" secondItem="WBm-Ih-bDG" secondAttribute="topMargin" constant="8" id="BJh-VS-lk1"/>
+                                        <constraint firstItem="p31-43-KFl" firstAttribute="trailing" secondItem="WBm-Ih-bDG" secondAttribute="trailingMargin" constant="-40" id="PDT-UB-jbg"/>
+                                        <constraint firstItem="p31-43-KFl" firstAttribute="leading" secondItem="WBm-Ih-bDG" secondAttribute="leadingMargin" constant="8" id="SgD-u0-ASV"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="p31-43-KFl" secondAttribute="bottom" constant="8" id="gpf-oy-IYv"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="hotCitiesCollection" destination="p31-43-KFl" id="c67-4W-uW3"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationAllCitiesCell" textLabel="eS0-cN-XDG" style="IBUITableViewCellStyleDefault" id="wtw-gn-m2Y">
+                                <rect key="frame" x="0.0" y="212" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wtw-gn-m2Y" id="yyD-sN-xzb">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eS0-cN-XDG">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="EEC-A1-fEi" kind="unwind" identifier="unwindAllCitiesToHomeViewController" unwindAction="unwindToViewController:" id="Et1-vn-mbs"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2d0-gM-fWK" id="jVa-4T-QCa"/>
+                            <outlet property="delegate" destination="2d0-gM-fWK" id="z7y-bO-7QA"/>
+                        </connections>
+                    </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="locationsTableView" destination="u6N-Hg-sBM" id="7ZO-lP-huj"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Rs-eA-XX6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="rbl-8b-Lzp" userLabel="Exit" sceneMemberID="exit"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXo-v1-B5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="EEC-A1-fEi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1848.5" y="-1172.5"/>
+            <point key="canvasLocation" x="1848.5" y="-1243.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="J43-bS-M8C">
