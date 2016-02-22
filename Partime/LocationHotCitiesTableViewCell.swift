@@ -29,7 +29,7 @@ class LocationHotCitiesTableViewCell: UITableViewCell {
 extension LocationHotCitiesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func initialHotCitiesCollection() {
-        hotCitiesCollection.backgroundColor = UIColor.whiteColor()
+//        hotCitiesCollection.backgroundColor = UIColor.whiteColor()
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -44,7 +44,7 @@ extension LocationHotCitiesTableViewCell: UICollectionViewDelegate, UICollection
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HotCitiesCollectionCell", forIndexPath: indexPath) as! LocationHotCitiesCollectionViewCell
         cell.hotCityButton.setTitle(Location.hotCities[indexPath.row], forState: .Normal)
         cell.clipsToBounds = true
-        cell.layer.cornerRadius = cell.frame.size.width / 8.0
+        cell.layer.cornerRadius = cell.frame.size.width / 10.0
         cell.layer.borderWidth = 0.3
         cell.layer.borderColor = UIColor.lightGrayColor().CGColor
         

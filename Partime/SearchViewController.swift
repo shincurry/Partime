@@ -7,24 +7,23 @@
 //
 
 import UIKit
-import Spring
 
-class SearchViewController: UIViewController {    
+class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-//        jobSearchBar.scopeButtonTitles = ["test1", "test2"]
+        initialSearchController()
     }
-    
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    @IBOutlet weak var jobSearchBar: UISearchBar!
-    @IBOutlet weak var jobsTableView: UITableView!
+    @IBOutlet weak var searchSuperView: UIView!
+    var searchController: UISearchController!
 
+    @IBOutlet weak var searchTableView: UITableView!
     /*
     // MARK: - Navigation
 
@@ -34,22 +33,44 @@ class SearchViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    @IBAction func filter(sender: UIButton) {
+
+}
+
+extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate {
+    private func initialSearchController() {
+        searchController = UISearchController(searchResultsController: UITableViewController())
+//        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
         
+        searchController.searchBar.sizeToFit()
+        searchController.dimsBackgroundDuringPresentation = false
+        self.definesPresentationContext = true
+        searchTableView.tableHeaderView = searchController.searchBar
     }
     
+    func didPresentSearchController(searchController: UISearchController) {
+        print("didPresentSearchController")
+//        searchController.searchBar.becomeFirstResponder()
+    }
+    func willDismissSearchController(searchController: UISearchController) {
+        print("willDismissSearchController")
+    }
 }
+
+//extension SearchViewController: UISearchResultsUpdating {
+//    
+//}
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCellWithIdentifier("filterTableCell")!
+        return cell
     }
 }

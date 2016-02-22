@@ -48,32 +48,37 @@ extension LocationTableViewController {
         return Location.allCities.count + 2
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 || section == 1 {
+        switch section {
+        case 0:
             return 1
-        } else {
+        case 1:
+            return 1
+        default:
             return Location.allCities[section-2].1.count
         }
     }
     
-   override  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
+    override  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
             return NSLocalizedString("currentLocation", comment: "")
-        } else if section == 1 {
+        case 1:
             return NSLocalizedString("hotLocation", comment: "")
-        } else {
+        default:
             return Location.allCities[section-2].0
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        switch indexPath.section {
+        case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("LocationCurrentCityCell", forIndexPath: indexPath)
             cell.textLabel!.text = NSUserDefaults.standardUserDefaults().valueForKey("location") as? String
             return cell
-        } else if indexPath.section == 1 {
+        case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("LocationHotCitiesTableViewCell", forIndexPath: indexPath) as! LocationHotCitiesTableViewCell
             return cell
-        } else {
+        default:
             let cell = tableView.dequeueReusableCellWithIdentifier("LocationAllCitiesCell", forIndexPath: indexPath)
             cell.textLabel!.text = Location.allCities[indexPath.section-2].1[indexPath.row]
             return cell
@@ -82,9 +87,11 @@ extension LocationTableViewController {
 
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 1 {
+        switch indexPath.section {
+        case 1:
+            // 需要改进？
             return CGFloat(66 * (Location.hotCities.count / 3))
-        } else {
+        default:
             return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
         }
     }
@@ -94,7 +101,7 @@ extension LocationTableViewController {
         var indexTitle: [String] = ["", "", ""]
         indexTitle += Location.allCities.map({ (title, _ ) in
             if title.characters.count == 2 {
-                return " " + title + "   "
+                return "  " + title + "   "
             } else {
                 return title
             }
