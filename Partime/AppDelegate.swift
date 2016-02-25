@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.setBool(true, forKey: "isNotFirstLaunch")
             defaults.setObject("位置", forKey: "location")
         }
-        
-        print("ok")
         return true
     }
 

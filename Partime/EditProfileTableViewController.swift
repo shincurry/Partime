@@ -55,12 +55,6 @@ class EditProfileTableViewController: UITableViewController {
         dateFormatter.dateFormat = "yyyy-M-d"
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if let selection = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(selection, animated: true)
-        }
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

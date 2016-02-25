@@ -13,3 +13,10 @@
 /* Location */
 "currentLocation" = "当前位置";
 "hotLocation" = "热门位置";
+
+/* Web loading status */
+"webStatusLoadFailed" = "加载失败";
+
+/* Search View */
+"hotSearch" = "热门搜索";
+"historySearch" = "历史搜索";

@@ -13,3 +13,10 @@
 /* Location */
 "currentLocation" = "Current Location";
 "hotLocation" = "HotLocation";
+
+/* Web loading status */
+"webStatusLoadFailed" = "Load Failed";
+
+/* Search View */
+"hotSearch" = "Hot Search";
+"historySearch" = "History Search";

@@ -9,6 +9,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -21,6 +22,7 @@ class SearchViewController: UIViewController {
     }
     
     @IBOutlet weak var searchSuperView: UIView!
+    var searchResultController: SearchResultViewController!
     var searchController: UISearchController!
 
     @IBOutlet weak var searchTableView: UITableView!
@@ -38,39 +40,75 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate {
     private func initialSearchController() {
-        searchController = UISearchController(searchResultsController: UITableViewController())
+        searchResultController = SearchResultViewController(tableView: searchTableView)
+        searchController = UISearchController(searchResultsController: searchResultController)
 //        searchController.searchResultsUpdater = self
+        
         searchController.delegate = self
         searchController.searchBar.delegate = self
         
         searchController.searchBar.sizeToFit()
-        searchController.dimsBackgroundDuringPresentation = false
         self.definesPresentationContext = true
         searchTableView.tableHeaderView = searchController.searchBar
+        
     }
     
-    func didPresentSearchController(searchController: UISearchController) {
-        print("didPresentSearchController")
-//        searchController.searchBar.becomeFirstResponder()
-    }
-    func willDismissSearchController(searchController: UISearchController) {
-        print("willDismissSearchController")
-    }
+//    func didPresentSearchController(searchController: UISearchController) {
+//        print("didPresentSearchController")
+//    }
+//    func willDismissSearchController(searchController: UISearchController) {
+//        print("willDismissSearchController")
+//    }
 }
 
 //extension SearchViewController: UISearchResultsUpdating {
 //    
 //}
 
+// 热门搜索
+// 历史搜索
+// 分类筛选 x
+
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return NSLocalizedString("hotSearch", comment: "")
+        case 1:
+            return NSLocalizedString("historySearch", comment: "")
+        default:
+            return ""
+        }
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0:
+            return 3
+        case 1:
+            return 10
+        default:
+            return 0
+        }
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("filterTableCell")!
+        let cell = tableView.dequeueReusableCellWithIdentifier("searchCell")!
+        switch indexPath.section {
+        case 0:
+            cell.textLabel!.text = "hot \(indexPath.row)"
+            cell.imageView!.image = UIImage(named: "Fire")
+        case 1:
+            cell.imageView!.image = UIImage(named: "Time")
+            cell.textLabel!.text = "history \(indexPath.row)"
+        default:
+            break
+        }
+        cell.imageView!.tintColor = UIColor.lightGrayColor()
+        
         return cell
     }
 }

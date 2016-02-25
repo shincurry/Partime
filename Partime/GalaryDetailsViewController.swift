@@ -85,7 +85,7 @@ extension GalaryDetailsViewController: UIWebViewDelegate {
 
             actionBarButton.enabled = true
         } else {
-            navigationItem.title = "Load Failed"
+            navigationItem.title = NSLocalizedString("webStatusLoadFailed", comment: "")
         }
     }
     

@@ -15,7 +15,6 @@
 		881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */; };
 		881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */; };
 		881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA061C23AF2800989FDF /* AppDelegate.swift */; };
-		881FCA091C23AF2800989FDF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA081C23AF2800989FDF /* MainViewController.swift */; };
 		881FCA0E1C23AF2800989FDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0D1C23AF2800989FDF /* Assets.xcassets */; };
 		881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */; };
 		881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA1F1C23CDF000989FDF /* LoginViewController.swift */; };
@@ -33,6 +32,7 @@
 		88BF94181C744098002F8FA7 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BF94171C744098002F8FA7 /* JobsViewController.swift */; };
 		88BF94311C745534002F8FA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88BF94331C745534002F8FA7 /* Main.storyboard */; };
 		88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88BF943C1C74598B002F8FA7 /* Localizable.strings */; };
+		88CE6F071C7F3E1D00909A44 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */; };
 		88D3CC3E1C78585800A37E14 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88D3CC3D1C78585800A37E14 /* address.plist */; };
 		88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
@@ -50,7 +50,6 @@
 		881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailsViewController.swift; sourceTree = "<group>"; };
 		881FCA031C23AF2800989FDF /* Partime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Partime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		881FCA061C23AF2800989FDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		881FCA081C23AF2800989FDF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		881FCA0D1C23AF2800989FDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		881FCA101C23AF2800989FDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		881FCA121C23AF2800989FDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		88BF943B1C74598B002F8FA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		88BF943D1C74598D002F8FA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		88BF943E1C74598E002F8FA7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		88D3CC3D1C78585800A37E14 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -164,10 +164,10 @@
 			isa = PBXGroup;
 			children = (
 				88BF94331C745534002F8FA7 /* Main.storyboard */,
-				881FCA081C23AF2800989FDF /* MainViewController.swift */,
 				88B4CBC01C71C07B006FAC65 /* HomeGroup */,
 				88B4CBC11C71C093006FAC65 /* ProfileGroup */,
 				8897BA721C325CB6000DD480 /* SearchViewController.swift */,
+				88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */,
 				881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */,
 				881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */,
 				88BF94171C744098002F8FA7 /* JobsViewController.swift */,
@@ -357,12 +357,12 @@
 				881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */,
 				8875B5841C241AD40050A735 /* Account.swift in Sources */,
 				8813C2411C73548800E05B32 /* Location.swift in Sources */,
-				881FCA091C23AF2800989FDF /* MainViewController.swift in Sources */,
 				8897BA731C325CB6000DD480 /* SearchViewController.swift in Sources */,
 				88BF94181C744098002F8FA7 /* JobsViewController.swift in Sources */,
 				883EDCA91C25578D00C41ED8 /* RegisterViewController.swift in Sources */,
 				881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */,
 				884296E81C4B7A9200DCB641 /* ProfileTableViewController.swift in Sources */,
+				88CE6F071C7F3E1D00909A44 /* SearchResultViewController.swift in Sources */,
 				8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
 				88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */,
