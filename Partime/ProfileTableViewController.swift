@@ -13,10 +13,17 @@ class ProfileTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialViewStyle()
-        
         // Do any additional setup after loading the view.
-        
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//        clearsSelectionOnViewWillAppear NOT WORK on device
+        if let selection = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selection, animated: true)
+        }
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

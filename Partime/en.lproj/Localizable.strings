@@ -20,3 +20,9 @@
 /* Search View */
 "hotSearch" = "Hot Search";
 "historySearch" = "History Search";
+
+/* Alert Action Title */
+"ok" = "Sure";
+"cancel" = "Cancel";
+"clearHistoryAlertTitle" = "Delete Alert";
+"clearHistoryAlertMessage" = "Are you sure to clear search history?";
