@@ -86,12 +86,12 @@ class EditProfileTableViewController: UITableViewController {
     }
     
     
-    var location: Array<String>?
+    // MARK: - Location Picker Properties
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var locationPicker: UIPickerView!
     
-    
-    
+
+    // MARK: - Introduce Text Properties
     @IBOutlet weak var introduceText: UITextView!
     @IBOutlet weak var restOfCharactersCount: UILabel!
     
@@ -173,6 +173,9 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         case genderPicker:
             return gender.count
         case locationPicker:
+            if component == 0 {
+                return Location.allCities.count
+            }
             let select = locationPicker.selectedRowInComponent(0)
             return Location.allCities[select].1.count
         default:
@@ -196,6 +199,7 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         }
         
     }
+    
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case genderPicker:
@@ -205,8 +209,14 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
             if component == 0 {
                 locationPicker.selectRow(0, inComponent: 1, animated: true)
                 locationPicker.reloadComponent(1)
+                /**
+                * selectRow(row: Int, inComponent: Int, animated: Bool) 需要手动调用
+                * pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+                */
+                self.pickerView(locationPicker, didSelectRow: 0, inComponent: 1)
+            } else {
+                locationLabel.text = Location.allCities[select].0 + " " + Location.allCities[select].1[row]
             }
-            locationLabel.text = Location.allCities[select].0 + " " + Location.allCities[select].1[row]
         default:
             break
         }
