@@ -37,6 +37,14 @@ class JobDetailsViewController: UIViewController {
     }
     */
     
+    // 图片？
+    // 简要信息
+    // 详情
+    // 具体时间
+    // 工作内容
+    // 联系方式、地址
+    //
+    
     @IBAction func favButtonClicked(sender: UIButton) {
         favButton.animation = "pop"
         isFaved = !isFaved

@@ -72,7 +72,7 @@ class HomeViewController: UIViewController {
 
 }
 
-// BUG: 图片轮播有时候会乱跳
+// BUG: 图片轮播有时候会乱跳 !!!
 // MARK: - Galary Scroll View
 extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {

@@ -12,7 +12,7 @@ class SettingsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
+        tableView.backgroundColor = Theme.backgroundColor
         // Do any additional setup after loading the view.
     }
 
@@ -41,7 +41,7 @@ class SettingsViewController: UITableViewController {
 }
 
 extension SettingsViewController {
-    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
-    }
+//    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        view.tintColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
+//    }
 }

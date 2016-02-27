@@ -19,7 +19,7 @@
 
 /* Search View */
 "hotSearch" = "热门搜索";
-"historySearch" = "历史搜索";
+"historySearch" = "搜索历史";
 
 /* Alert Action Title */
 "ok" = "确定";

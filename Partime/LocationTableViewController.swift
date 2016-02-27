@@ -13,6 +13,7 @@ class LocationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.sectionIndexColor = UIColor.grayColor()
+        tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0)
         // Do any additional setup after loading the view.
     }
 

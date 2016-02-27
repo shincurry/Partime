@@ -9,49 +9,11 @@
 import UIKit
 
 
-enum SelectionStatus {
-    case SelectSelf
-    case SelectOther
-    case SelectNone
-}
-
-/**
- *  Table View Edit View Cell 
- *  isShow Data Struct
- */
-struct EditViewControl {
-    // (是否可以展开编辑 Cell, 是否隐藏)
-    private let defaultHiddenStatus = [[(true, false), (false, true)], [(true, false), (false, true), (true, false), (false, true), (true, false), (false, true), (true, false), (false, true)], [(false, false), (false, false)]]
-    
-    var currentHiddenStatus: [[(Bool, Bool)]]
-    init() {
-        currentHiddenStatus = defaultHiddenStatus
-    }
-    
-    mutating func selectionAt(indexPath: NSIndexPath) -> SelectionStatus {
-        guard currentHiddenStatus[indexPath.section][indexPath.row].0 else {
-            return .SelectNone
-        }
-        
-        guard currentHiddenStatus[indexPath.section][indexPath.row+1].1 else {
-            currentHiddenStatus[indexPath.section][indexPath.row+1].1 = true
-            return .SelectSelf
-        }
-
-        currentHiddenStatus = defaultHiddenStatus
-        currentHiddenStatus[indexPath.section][indexPath.row+1].1 = false
-        return .SelectOther
-        
-    }
-    
-}
-
-
 class EditProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
+        tableView.backgroundColor = Theme.backgroundColor
         dateFormatter.dateFormat = "yyyy-M-d"
     }
     

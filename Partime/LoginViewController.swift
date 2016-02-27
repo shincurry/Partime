@@ -178,11 +178,11 @@ extension LoginViewController: UITextFieldDelegate {
         if loginType != type {
             switch type {
             case .Email:
-                view.image = UIImage(named: "Mail")
+                view.image = UIImage(named: "LoginMail")
             case .PhoneNumber:
-                view.image = UIImage(named: "Telephone")
+                view.image = UIImage(named: "LoginTelephone")
             default:
-                view.image = UIImage(named: "Username")
+                view.image = UIImage(named: "LoginUser")
             }
             view.animation = "swing"
             view.curve = "easeOut"

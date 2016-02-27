@@ -47,7 +47,7 @@ class ProfileTableViewController: UITableViewController {
         profileImage.layer.borderWidth = 1
         profileImage.layer.borderColor = UIColor(red: 0.800, green: 0.800, blue: 0.800, alpha: 1.00).CGColor
         
-        tableView.backgroundColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
+        tableView.backgroundColor = Theme.backgroundColor
         
 //        walletCellImage.tintColor = UIColor(red: 0.961, green: 0.486, blue: 0.000, alpha: 1.00)
 //        favoriteCellImage.tintColor = UIColor(red: 0.945, green: 0.769, blue: 0.059, alpha: 1.00)
@@ -69,7 +69,7 @@ class ProfileTableViewController: UITableViewController {
 // MARK: - Profile Table View Delegate
 extension ProfileTableViewController {
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
+        view.tintColor = Theme.backgroundColor
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -8,14 +8,15 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initialSearchController()
-        clearHistoryButton.layer.borderWidth = 0.4
-        clearHistoryButton.layer.borderColor = UIColor.lightGrayColor().CGColor
+        clearHistoryButton.tintColor = Theme.mainColor
+        clearHistoryButton.layer.borderWidth = 1
+        clearHistoryButton.layer.borderColor = Theme.mainColor.CGColor
         clearHistoryButton.layer.cornerRadius = clearHistoryButton.frame.size.width / 14.0
         clearHistoryButton.clipsToBounds = true
     }
@@ -31,7 +32,6 @@ class SearchViewController: UIViewController {
     var searchResultController: SearchResultViewController!
     var searchController: UISearchController!
 
-    @IBOutlet weak var searchTableView: UITableView!
     /*
     // MARK: - Navigation
 
@@ -55,7 +55,7 @@ class SearchViewController: UIViewController {
         
         let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default) { (action) in
             self.historyData.removeAll()
-            self.searchTableView.reloadData()
+            self.tableView.reloadData()
         }
         alertController.addAction(OKAction)
         
@@ -64,26 +64,23 @@ class SearchViewController: UIViewController {
 
 }
 
-extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate {
+extension SearchTableViewController {
+    // navigationBar 需要设置为 Translucent 才能正常隐藏 navigation
     private func initialSearchController() {
-        searchResultController = SearchResultViewController(tableView: searchTableView)
+        searchResultController = SearchResultViewController(tableView: tableView)
         searchController = UISearchController(searchResultsController: searchResultController)
 //        searchController.searchResultsUpdater = self
         
-        searchController.delegate = self
-        searchController.searchBar.delegate = self
-        searchController.searchBar.sizeToFit()
-        self.definesPresentationContext = true
-        searchTableView.tableHeaderView = searchController.searchBar
+//        searchController.delegate = self
+//        searchController.searchBar.delegate = self
         
+        searchController.searchBar.sizeToFit()
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
     }
     
-//    func didPresentSearchController(searchController: UISearchController) {
-//        print("didPresentSearchController")
-//    }
-//    func willDismissSearchController(searchController: UISearchController) {
-//        print("willDismissSearchController")
-//    }
+    
+    
 }
 
 //extension SearchViewController: UISearchResultsUpdating {
@@ -94,12 +91,13 @@ extension SearchViewController: UISearchControllerDelegate, UISearchBarDelegate 
 // 历史搜索
 // 分类筛选 x
 
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+// MARK: - Search Hot and history Table View DataSource and Delegate
+extension SearchTableViewController {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return NSLocalizedString("hotSearch", comment: "")
@@ -110,7 +108,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return hotData.count
@@ -121,7 +119,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("searchCell")!
         switch indexPath.section {
         case 0:
@@ -134,11 +132,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             break
         }
         cell.imageView!.tintColor = UIColor.lightGrayColor()
-        
         return cell
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         if indexPath.section == 1 {
             return true
         } else {
@@ -146,11 +143,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        print(indexPath)
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             historyData.removeAtIndex(indexPath.row)
-            print([indexPath])
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }

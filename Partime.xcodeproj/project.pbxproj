@@ -10,7 +10,7 @@
 		880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A43371C58D5EB00E498BC /* YXFormat.swift */; };
 		880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A43391C58DA2E00E498BC /* YXLogin.swift */; };
 		8813C2411C73548800E05B32 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813C2401C73548800E05B32 /* Location.swift */; };
-		881F41271C475AEA0043DAC9 /* JobsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */; };
+		881F41271C475AEA0043DAC9 /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41261C475AEA0043DAC9 /* JobTableViewCell.swift */; };
 		881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41291C4788A10043DAC9 /* LocationTableViewController.swift */; };
 		881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */; };
 		881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */; };
@@ -27,13 +27,19 @@
 		8858A3911C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8858A3901C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift */; };
 		8859B6541C48E71D001D2011 /* GalaryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8859B6531C48E71D001D2011 /* GalaryDetailsViewController.swift */; };
 		8875B5841C241AD40050A735 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875B5831C241AD40050A735 /* Account.swift */; };
-		8897BA731C325CB6000DD480 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA721C325CB6000DD480 /* SearchViewController.swift */; };
+		8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA721C325CB6000DD480 /* SearchTableViewController.swift */; };
 		8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA741C325CE1000DD480 /* HomeViewController.swift */; };
 		88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */; };
 		88BF94311C745534002F8FA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88BF94331C745534002F8FA7 /* Main.storyboard */; };
 		88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88BF943C1C74598B002F8FA7 /* Localizable.strings */; };
 		88CE6F071C7F3E1D00909A44 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */; };
 		88D3CC3E1C78585800A37E14 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 88D3CC3D1C78585800A37E14 /* address.plist */; };
+		88DD03DD1C8185780097AF9F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03DC1C8185780097AF9F /* Theme.swift */; };
+		88DD03E51C81A8810097AF9F /* JobDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03E41C81A8810097AF9F /* JobDetailsTableViewController.swift */; };
+		88DD03E71C81B5400097AF9F /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03E61C81B5400097AF9F /* Job.swift */; };
+		88DD03E91C81B6090097AF9F /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03E81C81B6090097AF9F /* Company.swift */; };
+		88DD03EB1C81D5490097AF9F /* RateStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03EA1C81D5490097AF9F /* RateStar.swift */; };
+		88DD03ED1C81D5830097AF9F /* EditViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03EC1C81D5830097AF9F /* EditViewControl.swift */; };
 		88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
 /* End PBXBuildFile section */
@@ -44,7 +50,7 @@
 		880A43371C58D5EB00E498BC /* YXFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXFormat.swift; sourceTree = "<group>"; };
 		880A43391C58DA2E00E498BC /* YXLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXLogin.swift; sourceTree = "<group>"; };
 		8813C2401C73548800E05B32 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsTableViewCell.swift; sourceTree = "<group>"; };
+		881F41261C475AEA0043DAC9 /* JobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
 		881F41291C4788A10043DAC9 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailsViewController.swift; sourceTree = "<group>"; };
@@ -65,7 +71,7 @@
 		8858A3901C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullHomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		8859B6531C48E71D001D2011 /* GalaryDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalaryDetailsViewController.swift; sourceTree = "<group>"; };
 		8875B5831C241AD40050A735 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		8897BA721C325CB6000DD480 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		8897BA721C325CB6000DD480 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		8897BA741C325CE1000DD480 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfHomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		88BF94301C745499002F8FA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -76,6 +82,12 @@
 		88BF943E1C74598E002F8FA7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		88D3CC3D1C78585800A37E14 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
+		88DD03DC1C8185780097AF9F /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		88DD03E41C81A8810097AF9F /* JobDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailsTableViewController.swift; sourceTree = "<group>"; };
+		88DD03E61C81B5400097AF9F /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		88DD03E81C81B6090097AF9F /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		88DD03EA1C81D5490097AF9F /* RateStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStar.swift; sourceTree = "<group>"; };
+		88DD03EC1C81D5830097AF9F /* EditViewControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewControl.swift; sourceTree = "<group>"; };
 		88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +159,11 @@
 			children = (
 				8875B5831C241AD40050A735 /* Account.swift */,
 				8813C2401C73548800E05B32 /* Location.swift */,
+				88DD03DC1C8185780097AF9F /* Theme.swift */,
+				88DD03E61C81B5400097AF9F /* Job.swift */,
+				88DD03E81C81B6090097AF9F /* Company.swift */,
+				88DD03EA1C81D5490097AF9F /* RateStar.swift */,
+				88DD03EC1C81D5830097AF9F /* EditViewControl.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -166,11 +183,12 @@
 				88BF94331C745534002F8FA7 /* Main.storyboard */,
 				88B4CBC01C71C07B006FAC65 /* HomeGroup */,
 				88B4CBC11C71C093006FAC65 /* ProfileGroup */,
-				8897BA721C325CB6000DD480 /* SearchViewController.swift */,
+				8897BA721C325CB6000DD480 /* SearchTableViewController.swift */,
 				88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */,
 				8831937D1C806E9E005FDE5A /* JobsTableViewController.swift */,
-				881F41261C475AEA0043DAC9 /* JobsTableViewCell.swift */,
+				881F41261C475AEA0043DAC9 /* JobTableViewCell.swift */,
 				881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */,
+				88DD03E41C81A8810097AF9F /* JobDetailsTableViewController.swift */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -357,17 +375,22 @@
 				881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */,
 				8875B5841C241AD40050A735 /* Account.swift in Sources */,
 				8813C2411C73548800E05B32 /* Location.swift in Sources */,
-				8897BA731C325CB6000DD480 /* SearchViewController.swift in Sources */,
+				88DD03DD1C8185780097AF9F /* Theme.swift in Sources */,
+				8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */,
+				88DD03EB1C81D5490097AF9F /* RateStar.swift in Sources */,
 				883EDCA91C25578D00C41ED8 /* RegisterViewController.swift in Sources */,
 				881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */,
 				884296E81C4B7A9200DCB641 /* ProfileTableViewController.swift in Sources */,
 				88CE6F071C7F3E1D00909A44 /* SearchResultViewController.swift in Sources */,
 				8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */,
 				8831937E1C806E9E005FDE5A /* JobsTableViewController.swift in Sources */,
+				88DD03E91C81B6090097AF9F /* Company.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
 				88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */,
-				881F41271C475AEA0043DAC9 /* JobsTableViewCell.swift in Sources */,
+				881F41271C475AEA0043DAC9 /* JobTableViewCell.swift in Sources */,
+				88DD03E51C81A8810097AF9F /* JobDetailsTableViewController.swift in Sources */,
 				880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */,
+				88DD03ED1C81D5830097AF9F /* EditViewControl.swift in Sources */,
 				880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */,
 				88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */,
 				882829A31C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift in Sources */,
@@ -376,6 +399,7 @@
 				882829A51C78B582009CEE5F /* LocationHotCitiesTableViewCell.swift in Sources */,
 				881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */,
 				881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */,
+				88DD03E71C81B5400097AF9F /* Job.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
