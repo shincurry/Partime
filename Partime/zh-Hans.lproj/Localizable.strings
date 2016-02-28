@@ -21,8 +21,14 @@
 "hotSearch" = "热门搜索";
 "historySearch" = "搜索历史";
 
-/* Alert Action Title */
+/* Alert Action */
 "ok" = "确定";
 "cancel" = "取消";
+
+/* Clear History Alert Action */
 "clearHistoryAlertTitle" = "删除警告";
 "clearHistoryAlertMessage" = "你确定要删除搜索记录吗？";
+
+/* Contact Alert Action */
+"contactAlertTitle" = "呼叫警告";
+"contactAlertMessage" = "你确定要拨打 %@ 吗？";

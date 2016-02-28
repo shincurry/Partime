@@ -21,8 +21,14 @@
 "hotSearch" = "Hot Search";
 "historySearch" = "History Search";
 
-/* Alert Action Title */
+/* Alert Action */
 "ok" = "Sure";
 "cancel" = "Cancel";
+
+/* Clear History Alert Action */
 "clearHistoryAlertTitle" = "Delete Alert";
 "clearHistoryAlertMessage" = "Are you sure to clear search history?";
+
+/* Contact Alert Action */
+"contactAlertTitle" = "Calling Alert";
+"contactAlertMessage" = "Are you sure to call %@?";
