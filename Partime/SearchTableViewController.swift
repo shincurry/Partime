@@ -26,6 +26,11 @@ class SearchTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    deinit {
+        searchResultController.view.removeFromSuperview()
+        searchController.view.removeFromSuperview()
+    }
+    
     var hotData = ["发传单", "收银员", "柜台", "家教", "做清洁"]
     var historyData = ["发传单", "传单", "麦当劳"]
     

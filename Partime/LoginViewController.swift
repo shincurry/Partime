@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usernameTextField.leftView = SpringImageView(image: UIImage(named: "Username"))
+        usernameTextField.leftView = SpringImageView(image: UIImage(named: "LoginUser"))
         usernameTextField.leftViewMode = .Always
         if let view = usernameTextField.leftView {
             view.tintColor = UIColor.grayColor()

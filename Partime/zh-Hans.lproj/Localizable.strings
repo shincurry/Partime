@@ -7,8 +7,8 @@
 */
 
 /* Gender Picker */
-"male" = "Male";
-"female" = "Female";
+"male" = "男";
+"female" = "女";
 
 /* Location */
 "currentLocation" = "当前位置";

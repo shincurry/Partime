@@ -15,6 +15,7 @@ class SearchResultViewController: UITableViewController {
         superTableView = tableView
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

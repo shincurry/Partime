@@ -13,19 +13,14 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        if let tab = tabBarController {
-            tab.tabBar.tintColor = UIColor.whiteColor()
-        }
-        
+        galaryTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "nextGalaryImage", userInfo: nil, repeats: true)
         locationButton.title = defaults.valueForKey("location") as! String + " ▾"
     }
     
+    // 可能会调用多次
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         initialGalary()
-//        initialJobsTableView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -33,6 +28,7 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - View Properties
     @IBOutlet weak var locationButton: UIBarButtonItem!
     var location: String {
         get {
@@ -44,11 +40,11 @@ class HomeViewController: UIViewController {
         }
     }
     
+    var galaryTimer: NSTimer!
     @IBOutlet weak var galaryScrollView: UIScrollView!
     @IBOutlet weak var galaryPageControl: UIPageControl!
     let galaryTotalCount = 3
 
-    
     @IBOutlet weak var homeCollection: UICollectionView!
 
     
@@ -72,36 +68,26 @@ class HomeViewController: UIViewController {
 
 }
 
-// BUG: 图片轮播有时候会乱跳 !!!
 // MARK: - Galary Scroll View
 extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let scrollViewWidth = galaryScrollView.frame.size.width
         let offsetX = galaryScrollView.contentOffset.x
-        let currentPage = (Int)((offsetX + scrollViewWidth / 2) / scrollViewWidth)
-        galaryPageControl.currentPage = currentPage
+        galaryPageControl.currentPage = (Int)((offsetX + scrollViewWidth / 2) / scrollViewWidth)
     }
     
     private func initialGalary() {
-        let galaryWidth = galaryScrollView.frame.size.width
-        let galaryHeight = galaryScrollView.frame.size.height
-        let galaryY: CGFloat = 0
-        
+        let galarySize = galaryScrollView.frame.size
         for index in 0..<galaryTotalCount {
-            let imageX = CGFloat(index) * galaryWidth
-            let imageView = UIImageView(frame: CGRectMake(imageX, galaryY, galaryWidth, galaryHeight))
+            let imageX = CGFloat(index) * galarySize.width
+            let imageView = UIImageView(frame: CGRectMake(imageX, 0, galarySize.width, galarySize.height))
             imageView.image = UIImage(named: "GalaryDefault-\(index+1)")
             imageView.contentMode = .ScaleAspectFill
             galaryScrollView.addSubview(imageView)
         }
-        
-        let contentWidth = galaryWidth * CGFloat(galaryTotalCount)
+        let contentWidth = galarySize.width * CGFloat(galaryTotalCount)
         galaryScrollView.contentSize = CGSizeMake(contentWidth, 0)
-        galaryScrollView.delegate = self
         galaryPageControl.numberOfPages = galaryTotalCount
-        galaryPageControl.currentPage = 0
-        
-        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "nextGalaryImage", userInfo: nil, repeats: true)
     }
     
     func nextGalaryImage() {
@@ -109,6 +95,11 @@ extension HomeViewController: UIScrollViewDelegate {
         let galaryViewWidth = galaryScrollView.frame.size.width
         let offsetX = CGFloat(currentPage) * galaryViewWidth
         galaryScrollView.setContentOffset(CGPointMake(offsetX, 0), animated: true)
+    }
+    
+    @IBAction func galaryCurrentPageChange(sender: UIPageControl) {
+        let imageX = CGFloat(galaryPageControl.currentPage) * galaryScrollView.frame.size.width
+        galaryScrollView.setContentOffset(CGPointMake(imageX, 0), animated: true)
     }
 }
 
@@ -132,7 +123,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if section == 2 {
             return 2
         }
-        
         return 4
     }
     
