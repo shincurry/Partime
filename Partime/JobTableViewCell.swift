@@ -47,6 +47,7 @@ extension JobTableViewCell {
         
         logoImage.clipsToBounds = true
         logoImage.layer.cornerRadius = logoImage.frame.size.width / 2
+        separatorInset.left = 8 + logoImage.frame.size.width + 8
     }
 
 }

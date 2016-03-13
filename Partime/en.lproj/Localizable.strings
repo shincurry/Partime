@@ -32,3 +32,5 @@
 /* Contact Alert Action */
 "contactAlertTitle" = "Calling Alert";
 "contactAlertMessage" = "Are you sure to call %@?";
+
+"recommendJobs" = "Recommend Jobs";

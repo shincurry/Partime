@@ -12,7 +12,10 @@ class JobsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if let title = navigationTitle {
+            navigationItem.title = title
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -35,6 +38,8 @@ class JobsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    var navigationTitle: String?
 
     let tempData: [[String]] = [["德克士收银员", "100 元 / 日", "7:00 - 17:00", "重庆"],
         ["发传单", "60 元/日", "13:00-17:00", "重庆理工大学"],
@@ -67,9 +72,6 @@ extension JobsTableViewController {
         cell.salaryLabel.text = data[1]
         cell.titleLabel.text = data[0]
         return cell
-    }
-    
-    private func initialJobsTableView() {
     }
 
     

@@ -15,6 +15,8 @@ class EditProfileTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = Theme.backgroundColor
         dateFormatter.dateFormat = "yyyy-M-d"
+        takePhotoButton.setTitleColor(Theme.mainColor, forState: .Normal)
+        selectPhotoButton.setTitleColor(Theme.mainColor, forState: .Normal)
     }
     
 
@@ -22,6 +24,10 @@ class EditProfileTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    @IBOutlet weak var selectPhotoButton: UIButton!
+    @IBOutlet weak var takePhotoButton: UIButton!
     
     var editControl = EditViewControl()
     

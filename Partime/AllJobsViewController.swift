@@ -11,5 +11,16 @@ import UIKit
 class AllJobsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialViewStyle()
+    }
+}
+
+
+extension AllJobsViewController {
+    private func initialViewStyle() {
+        automaticallyAdjustsScrollViewInsets = false
+        if let navigator = navigationController {
+            navigator.navigationBar.barTintColor = Theme.mainColor
+        }
     }
 }

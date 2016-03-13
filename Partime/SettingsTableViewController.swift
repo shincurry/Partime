@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +38,4 @@ class SettingsViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-}
-
-extension SettingsViewController {
-//    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        view.tintColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
-//    }
 }

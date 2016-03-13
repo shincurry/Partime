@@ -16,8 +16,6 @@ class HomeViewController: UIViewController {
         galleryTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "nextGalleryImage", userInfo: nil, repeats: true)
         locationButton.title = defaults.valueForKey("location") as! String + " ▾"
         initialViewStyle()
-        
-        
     }
     
     // 可能会调用多次
@@ -51,15 +49,32 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var homeCollection: UICollectionView!
 
+    @IBOutlet weak var recommendHeaderLeftView: UIView!
+    @IBOutlet weak var recommendHeaderView: UIView!
+    @IBOutlet weak var recommendHeaderMoreButton: UIButton!
+    
+    
+    let tempData: [[String]] = [["德克士收银员", "100 元 / 日", "7:00 - 17:00", "重庆"],
+        ["发传单", "60 元/日", "13:00-17:00", "重庆理工大学"],
+        ["Disco cashier", "100/day", "7:00-17:00", "CQ"],
+        ["名字一定要很长来测试 UI", "100 元/日", "7:00-17:00", "重庆"],
+        ["发传单", "60 元 / 日", "13:00-17:00", "重庆理工大学"]]
 
 }
 
+// MARK: - Initial View Style
 extension HomeViewController {
     private func initialViewStyle() {
         automaticallyAdjustsScrollViewInsets = false
         if let navigator = navigationController {
-            navigator.navigationBar.barTintColor = Theme.mainColor
+            navigator.navigationBar.barTintColor = Theme.mainColor.colorWithAlphaComponent(0.8)
         }
+        if let tab = tabBarController {
+            tab.tabBar.tintColor = Theme.mainColor
+        }
+        recommendHeaderView.backgroundColor = Theme.headerBackgroundColor
+        recommendHeaderLeftView.backgroundColor = Theme.headerLeftColor
+        recommendHeaderMoreButton.setTitleColor(Theme.mainColor, forState: .Normal)
     }
 }
 
@@ -71,6 +86,9 @@ extension HomeViewController {
             case "ShowGalaryDetailsSegue":
                 let view = segue.destinationViewController as! GalleryDetailsViewController
                 view.detailsLink = "https://windisco.com" as String?
+            case "ShowRecommendJobsSegue":
+                let view = segue.destinationViewController as! JobsTableViewController
+                view.navigationTitle = NSLocalizedString("recommendJobs", comment: "")
             default:
                 break
             }
@@ -169,4 +187,40 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cellWidth = totalWidth / 2.0 - 1.0
         return CGSize(width: cellWidth, height: cellHeight)
     }
+}
+
+// MARK: - Recommend Job Table View Delegate and DataSource
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("recommendJobTableViewCell", forIndexPath: indexPath) as! JobTableViewCell
+        let data = tempData[indexPath.row]
+        cell.locationLabel.text = data[3]
+        cell.timeLabel.text = data[2]
+        cell.salaryLabel.text = data[1]
+        cell.titleLabel.text = data[0]
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Recommend"
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 76
+    }
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return recommendHeaderView
+    }
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 42
+    }
+    
 }

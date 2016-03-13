@@ -50,7 +50,7 @@ class SearchTableViewController: UITableViewController {
         let alertMessage = NSLocalizedString("clearHistoryAlertMessage", comment: "")
         
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-        
+        alertController.view.tintColor = Theme.mainColor
         let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
         
@@ -67,9 +67,7 @@ class SearchTableViewController: UITableViewController {
 
 extension SearchTableViewController {
     private func initialViewStyle() {
-        
-        
-        clearHistoryButton.tintColor = Theme.mainColor
+        clearHistoryButton.setTitleColor(Theme.mainColor, forState: .Normal)
         clearHistoryButton.layer.borderWidth = 1
         clearHistoryButton.layer.borderColor = Theme.mainColor.CGColor
         clearHistoryButton.layer.cornerRadius = clearHistoryButton.frame.size.width / 14.0

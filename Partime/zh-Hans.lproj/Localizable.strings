@@ -32,3 +32,5 @@
 /* Contact Alert Action */
 "contactAlertTitle" = "呼叫警告";
 "contactAlertMessage" = "你确定要拨打 %@ 吗？";
+
+"recommendJobs" = "推荐工作";

@@ -68,6 +68,7 @@ class JobDetailsTableViewController: UITableViewController {
 // MARK: - Table View Delegate and DataSource
 extension JobDetailsTableViewController {
     func tempData() {
+        picture.image = UIImage(named: "./pictures/gallery-1.jpg")
         navigatorTitle.title = "某不知名兼职工作"
         titleLabel.text = "某不知名兼职工作"
         locationLabel.text = "重庆理工大学"

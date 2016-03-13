@@ -58,8 +58,6 @@ class LoginViewController: UIViewController {
     let login = YXLogin()
     
     
-    @IBOutlet weak var roleControl: UISegmentedControl!
-    
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var inputAccountView: UIView!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -108,8 +106,7 @@ extension LoginViewController {
             view.tintColor = UIColor.grayColor()
         }
         
-        roleControl.tintColor = Theme.mainColor
-        loginButton.backgroundColor = Theme.mainColor
+        loginButton.backgroundColor = UIColor.lightGrayColor()
     }
 }
 
@@ -172,9 +169,9 @@ extension LoginViewController: UITextFieldDelegate {
         if current != loginStatus {
             loginStatus = current
             if loginStatus {
-                loginButton.backgroundColor = UIColor(red: 0.039, green: 0.633, blue: 1.000, alpha: 1.00)
+                loginButton.backgroundColor = Theme.mainColor
             } else {
-                loginButton.backgroundColor = UIColor(red: 0.871, green: 0.110, blue: 0.157, alpha: 1.00)
+                loginButton.backgroundColor = UIColor.lightGrayColor()
             }
             loginButton.animate()
         }

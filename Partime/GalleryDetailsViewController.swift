@@ -19,10 +19,10 @@ class GalleryDetailsViewController: UIViewController {
         loadWebPage()
         // Do any additional setup after loading the view.
         
-        loaderView = DGActivityIndicatorView(type: .BallSpinFadeLoader, tintColor: UIColor.grayColor(), size: 32.0)
+        loaderView = DGActivityIndicatorView(type: .BallClipRotateMultiple, tintColor: Theme.mainColor, size: 64.0)
         
         if let loader = loaderView {
-            loader.frame.origin = CGPoint(x: view.frame.size.width / 2.0, y: view.frame.size.height / 2.0 - 60)
+            loader.frame.origin = CGPoint(x: view.frame.size.width / 2.0, y: view.frame.size.height / 2.0 - 50)
             webView.addSubview(loader)
             loader.startAnimating()
         }
