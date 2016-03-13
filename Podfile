@@ -5,5 +5,4 @@ use_frameworks!
 pod 'Alamofire', '~> 3.0'
 pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
 pod 'DGActivityIndicatorView'
-pod 'RealmSwift'
 pod 'MJRefresh'

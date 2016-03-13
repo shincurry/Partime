@@ -10,17 +10,20 @@ import UIKit
 
 class HomeViewController: UIViewController {
     let defaults = NSUserDefaults.standardUserDefaults()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        galaryTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "nextGalaryImage", userInfo: nil, repeats: true)
+        galleryTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "nextGalleryImage", userInfo: nil, repeats: true)
         locationButton.title = defaults.valueForKey("location") as! String + " ▾"
+        initialViewStyle()
+        
+        
     }
     
     // 可能会调用多次
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        initialGalary()
+        initialGallery()
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,68 +41,75 @@ class HomeViewController: UIViewController {
             defaults.setObject(newValue, forKey: "location")
             locationButton.title = newValue + " ▾"
         }
+        
     }
     
-    var galaryTimer: NSTimer!
-    @IBOutlet weak var galaryScrollView: UIScrollView!
-    @IBOutlet weak var galaryPageControl: UIPageControl!
-    let galaryTotalCount = 3
+    var galleryTimer: NSTimer!
+    @IBOutlet weak var galleryScrollView: UIScrollView!
+    @IBOutlet weak var galleryPageControl: UIPageControl!
+    let galleryTotalCount = 3
 
     @IBOutlet weak var homeCollection: UICollectionView!
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "showGalaryDetailsSegue":
-                let view = segue.destinationViewController as! GalaryDetailsViewController
-                view.detailsLink = "https://windisco.com" as String?
-            case "showJobDetailsSegue":
-                let view = segue.destinationViewController as! JobDetailsViewController
-                view.id = 333 as Int?
-            default: break
-            }
-        }
-    }
 
 
 }
 
-// MARK: - Galary Scroll View
+extension HomeViewController {
+    private func initialViewStyle() {
+        automaticallyAdjustsScrollViewInsets = false
+        if let navigator = navigationController {
+            navigator.navigationBar.barTintColor = Theme.mainColor
+        }
+    }
+}
+
+// MARK: - Navigation
+extension HomeViewController {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "ShowGalaryDetailsSegue":
+                let view = segue.destinationViewController as! GalleryDetailsViewController
+                view.detailsLink = "https://windisco.com" as String?
+            default:
+                break
+            }
+        }
+    }
+}
+
+// MARK: - Gallery Scroll View
 extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let scrollViewWidth = galaryScrollView.frame.size.width
-        let offsetX = galaryScrollView.contentOffset.x
-        galaryPageControl.currentPage = (Int)((offsetX + scrollViewWidth / 2) / scrollViewWidth)
+        let scrollViewWidth = galleryScrollView.frame.size.width
+        let offsetX = galleryScrollView.contentOffset.x
+        galleryPageControl.currentPage = (Int)((offsetX + scrollViewWidth / 2) / scrollViewWidth)
     }
     
-    private func initialGalary() {
-        let galarySize = galaryScrollView.frame.size
-        for index in 0..<galaryTotalCount {
-            let imageX = CGFloat(index) * galarySize.width
-            let imageView = UIImageView(frame: CGRectMake(imageX, 0, galarySize.width, galarySize.height))
-            imageView.image = UIImage(named: "GalaryDefault-\(index+1)")
+    private func initialGallery() {
+        let gallerySize = galleryScrollView.frame.size
+        for index in 0..<galleryTotalCount {
+            let imageX = CGFloat(index) * gallerySize.width
+            let imageView = UIImageView(frame: CGRectMake(imageX, 0, gallerySize.width, gallerySize.height))
+            imageView.image = UIImage(named: "./pictures/gallery-\(index+1).jpg")
             imageView.contentMode = .ScaleAspectFill
-            galaryScrollView.addSubview(imageView)
+            galleryScrollView.addSubview(imageView)
         }
-        let contentWidth = galarySize.width * CGFloat(galaryTotalCount)
-        galaryScrollView.contentSize = CGSizeMake(contentWidth, 0)
-        galaryPageControl.numberOfPages = galaryTotalCount
+        let contentWidth = gallerySize.width * CGFloat(galleryTotalCount)
+        galleryScrollView.contentSize = CGSizeMake(contentWidth, 0)
+        galleryPageControl.numberOfPages = galleryTotalCount
     }
     
-    func nextGalaryImage() {
-        let currentPage = (galaryPageControl.currentPage + 1) % galaryTotalCount
-        let galaryViewWidth = galaryScrollView.frame.size.width
-        let offsetX = CGFloat(currentPage) * galaryViewWidth
-        galaryScrollView.setContentOffset(CGPointMake(offsetX, 0), animated: true)
+    func nextGalleryImage() {
+        let currentPage = (galleryPageControl.currentPage + 1) % galleryTotalCount
+        let galleryViewWidth = galleryScrollView.frame.size.width
+        let offsetX = CGFloat(currentPage) * galleryViewWidth
+        galleryScrollView.setContentOffset(CGPointMake(offsetX, 0), animated: true)
     }
     
-    @IBAction func galaryCurrentPageChange(sender: UIPageControl) {
-        let imageX = CGFloat(galaryPageControl.currentPage) * galaryScrollView.frame.size.width
-        galaryScrollView.setContentOffset(CGPointMake(imageX, 0), animated: true)
+    @IBAction func galleryCurrentPageChange(sender: UIPageControl) {
+        let imageX = CGFloat(galleryPageControl.currentPage) * galleryScrollView.frame.size.width
+        galleryScrollView.setContentOffset(CGPointMake(imageX, 0), animated: true)
     }
 }
 
@@ -130,12 +140,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FullHomeNavigatorCell", forIndexPath: indexPath) as! FullHomeNavigatorCollectionViewCell
             cell.backgroundColor = UIColor.whiteColor()
-            cell.picture.image = UIImage(named: "./beifang/f1.jpg")
+            cell.picture.image = UIImage(named: "./pictures/f1.jpg")
             return cell
         } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HalfHomeNavigatorCell", forIndexPath: indexPath) as! HalfHomeNavigatorCollectionViewCell
             cell.backgroundColor = UIColor.whiteColor()
-            cell.icon.image = UIImage(named: "./beifang/b\(indexPath.row%3 + 1).jpg")
+            cell.icon.image = UIImage(named: "./pictures/b\(indexPath.row%3 + 1).jpg")
             return cell
         }
     }

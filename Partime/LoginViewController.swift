@@ -13,18 +13,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        usernameTextField.leftView = SpringImageView(image: UIImage(named: "LoginUser"))
-        usernameTextField.leftViewMode = .Always
-        if let view = usernameTextField.leftView {
-            view.tintColor = UIColor.grayColor()
-        }
-        
-        passwordTextField.leftView = UIImageView(image: UIImage(named: "Key"))
-        passwordTextField.leftViewMode = .Always
-        if let view = passwordTextField.leftView {
-            view.tintColor = UIColor.grayColor()
-        }
+        initialViewStyle()
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,6 +57,9 @@ class LoginViewController: UIViewController {
     
     let login = YXLogin()
     
+    
+    @IBOutlet weak var roleControl: UISegmentedControl!
+    
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var inputAccountView: UIView!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -97,6 +89,28 @@ class LoginViewController: UIViewController {
         // segue to new view
     }
     
+}
+
+
+
+
+extension LoginViewController {
+    private func initialViewStyle() {
+        usernameTextField.leftView = SpringImageView(image: UIImage(named: "LoginUser"))
+        usernameTextField.leftViewMode = .Always
+        if let view = usernameTextField.leftView {
+            view.tintColor = UIColor.grayColor()
+        }
+        
+        passwordTextField.leftView = UIImageView(image: UIImage(named: "Key"))
+        passwordTextField.leftViewMode = .Always
+        if let view = passwordTextField.leftView {
+            view.tintColor = UIColor.grayColor()
+        }
+        
+        roleControl.tintColor = Theme.mainColor
+        loginButton.backgroundColor = Theme.mainColor
+    }
 }
 
 // MARK: - Resize View when pop up keyboard

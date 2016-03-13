@@ -40,6 +40,10 @@ class ProfileTableViewController: UITableViewController {
     
     
     private func initialViewStyle() {
+        if let navigator = navigationController {
+            navigator.navigationBar.barTintColor = Theme.mainColor
+        }
+        
         profileImage.clipsToBounds = true
         profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
         profileImage.layer.shadowColor = UIColor.blackColor().CGColor
@@ -49,6 +53,7 @@ class ProfileTableViewController: UITableViewController {
         
         tableView.backgroundColor = Theme.backgroundColor
         
+        
 //        walletCellImage.tintColor = UIColor(red: 0.961, green: 0.486, blue: 0.000, alpha: 1.00)
 //        favoriteCellImage.tintColor = UIColor(red: 0.945, green: 0.769, blue: 0.059, alpha: 1.00)
 //        jobCellImage.tintColor = UIColor(red: 0.031, green: 0.376, blue: 0.659, alpha: 1.00)
@@ -56,15 +61,23 @@ class ProfileTableViewController: UITableViewController {
     }
     
     
-    // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if let identifier = segue.identifier {
-//        }
-//    }
+    
+
 }
 
+// MARK: - Navigation
+extension ProfileTableViewController {
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        switch identifier {
+        case "ShowLoginSegue":
+            return !NSUserDefaults.standardUserDefaults().boolForKey("isLogin")
+        default:
+            return true
+        }
+        
+    }
+}
 
 // MARK: - Profile Table View Delegate
 extension ProfileTableViewController {

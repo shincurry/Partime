@@ -14,11 +14,7 @@ class SearchTableViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initialSearchController()
-        clearHistoryButton.tintColor = Theme.mainColor
-        clearHistoryButton.layer.borderWidth = 1
-        clearHistoryButton.layer.borderColor = Theme.mainColor.CGColor
-        clearHistoryButton.layer.cornerRadius = clearHistoryButton.frame.size.width / 14.0
-        clearHistoryButton.clipsToBounds = true
+        initialViewStyle()
     }
    
     override func didReceiveMemoryWarning() {
@@ -68,6 +64,19 @@ class SearchTableViewController: UITableViewController {
     }
 
 }
+
+extension SearchTableViewController {
+    private func initialViewStyle() {
+        
+        
+        clearHistoryButton.tintColor = Theme.mainColor
+        clearHistoryButton.layer.borderWidth = 1
+        clearHistoryButton.layer.borderColor = Theme.mainColor.CGColor
+        clearHistoryButton.layer.cornerRadius = clearHistoryButton.frame.size.width / 14.0
+        clearHistoryButton.clipsToBounds = true
+    }
+}
+
 
 extension SearchTableViewController {
     // navigationBar 需要设置为 Translucent 才能正常隐藏 navigation

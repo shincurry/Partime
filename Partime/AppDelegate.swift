@@ -16,14 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         
+        let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.boolForKey("isNotFirstLaunch") {
             print("not first launch")
         } else {
             print("first launch")
+            
             defaults.setBool(true, forKey: "isNotFirstLaunch")
             defaults.setObject("位置", forKey: "location")
+            defaults.setBool(false, forKey: "isLogin")
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            let guideViewController = storyBoard.instantiateViewControllerWithIdentifier("GuideView")
+            if let window = self.window {
+                window.rootViewController = guideViewController
+                window.makeKeyAndVisible()
+            }
         }
         return true
     }
