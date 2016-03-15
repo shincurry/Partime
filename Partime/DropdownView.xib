@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DropdownView" customModule="Partime" customModuleProvider="target">
+            <connections>
+                <outlet property="dropdownHeaderView" destination="07d-CL-nFj" id="M6w-4s-OdB"/>
+                <outlet property="dropdownTableView" destination="uDf-M2-v2o" id="H6w-4T-izW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="339" height="308"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07d-CL-nFj">
+                    <rect key="frame" x="0.0" y="0.0" width="339" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="bcj-k5-zwC"/>
+                    </constraints>
+                </view>
+                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uDf-M2-v2o">
+                    <rect key="frame" x="0.0" y="44" width="339" height="264"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="0qT-PV-7Y2"/>
+                        <outlet property="delegate" destination="-1" id="eSh-6M-i5c"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="07d-CL-nFj" secondAttribute="trailing" id="4Sn-6x-2Mq"/>
+                <constraint firstItem="07d-CL-nFj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DED-Z2-r2r"/>
+                <constraint firstAttribute="trailing" secondItem="uDf-M2-v2o" secondAttribute="trailing" id="Epu-LQ-FiX"/>
+                <constraint firstItem="07d-CL-nFj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="F3n-ox-JrQ"/>
+                <constraint firstAttribute="bottom" secondItem="uDf-M2-v2o" secondAttribute="bottom" id="T1Q-xS-DgF"/>
+                <constraint firstItem="uDf-M2-v2o" firstAttribute="top" secondItem="07d-CL-nFj" secondAttribute="bottom" id="kUQ-gh-4RR"/>
+                <constraint firstItem="uDf-M2-v2o" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yVd-Vr-t57"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="312.5" y="382"/>
+        </view>
+    </objects>
+</document>

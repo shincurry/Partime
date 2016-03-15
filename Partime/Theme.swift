@@ -16,6 +16,7 @@ class Theme {
     static let headerLeftColor = Theme.mainColor.translucent()
     static let headerBackgroundColor = UIColor(hue: 23 / 360.0, saturation: 0, brightness: 0.98, alpha: 1.00)
     
+    static let separatorColor = UIColor(hue: 0.0, saturation: 0.0, brightness: 0.9, alpha: 1.00)
 }
 
 extension UIColor {

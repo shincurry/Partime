@@ -8,11 +8,16 @@
 
 import Foundation
 
-
 enum Gender : String {
-    case Male = "男"
-    case Female = "女"
-    
+    case Male, Female
+//    func rawValue() -> String {
+//        switch self {
+//        case .Male:
+//            return NSLocalizedString("male", comment: "")
+//        case .Female:
+//            return NSLocalizedString("female", comment: "")
+//        }
+//    }
 }
 
 class Account: NSObject {
