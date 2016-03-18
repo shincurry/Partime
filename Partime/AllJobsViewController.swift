@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import YXMenuView
 
 class AllJobsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialViewStyle()
-        dropdownView.delegate = self
-        dropdownView.datasource = self
+        menuView.delegate = self
+        menuView.dataSource = self
         
     }
     
     
-    @IBOutlet weak var dropdownView: DropdownView!
+    @IBOutlet weak var menuView: YXMenuView!
     
     var titleForSections = ["区域", "时间", "类型"]
     var titleForRows = [
@@ -34,25 +35,22 @@ extension AllJobsViewController {
         if let navigator = navigationController {
             navigator.navigationBar.barTintColor = Theme.mainColor
         }
-        dropdownView.tintColor = Theme.mainColor
+        menuView.tintColor = Theme.mainColor
     }
 }
 
 
-extension AllJobsViewController: DropdownViewDelegate, DropdownViewDataSource {
-    func superView() -> UIView {
-        return self.dropdownView
-    }
-    func numberOfSectionsInDropdownView(dropdownView: DropdownView) -> Int {
+extension AllJobsViewController: YXMenuViewDelegate, YXMenuViewDataSource {
+    func numberOfSectionsInYXMenuView(menuView: YXMenuView) -> Int {
         return titleForSections.count
     }
-    func dropdownView(dropdownView: DropdownView, numberOfRowsInSection section: Int) -> Int {
+    func menuView(menuView: YXMenuView, numberOfRowsInSection section: Int) -> Int {
         return titleForRows[section].count
     }
-    func dropdownView(dropdownView: DropdownView, titleForHeaderInSection section: Int) -> String {
+    func menuView(menuView: YXMenuView, titleForHeaderInSection section: Int) -> String {
         return titleForSections[section]
     }
-    func dropdownView(dropdownView: DropdownView, titleForRowAtIndexPath indexPath: NSIndexPath) -> String {
+    func menuView(menuView: YXMenuView, titleForRowAtIndexPath indexPath: NSIndexPath) -> String {
         return titleForRows[indexPath.section][indexPath.row]
     }
 }

@@ -19,14 +19,14 @@ import UIKit
     optional func superView() -> UIView
     
     /**
-     set custom view for header in section
+     Asks the delegate for the height of dropdown-view
      
      - parameter dropdownView: The dropdown-view object asking for the title.
-     - parameter section:      An index number identifying a section in dropdownView.
      
-     - returns: custom view
+     - returns: height value of dropdown-view
      */
-    optional func dropdownView(dropdownView: DropdownView, viewForHeaderInSection section: Int) -> UIView?
+    optional func heightForTableView(dropdownView: DropdownView) -> CGFloat
+    
 }
 
 //MARK: - DropdownView DataSource
@@ -71,4 +71,14 @@ import UIKit
      - returns: title of row
      */
     func dropdownView(dropdownView: DropdownView,  titleForRowAtIndexPath indexPath: NSIndexPath) -> String
+    
+    /**
+     set custom view for header in section
+     
+     - parameter dropdownView: The dropdown-view object asking for the title.
+     - parameter section:      An index number identifying a section in dropdownView.
+     
+     - returns: custom view
+     */
+    optional func dropdownView(dropdownView: DropdownView, viewForHeaderInSection section: Int) -> UIView?
 }
