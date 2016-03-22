@@ -15,7 +15,6 @@ class AllJobsViewController: UIViewController {
         initialViewStyle()
         menuView.delegate = self
         menuView.dataSource = self
-        
     }
     
     

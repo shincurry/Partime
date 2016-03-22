@@ -33,11 +33,6 @@
 		8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA721C325CB6000DD480 /* SearchTableViewController.swift */; };
 		8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA741C325CE1000DD480 /* HomeViewController.swift */; };
 		88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */; };
-		88B8A8371C963EC500F4398C /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B8A8361C963EC500F4398C /* DropdownView.swift */; };
-		88B8A8391C963EFD00F4398C /* DropdownViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B8A8381C963EFD00F4398C /* DropdownViewProtocol.swift */; };
-		88B8A83B1C964B0B00F4398C /* DropdownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88B8A83A1C964B0B00F4398C /* DropdownView.xib */; };
-		88B8A83F1C96AEA600F4398C /* DropdownSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88B8A83E1C96AEA600F4398C /* DropdownSectionView.xib */; };
-		88B8A8411C96AFD200F4398C /* DropdownSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B8A8401C96AFD200F4398C /* DropdownSectionView.swift */; };
 		88BF94311C745534002F8FA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88BF94331C745534002F8FA7 /* Main.storyboard */; };
 		88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88BF943C1C74598B002F8FA7 /* Localizable.strings */; };
 		88CCDD601C93D5C9003A7747 /* AllJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CCDD5F1C93D5C9003A7747 /* AllJobsViewController.swift */; };
@@ -50,7 +45,6 @@
 		88DD03EB1C81D5490097AF9F /* RateStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03EA1C81D5490097AF9F /* RateStar.swift */; };
 		88DD03ED1C81D5830097AF9F /* EditViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03EC1C81D5830097AF9F /* EditViewControl.swift */; };
 		88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */; };
-		88F0435A1C9797FA00E5D18E /* DropdownViewSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F043591C9797FA00E5D18E /* DropdownViewSelection.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,11 +111,6 @@
 		8897BA721C325CB6000DD480 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		8897BA741C325CE1000DD480 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfHomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
-		88B8A8361C963EC500F4398C /* DropdownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
-		88B8A8381C963EFD00F4398C /* DropdownViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownViewProtocol.swift; sourceTree = "<group>"; };
-		88B8A83A1C964B0B00F4398C /* DropdownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropdownView.xib; sourceTree = "<group>"; };
-		88B8A83E1C96AEA600F4398C /* DropdownSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropdownSectionView.xib; sourceTree = "<group>"; };
-		88B8A8401C96AFD200F4398C /* DropdownSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownSectionView.swift; sourceTree = "<group>"; };
 		88BF94301C745499002F8FA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		88BF94321C745534002F8FA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		88BF94341C745539002F8FA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -138,7 +127,6 @@
 		88DD03EA1C81D5490097AF9F /* RateStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStar.swift; sourceTree = "<group>"; };
 		88DD03EC1C81D5830097AF9F /* EditViewControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewControl.swift; sourceTree = "<group>"; };
 		88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
-		88F043591C9797FA00E5D18E /* DropdownViewSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownViewSelection.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -306,23 +294,9 @@
 			name = ProfileGroup;
 			sourceTree = "<group>";
 		};
-		88B8A8351C963E8800F4398C /* DropdownView */ = {
-			isa = PBXGroup;
-			children = (
-				88B8A8381C963EFD00F4398C /* DropdownViewProtocol.swift */,
-				88B8A83A1C964B0B00F4398C /* DropdownView.xib */,
-				88B8A8361C963EC500F4398C /* DropdownView.swift */,
-				88B8A83E1C96AEA600F4398C /* DropdownSectionView.xib */,
-				88B8A8401C96AFD200F4398C /* DropdownSectionView.swift */,
-				88F043591C9797FA00E5D18E /* DropdownViewSelection.swift */,
-			);
-			name = DropdownView;
-			sourceTree = "<group>";
-		};
 		88CCDD5E1C93D596003A7747 /* AllJobsGroup */ = {
 			isa = PBXGroup;
 			children = (
-				88B8A8351C963E8800F4398C /* DropdownView */,
 				88CCDD5F1C93D5C9003A7747 /* AllJobsViewController.swift */,
 			);
 			name = AllJobsGroup;
@@ -418,8 +392,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88B8A83F1C96AEA600F4398C /* DropdownSectionView.xib in Resources */,
-				88B8A83B1C964B0B00F4398C /* DropdownView.xib in Resources */,
 				88D3CC3E1C78585800A37E14 /* address.plist in Resources */,
 				881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */,
 				88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */,
@@ -498,17 +470,13 @@
 				88CCDD601C93D5C9003A7747 /* AllJobsViewController.swift in Sources */,
 				8831937E1C806E9E005FDE5A /* JobsTableViewController.swift in Sources */,
 				88DD03E91C81B6090097AF9F /* Company.swift in Sources */,
-				88B8A8411C96AFD200F4398C /* DropdownSectionView.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
-				88B8A8391C963EFD00F4398C /* DropdownViewProtocol.swift in Sources */,
 				88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */,
 				881F41271C475AEA0043DAC9 /* JobTableViewCell.swift in Sources */,
-				88B8A8371C963EC500F4398C /* DropdownView.swift in Sources */,
 				88DD03E51C81A8810097AF9F /* JobDetailsTableViewController.swift in Sources */,
 				880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */,
 				88DD03ED1C81D5830097AF9F /* EditViewControl.swift in Sources */,
 				880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */,
-				88F0435A1C9797FA00E5D18E /* DropdownViewSelection.swift in Sources */,
 				88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */,
 				882829A31C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift in Sources */,
 				884E1A9D1C952E3C00B22F9C /* GuideViewController.swift in Sources */,
