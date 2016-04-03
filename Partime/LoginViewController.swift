@@ -8,6 +8,7 @@
 
 import UIKit
 import Spring
+import KeychainAccess
 
 class LoginViewController: UIViewController {
     
@@ -41,6 +42,7 @@ class LoginViewController: UIViewController {
         passwordTextField.resignFirstResponder()
     }
     
+    let api = API.shared
 
     var loginStatus = false
     var loginType = FormatType.ID
@@ -66,8 +68,39 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: SpringButton!
     
     @IBAction func loginButtonClicked(sender: UIButton) {
-        if Account.verify(username: username, password: password) {
-            
+        if !username.isEmpty && !password.isEmpty {
+        
+            api.login(["phonenumber": username, "password": password]) { (error, result) in
+                if let err = error {
+                    let alertController = UIAlertController(title: "Get validate code error", message: err.localizedDescription, preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    alertController.addAction(OKAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    return
+                }
+                if let res = result {
+                    if res["error"] != nil {
+                        let alertTitle = res["error"].description
+                        let alertMessage = res["error_description"].description
+                        
+                        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                        alertController.addAction(OKAction)
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        return
+                    }
+                    
+                    let keychain = Keychain(service: "com.windisco.Partime")
+                    keychain["accessToken"] = res["access_token"].description
+                    
+                    let alertController = UIAlertController(title: "Success", message: "Login successfully", preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    alertController.addAction(OKAction)
+                    self.presentViewController(alertController, animated: true) {
+                        self.performSegueWithIdentifier("UnwindToProfileTableViewController", sender: self)
+                    }
+                }
+            }
         } else {
             loginButton.animation = "shake"
             loginButton.delay = 0.2
@@ -76,17 +109,8 @@ class LoginViewController: UIViewController {
             loginButton.curve = "spring"
             loginButton.animate()
         }
-
     }
 
-    @IBAction func signUpButtonClicked(sender: UIButton) {
-        // segue to new view
-    }
-    
-    @IBAction func forgotPassword(sender: UIButton) {
-        // segue to new view
-    }
-    
 }
 
 
@@ -138,8 +162,8 @@ extension LoginViewController {
     
     func addKeyboardNotification() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardNotification() {
@@ -177,7 +201,8 @@ extension LoginViewController: UITextFieldDelegate {
         }
     }
     
-    private func changeTextFieldIcon(var type: FormatType) {
+    private func changeTextFieldIcon(type: FormatType) {
+        var type = type
         guard let view = usernameTextField.leftView as? SpringImageView else {
             print("have no left view")
             return
@@ -192,8 +217,10 @@ extension LoginViewController: UITextFieldDelegate {
                 view.image = UIImage(named: "LoginMail")
             case .PhoneNumber:
                 view.image = UIImage(named: "LoginTelephone")
-            default:
+            case .ID:
                 view.image = UIImage(named: "LoginUser")
+            default:
+                break
             }
             view.animation = "swing"
             view.curve = "easeOut"

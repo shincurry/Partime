@@ -25,7 +25,7 @@ public class YXMenuView: UIView {
     override public func didMoveToSuperview() {
         if let view = superview {
             shadowView = UIView(frame: view.frame)
-            shadowView!.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "unselectSection:"))
+            shadowView!.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(YXMenuView.unselectSection(_:))))
             view.addSubview(shadowView!)
             view.bringSubviewToFront(self)
             shadowView!.hidden = true
@@ -131,7 +131,7 @@ extension YXMenuView {
         for index in 0..<sectionNumber {
             let sectionView = YXSectionView(frame: CGRectMake(CGFloat(index) * buttonWidth, 0, buttonWidth, buttonHeight))
             let button = sectionView.button
-            button.addTarget(self, action: "selectSection:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(YXMenuView.selectSection(_:)), forControlEvents: .TouchUpInside)
             button.tag = defaultTag + index
             button.setTitle(titleForSections[index], forState: .Normal)
             sectionView.tintColor = tintColor
@@ -174,7 +174,7 @@ extension YXMenuView {
     
     func selectAction(status: YXMenuSelectionStatus) {
         let sectionViews = headerView.subviews as! [YXSectionView]
-        EnumerateSequence(sectionViews).forEach() { (index, sectionView) in
+        sectionViews.enumerate().forEach() { (index, sectionView) in
             sectionView.highlighted = selections.currentStatus[index]
         }
         
@@ -235,7 +235,7 @@ extension YXMenuView {
     private func reloadHeaderData() {
         if let data = dataSource {
             let sectionViews = headerView.subviews as! [YXSectionView]
-            EnumerateSequence(sectionViews).forEach() { (index, sectionView) in
+            sectionViews.enumerate().forEach() { (index, sectionView) in
                 sectionView.button.setTitle(data.menuView(self, titleForHeaderInSection: index), forState: .Normal)
             }
         }

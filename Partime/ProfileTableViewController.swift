@@ -12,6 +12,7 @@ class ProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initialViewStyle()
         // Do any additional setup after loading the view.
     }
@@ -29,7 +30,6 @@ class ProfileTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     @IBOutlet weak var profileImage: UIImageView!
     
@@ -89,6 +89,16 @@ extension ProfileTableViewController {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         cell.imageView?.tintColor = UIColor.lightGrayColor()
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            if let _ = API.token {
+                performSegueWithIdentifier("ShowProfileDetailSegue", sender: self)
+            } else {
+                performSegueWithIdentifier("ShowLoginSegue", sender: self)
+            }
+        }
     }
 
 }

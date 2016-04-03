@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        galleryTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "nextGalleryImage", userInfo: nil, repeats: true)
+        galleryTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(HomeViewController.nextGalleryImage), userInfo: nil, repeats: true)
         locationButton.title = defaults.valueForKey("location") as! String + " ▾"
         initialViewStyle()
     }

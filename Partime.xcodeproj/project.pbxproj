@@ -29,6 +29,7 @@
 		8858A38D1C7203FB00EE86E5 /* pictures in Resources */ = {isa = PBXBuildFile; fileRef = 8858A38C1C7203FB00EE86E5 /* pictures */; };
 		8858A3911C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8858A3901C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift */; };
 		8859B6541C48E71D001D2011 /* GalleryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8859B6531C48E71D001D2011 /* GalleryDetailsViewController.swift */; };
+		8859E1F21CAFA63B001B56CA /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8859E1F11CAFA63B001B56CA /* API.swift */; };
 		8875B5841C241AD40050A735 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875B5831C241AD40050A735 /* Account.swift */; };
 		8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA721C325CB6000DD480 /* SearchTableViewController.swift */; };
 		8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA741C325CE1000DD480 /* HomeViewController.swift */; };
@@ -107,6 +108,7 @@
 		8858A38C1C7203FB00EE86E5 /* pictures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pictures; path = ../pictures; sourceTree = "<group>"; };
 		8858A3901C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullHomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		8859B6531C48E71D001D2011 /* GalleryDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryDetailsViewController.swift; sourceTree = "<group>"; };
+		8859E1F11CAFA63B001B56CA /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		8875B5831C241AD40050A735 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		8897BA721C325CB6000DD480 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		8897BA741C325CE1000DD480 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		881FCA1C1C23CD9500989FDF /* API */ = {
 			isa = PBXGroup;
 			children = (
+				8859E1F11CAFA63B001B56CA /* API.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -349,6 +352,11 @@
 					881FCA021C23AF2800989FDF = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 525R2U87NG;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -479,6 +487,7 @@
 				880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */,
 				88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */,
 				882829A31C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift in Sources */,
+				8859E1F21CAFA63B001B56CA /* API.swift in Sources */,
 				884E1A9D1C952E3C00B22F9C /* GuideViewController.swift in Sources */,
 				8858A3911C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift in Sources */,
 				8859B6541C48E71D001D2011 /* GalleryDetailsViewController.swift in Sources */,
