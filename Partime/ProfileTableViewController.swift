@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class ProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         initialViewStyle()
         // Do any additional setup after loading the view.
+        updateLoginStatus()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -31,12 +32,18 @@ class ProfileTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    let alert = YXAlert()
+    
     @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var walletCellImage: UIImageView!
     @IBOutlet weak var jobCellImage: UIImageView!
     @IBOutlet weak var favoriteCellImage: UIImageView!
     @IBOutlet weak var settingCellImage: UIImageView!
+    
+    @IBOutlet weak var profileIdLabel: UILabel!
+    @IBOutlet weak var profileStatusLabel: UILabel!
+    
     
     
     private func initialViewStyle() {
@@ -62,21 +69,30 @@ class ProfileTableViewController: UITableViewController {
     
     
     
-    
-
-}
-
-// MARK: - Navigation
-extension ProfileTableViewController {
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        switch identifier {
-        case "ShowLoginSegue":
-            return !NSUserDefaults.standardUserDefaults().boolForKey("isLogin")
-        default:
-            return true
-        }
-        
+    @IBAction func logout(sender: UIButton) {
+        let keychain = Keychain(service: "com.windisco.Partime")
+        keychain["accessToken"] = nil
+        API.token = nil
+        alert.showNotificationAlert("Success", message: "Logout successfully", sender: self, completion: nil)
+        updateLoginStatus()
     }
+
+    
+    func updateLoginStatus() {
+        if let _ = API.token {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            print("ProfileRealname")
+            print(defaults.objectForKey("ProfileRealname") as? String)
+            profileIdLabel.text = defaults.objectForKey("ProfileRealname") as? String
+            
+            profileStatusLabel.text = "You have logged in."
+        } else {
+            profileIdLabel.text = "用户名"
+            profileStatusLabel.text = "你还未登录"
+        }
+        tableView.reloadData()
+    }
+
 }
 
 // MARK: - Profile Table View Delegate
@@ -99,6 +115,15 @@ extension ProfileTableViewController {
                 performSegueWithIdentifier("ShowLoginSegue", sender: self)
             }
         }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 2 && indexPath.row == 0 {
+            guard let _ = API.token else {
+                return 0
+            }
+        }
+        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
 
 }

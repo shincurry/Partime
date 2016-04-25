@@ -53,6 +53,7 @@ class JobsTableViewController: UITableViewController {
         ["德克士收银员", "100 元/日", "7:00-17:00", "重庆"],
         ["发传单", "60 元 / 日", "13:00-17:00", "重庆理工大学"],
         ["Disco cashier", "100/day", "7:00-17:00", "CQ"]]
+    
 }
 
 // MARK: - UITableView Delegate and DataSource

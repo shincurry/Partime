@@ -186,7 +186,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         let cellWidth = totalWidth / 2.0 - 1.0
         return CGSize(width: cellWidth, height: cellHeight)
-    }
+    } 
 }
 
 // MARK: - Recommend Job Table View Delegate and DataSource

@@ -9,6 +9,8 @@
 import UIKit
 import Spring
 import KeychainAccess
+import SwiftyJSON
+import MBProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -67,39 +69,69 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: SpringButton!
     
+    
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "UnwindLoginOKToProfileTableViewController":
+                let controller = segue.destinationViewController as! ProfileTableViewController
+                controller.updateLoginStatus()                
+            default:
+                break
+            }
+        }
+    }
+    
+    
     @IBAction func loginButtonClicked(sender: UIButton) {
         if !username.isEmpty && !password.isEmpty {
-        
-            api.login(["phonenumber": username, "password": password]) { (error, result) in
-                if let err = error {
-                    let alertController = UIAlertController(title: "Get validate code error", message: err.localizedDescription, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
-                    alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    return
-                }
-                if let res = result {
-                    if res["error"] != nil {
-                        let alertTitle = res["error"].description
-                        let alertMessage = res["error_description"].description
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            api.login(["phonenumber": username, "password": password]) { response in
+                switch response {
+                case .Success:
+                    let res = JSON(data: response.value!)
+                    print(res)
+                    
+                    if res["status"].stringValue == "success" {
+                        let keychain = Keychain(service: "com.windisco.Partime")
+                        keychain["accessToken"] = res["access_token"].stringValue
+                        API.token = res["access_token"].stringValue
+                        
+                        keychain["username"] = self.username
+                        keychain["password"] = self.password
+                        
+                        self.saveProfileInfo()
+                        self.passwordTextField.resignFirstResponder()
+                        let alertController = UIAlertController(title: "Success", message: "Login successfully", preferredStyle: .Alert)
+                        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: { _ in
+                            self.performSegueWithIdentifier("UnwindLoginOKToProfileTableViewController", sender: self)
+                        })
+                        
+                        alertController.addAction(OKAction)
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    }
+                    
+                    if res["status"].stringValue == "failure" {
+                        
+                        let alertTitle = "Error"
+                        let alertMessage = res["error_description"].stringValue
                         
                         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
                         let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
                         alertController.addAction(OKAction)
                         self.presentViewController(alertController, animated: true, completion: nil)
-                        return
                     }
-                    
-                    let keychain = Keychain(service: "com.windisco.Partime")
-                    keychain["accessToken"] = res["access_token"].description
-                    
-                    let alertController = UIAlertController(title: "Success", message: "Login successfully", preferredStyle: .Alert)
+                case .Failure(let error):
+                    print(error)
+                    let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .Alert)
                     let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true) {
-                        self.performSegueWithIdentifier("UnwindToProfileTableViewController", sender: self)
-                    }
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    return
                 }
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
             }
         } else {
             loginButton.animation = "shake"
@@ -110,7 +142,60 @@ class LoginViewController: UIViewController {
             loginButton.animate()
         }
     }
+    
+    
+    func saveProfileInfo() {
+        api.getProfile(["access_token": API.token!]) { response in
+            switch response {
+            case .Success:
+                let res = JSON(data: response.value!)
+                print("getProfile")
+                print(res)
+                let data = res["result"]
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(data["realname"].stringValue, forKey: "ProfileRealname")
+                defaults.setObject(data["gender"].stringValue, forKey: "ProfileGender")
+                defaults.setObject(data["birthday"].stringValue, forKey: "ProfileBirthday")
+                defaults.setObject(data["cityid"].stringValue, forKey: "ProfileCityID")
+                
+                if let qq = data["qq"].string {
+                    defaults.setObject(qq, forKey: "ProfileQQ")
+                }
+                if let email = data["email"].string {
+                    defaults.setObject(email, forKey: "ProfileEmail")
+                }
+                if let stature = data["height"].string {
+                    if let value = Int(stature) {
+                        defaults.setInteger(value, forKey: "ProfileStature")
+                    }
+                }
+                if let school = data["school"].string {
+                    defaults.setObject(school, forKey: "ProfileSchool")
+                }
+                if let major = data["major"].string {
+                    defaults.setObject(major, forKey: "ProfileMajor")
+                }
+                if let enrollYear = data["enrolyear"].string {
+                    defaults.setObject(enrollYear, forKey: "ProfileEnrollYear")
+                }
+                if let intro = data["introduction"].string {
+                    defaults.setObject(intro, forKey: "ProfileIntroduction")
+                }
+                if let exp = data["workexperience"].string {
+                    defaults.setObject(exp, forKey: "ProfileWorkExperience")
+                }
+                
+                defaults.synchronize()
+            case .Failure(let error):
+                print(error)
+            }
+            
+            
 
+        }
+        
+        
+    }
 }
 
 

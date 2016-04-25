@@ -61,5 +61,4 @@ class JobDetailsViewController: UIViewController {
             favButton.animate()
         }
     }
-
 }

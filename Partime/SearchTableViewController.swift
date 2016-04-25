@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class SearchTableViewController: UITableViewController {
     
@@ -15,6 +16,11 @@ class SearchTableViewController: UITableViewController {
         // Do any additional setup after loading the view.
         initialSearchController()
         initialViewStyle()
+        
+    }
+    
+    func loadNewData() {
+        
     }
    
     override func didReceiveMemoryWarning() {

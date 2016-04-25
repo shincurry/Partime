@@ -8,26 +8,26 @@
 
 import UIKit
 import CoreLocation
+import SwiftyJSON
+
 
 class Location: NSObject {
 
-    static var allCities: [(String, [String])] = {
-        var data = [(String, [String])]()
-        if let dataPath = NSBundle.mainBundle().pathForResource("address", ofType: "plist") {
-            if let locationDictionary = NSArray(contentsOfFile: dataPath) as? [NSDictionary] {
-                for local in locationDictionary {
-                    let province = local["state"] as! String
-                    let cities = (local["cities"] as! [NSDictionary]).map({ city in
-                        return city["city"] as! String
-                    })
-                    data.append((province, cities))
-                }
-            }
-        }
-        return data
+    static var currentCity: JSON?
+    
+    static var allPlaces: JSON = {
+        let jsonPath = NSBundle.mainBundle().pathForResource("address", ofType: "json")
+        let jsonString = try! String(contentsOfFile: jsonPath!)
+        
+        let dataFromString = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+        return JSON(data: dataFromString)
     }()
     
-    static var hotCities = ["重庆", "北京", "上海", "深圳", "香港", "广州", "北京", "上海", "深圳", "香港", "广州"]
+    
+
+    
+    static var hotCities = ["重庆市", "北京市", "上海市", "四川省"]
+
     
     lazy var manager = CLLocationManager()
 }
@@ -35,5 +35,8 @@ class Location: NSObject {
 extension Location: CLLocationManagerDelegate {
     func startLocation() {
         print("start")
+        
+        
+        
     }
 }

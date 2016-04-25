@@ -27,12 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.setObject("位置", forKey: "location")
             defaults.setBool(false, forKey: "isLogin")
             
-            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-            let guideViewController = storyBoard.instantiateViewControllerWithIdentifier("GuideView")
-            if let window = self.window {
-                window.rootViewController = guideViewController
-                window.makeKeyAndVisible()
-            }
+//            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+//            let guideViewController = storyBoard.instantiateViewControllerWithIdentifier("GuideView")
+//            if let window = self.window {
+//                window.rootViewController = guideViewController
+//                window.makeKeyAndVisible()
+//            }
         }
         return true
     }

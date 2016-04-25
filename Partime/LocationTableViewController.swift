@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class LocationTableViewController: UITableViewController {
 
@@ -31,11 +32,14 @@ class LocationTableViewController: UITableViewController {
                 case "unwindAllCitiesToHomeViewController":
                 let destination = segue.destinationViewController as! HomeViewController
                 if let index = tableView.indexPathForSelectedRow {
-                    destination.location = Location.allCities[index.section-2].1[index.row]
+                    destination.location = Location.allPlaces.array![index.section-2]["sub"].array![index.row]["value"]["name"].stringValue
+                    Location.currentCity = Location.allPlaces.array![index.section-2]["sub"].array![index.row]["value"]
                 }
                 case "unwindHotCitiesToHomeViewController":
                 let destination = segue.destinationViewController as! HomeViewController
                 destination.location = (sender?.currentTitle)!
+                // !!!
+//                Location.currentCity = Location.allProvinces[sender!.tag]
             default:
                 break
             }
@@ -46,7 +50,7 @@ class LocationTableViewController: UITableViewController {
 // MARK: - Location TableView Delegate and DataSource
 extension LocationTableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return Location.allCities.count + 2
+        return 2 + Location.allPlaces.array!.count
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -55,7 +59,7 @@ extension LocationTableViewController {
         case 1:
             return 1
         default:
-            return Location.allCities[section-2].1.count
+            return Location.allPlaces.array![section-2]["sub"].array!.count
         }
     }
     
@@ -66,7 +70,8 @@ extension LocationTableViewController {
         case 1:
             return NSLocalizedString("hotLocation", comment: "")
         default:
-            return Location.allCities[section-2].0
+            return Location.allPlaces.array![section-2]["value"]["name"].stringValue
+//            return NSLocalizedString("location", comment: "")
         }
     }
     
@@ -81,7 +86,7 @@ extension LocationTableViewController {
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("LocationAllCitiesCell", forIndexPath: indexPath)
-            cell.textLabel!.text = Location.allCities[indexPath.section-2].1[indexPath.row]
+            cell.textLabel!.text = Location.allPlaces.array![indexPath.section-2]["sub"].array![indexPath.row]["value"]["name"].stringValue
             return cell
         }
     }
@@ -91,22 +96,14 @@ extension LocationTableViewController {
         switch indexPath.section {
         case 1:
             // 需要改进？
-            return CGFloat(66 * (Location.hotCities.count / 3))
+//            var count = Location.hotProvinces.count / 3
+//            if Location.hotProvinces.count % 3 != 0 {
+//                count += 1
+//            }   
+            let count = 2
+            return CGFloat(66 * count)
         default:
             return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
         }
-    }
-    
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        /// ???? 不知道这里为什么要三个［也许是 index 0, 1, 2 ... 的关系］
-        var indexTitle: [String] = ["", "", ""]
-        indexTitle += Location.allCities.map({ (title, _ ) in
-            if title.characters.count == 2 {
-                return "  " + title + "   "
-            } else {
-                return title
-            }
-        })
-        return indexTitle
     }
 }

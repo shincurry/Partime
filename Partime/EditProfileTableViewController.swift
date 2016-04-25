@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 
 class EditProfileTableViewController: UITableViewController {
@@ -17,6 +18,8 @@ class EditProfileTableViewController: UITableViewController {
         dateFormatter.dateFormat = "yyyy-M-d"
         takePhotoButton.setTitleColor(Theme.mainColor, forState: .Normal)
         selectPhotoButton.setTitleColor(Theme.mainColor, forState: .Normal)
+        
+        getProfileInfo()
     }
     
 
@@ -35,8 +38,8 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var nicknameTextField: UITextField!
 
-    
-    
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let api = API.shared
     // MARK: - Gender Picker Properties
     let gender = [NSLocalizedString("male", comment: ""), NSLocalizedString("female", comment: "")]
     
@@ -65,6 +68,67 @@ class EditProfileTableViewController: UITableViewController {
     
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    
+    func getProfileInfo() {
+        nicknameLabel.text = defaults.objectForKey("ProfileRealname") as? String
+        genderLabel.text = defaults.objectForKey("ProfileGender") as? String
+        introduceText.text = defaults.objectForKey("ProfileTellUs") as! String
+    }
+    func setProfileInfo() {
+        print(nicknameLabel.text)
+        defaults.setObject(nicknameLabel.text, forKey: "ProfileRealname")
+        defaults.setObject(genderLabel.text, forKey: "ProfileGender")
+        defaults.setObject(introduceText.text, forKey: "ProfileTellUs")
+
+    }
+    
+    @IBAction func saveProfile(sender: UIBarButtonItem) {
+        setProfileInfo()
+        print(API.token!)
+        let params: [String: String] = ["access_token": API.token!,
+                      "email": defaults.objectForKey("ProfileEmail") as! String,
+                      "username": defaults.objectForKey("ProfileUsername") as! String,
+                      "realname": defaults.objectForKey("ProfileRealname") as! String,
+                      "gender": defaults.objectForKey("ProfileGender") as! String,
+                      "birthday": defaults.objectForKey("ProfileUsername") as! String,
+                      "inschoolid": defaults.objectForKey("ProfileInSchoolID") as! String,
+                      "school": defaults.objectForKey("ProfileSchool") as! String,
+                      
+                      "major": defaults.objectForKey("ProfileUsername") as! String,
+                      "theyear": "",
+                      "tellus": defaults.objectForKey("ProfileTellUs") as! String,
+                      "bookpttypeids": "",
+                      "wechatid": defaults.objectForKey("ProfileWechatID") as! String,
+        ]
+        
+        api.updateProfile(params) { result in
+            switch result {
+            case .Success:
+                print("updateEmployeeProfile")
+                print(result.value!)
+                print(JSON(data: result.value!).stringValue)
+                self.performSegueWithIdentifier("UnwindEditToProfileTableViewController", sender: self)
+            case .Failure(let error):
+                print(error)
+            }
+            
+        }
+        
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "UnwindEditToProfileTableViewController":
+                let controller = segue.destinationViewController as! ProfileTableViewController
+                controller.updateLoginStatus()
+            default:
+                break
+            }
+        }
+    }
     
 }
 
@@ -130,7 +194,7 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         case genderPicker:
             return 1
         case locationPicker:
-            return 2
+            return 3
         default:
             return 0
         }
@@ -141,11 +205,23 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         case genderPicker:
             return gender.count
         case locationPicker:
+            let selectInComponent0 = locationPicker.selectedRowInComponent(0)
+            
+            
+            let provinces = Location.allPlaces.array!
             if component == 0 {
-                return Location.allCities.count
+                return provinces.count
             }
-            let select = locationPicker.selectedRowInComponent(0)
-            return Location.allCities[select].1.count
+            let cities = provinces[selectInComponent0]["sub"].array!
+            let selectInComponent1 = locationPicker.selectedRowInComponent(1)
+            if component == 1 {
+                return cities.count
+            }
+            
+            
+            let counties = cities[selectInComponent1]["sub"].array!
+            return counties.count
+
         default:
             return 0
         }
@@ -156,12 +232,20 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         case genderPicker:
             return gender[row]
         case locationPicker:
+            let selectInComponent0 = locationPicker.selectedRowInComponent(0)
+            
+            let province = Location.allPlaces.array!
             if component == 0 {
-                return Location.allCities[row].0
-            } else {
-                let select = locationPicker.selectedRowInComponent(0)
-                return Location.allCities[select].1[row]
+                return province[row]["value"]["name"].stringValue
             }
+            let selectInComponent1 = locationPicker.selectedRowInComponent(1)
+            let city = province[selectInComponent0]["sub"].array!
+            if component == 1 {
+                return city[row]["value"]["name"].stringValue
+            }
+//            let selectInComponent2 = locationPicker.selectedRowInComponent(2)
+            let county = city[selectInComponent1]["sub"].array!
+            return county[row]["name"].stringValue
         default:
             return ""
         }
@@ -173,7 +257,9 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         case genderPicker:
             genderLabel.text = gender[row]
         case locationPicker:
-            let select = locationPicker.selectedRowInComponent(0)
+            let selectInComponent0 = locationPicker.selectedRowInComponent(0)
+            let selectInComponent1 = locationPicker.selectedRowInComponent(1)
+            let selectInComponent2 = locationPicker.selectedRowInComponent(2)
             if component == 0 {
                 locationPicker.selectRow(0, inComponent: 1, animated: true)
                 locationPicker.reloadComponent(1)
@@ -182,8 +268,16 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
                 * pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
                 */
                 self.pickerView(locationPicker, didSelectRow: 0, inComponent: 1)
+            } else if component == 1 {
+                locationPicker.selectRow(0, inComponent: 2, animated: true)
+                locationPicker.reloadComponent(2)
+                self.pickerView(locationPicker, didSelectRow: 0, inComponent: 2)
             } else {
-                locationLabel.text = Location.allCities[select].0 + " " + Location.allCities[select].1[row]
+                let province = Location.allPlaces.array![selectInComponent0]
+                let city = province["sub"].array![selectInComponent1]
+                let county = city["sub"].array![selectInComponent2]
+                
+                locationLabel.text = "\(province["value"]["name"].stringValue) \(city["value"]["name"].stringValue) \(county["name"].stringValue)"
             }
         default:
             break

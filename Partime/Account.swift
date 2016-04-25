@@ -26,10 +26,10 @@ class Account: NSObject {
     var gender : Gender?;
     var about : String?;
     
-    
 
     static func verify(username username : String, password : String) -> Bool {
         // TODO
         return false;
     }
+
 }

@@ -8,6 +8,8 @@
 
 import UIKit
 import Spring
+import SwiftyJSON
+import MBProgressHUD
 
 class RegisterViewController: UIViewController {
 
@@ -23,11 +25,14 @@ class RegisterViewController: UIViewController {
     }
     
     let api = API.shared
-    
+    let alert = YXAlert()
     
     var isPhoneNumberOK = false
     var isPasswordOK = false
     var isValidateCodeOK = false
+    
+    var validateCodeID: String?
+    
     @IBOutlet weak var phoneNumberTextField: SpringTextField!
     @IBOutlet weak var validateCodeTextField: SpringTextField!
     @IBOutlet weak var getValidateCodeButton: UIButton!
@@ -77,37 +82,36 @@ class RegisterViewController: UIViewController {
 
     @IBAction func getValidateCode(sender: UIButton) {
         if let phoneNumber = phoneNumberTextField.text {
-            api.getValidateCode(["phonenumber": phoneNumber]) { (error, result) in
-                if let err = error {
-                    let alertController = UIAlertController(title: "Get validate code error", message: err.localizedDescription, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
-                    alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    return
-                }
-                if let res = result {
-                    if res["error"] != nil {
-//                        print(res["error"])
-//                        print(res["error_description"])
-                        let alertTitle = res["error"].description
-                        let alertMessage = res["error_description"].description
-                        
-                        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            api.getValidateCode(["phonenumber": phoneNumber]) { response in
+                
+                switch response {
+                case .Success:
+                    let res = JSON(data: response.value!)
+                    if res["status"].stringValue == "success" {
+                        self.validateCodeID = res["validatecodeid"].stringValue
+                        let alertController = UIAlertController(title: "Success", message: "Get validate code successfully", preferredStyle: .Alert)
                         let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
                         alertController.addAction(OKAction)
                         self.presentViewController(alertController, animated: true, completion: nil)
-                        return
+                        sender.enabled = false
+                        sender.backgroundColor = UIColor.lightGrayColor()
                     }
-                    print(res["status"].description)
-                    let alertController = UIAlertController(title: "Success", message: "Get validate code successfully", preferredStyle: .Alert)
+                    
+                    if res["status"].stringValue == "failure" {
+                        //                        print(res["error_description"])
+                        let alertTitle = "Error"
+                        let alertMessage = res["error_description"].stringValue
+                        self.alert.showNotificationAlert(alertTitle, message: alertMessage, sender: self, completion: nil)
+                    }
+                    
+                case .Failure(let error):
+                    let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .Alert)
                     let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
                     alertController.addAction(OKAction)
                     self.presentViewController(alertController, animated: true, completion: nil)
-                    sender.enabled = false
-                    sender.backgroundColor = UIColor.lightGrayColor()
                 }
-                
-                
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
             }
         }
         
@@ -123,31 +127,40 @@ class RegisterViewController: UIViewController {
             self.presentViewController(alertController, animated: true, completion: nil)
             return
         }
-        
-        api.register(["phonenumber": phoneNumberTextField.text!, "validatecode": validateCodeTextField.text!, "password": passwordTextField.text!]) { (error, result) in
-            if let err = error {
-                let alertController = UIAlertController(title: "Get validate code error", message: err.localizedDescription, preferredStyle: .Alert)
-                let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
-                alertController.addAction(OKAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
-                return
-            }
-            if let res = result {
-                if res["error"] != nil {
-//                    print(res["error"])
-//                    print(res["error_description"])
-                    let alertTitle = res["error"].description
-                    let alertMessage = res["error_description"].description
+        let params = ["phonenumber": phoneNumberTextField.text!,
+                      "validatecode": validateCodeTextField.text!,
+                      "validatecodeid": validateCodeID!,
+                      "password": passwordTextField.text!
+                    ]
+        print(params)
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        api.register(params) { response in
+            
+            switch response {
+            case .Success:
+                let res = JSON(data: response.value!)
+                if res["status"].stringValue == "success" {
+                    API.token = res["access_token"].stringValue
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.performSegueWithIdentifier("UnwindRegisterToProfileSegue", sender: self)
+                }
+                
+                if res["status"].stringValue == "failure" {
+                    let alertTitle = "Error"
+                    let alertMessage = res["error_description"].stringValue
                     let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
                     let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
                     alertController.addAction(OKAction)
                     self.presentViewController(alertController, animated: true, completion: nil)
-                    
-                    return
                 }
-                print(res["status"].description)
                 
+            case .Failure(let error):
+                let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .Alert)
+                let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                alertController.addAction(OKAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
             }
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
         }
         
     }

@@ -32,7 +32,6 @@ public class YXMenuView: UIView {
         }
     }
     
-    
     var selections: YXMenuViewSelection!
     
     
@@ -125,7 +124,11 @@ extension YXMenuView {
         headerView.subviews.forEach() { $0.removeFromSuperview() }
         selections = YXMenuViewSelection(numberOfSelection: sectionNumber)
         // +1 去除最后一个 sectionView 的分割线
-        let fullWidth = frame.size.width + 1
+        var fullWidth = frame.size.width + 1
+        if let view = superview {
+            fullWidth = view.frame.size.width + 1
+        }
+        
         let buttonWidth = fullWidth / CGFloat(sectionNumber)
         let buttonHeight = headerView.frame.size.height
         for index in 0..<sectionNumber {

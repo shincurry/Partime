@@ -12,7 +12,8 @@
 
 /* Location */
 "currentLocation" = "Current Location";
-"hotLocation" = "HotLocation";
+"hotLocation" = "Hot Location";
+"location" = "Location";
 
 /* Web loading status */
 "webStatusLoadFailed" = "Load Failed";

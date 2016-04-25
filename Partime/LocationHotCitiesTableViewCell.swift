@@ -43,6 +43,7 @@ extension LocationHotCitiesTableViewCell: UICollectionViewDelegate, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HotCitiesCollectionCell", forIndexPath: indexPath) as! LocationHotCitiesCollectionViewCell
         cell.hotCityButton.setTitle(Location.hotCities[indexPath.row], forState: .Normal)
+        cell.hotCityButton.tag = indexPath.row
         cell.clipsToBounds = true
         cell.layer.cornerRadius = cell.frame.size.width / 10.0
         cell.layer.borderWidth = 0.3
