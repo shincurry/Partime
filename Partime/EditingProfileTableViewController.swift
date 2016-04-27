@@ -14,6 +14,7 @@ class EditingProfileTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getProfileInfo()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -21,7 +22,7 @@ class EditingProfileTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
     let api = API.shared
     
     @IBOutlet weak var avatarImageView: UIImageView!
@@ -37,8 +38,7 @@ class EditingProfileTableViewController: UITableViewController {
     @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var introductionTextView: UITextView!
     @IBOutlet weak var workExperienceTextView: UITextView!
-    
-    
+
     func getProfileInfo() {
         nameLabel.text = defaults.objectForKey("ProfileRealname") as? String
         genderLabel.text = defaults.objectForKey("ProfileGender") as? String
@@ -54,12 +54,24 @@ class EditingProfileTableViewController: UITableViewController {
         if let exp = defaults.objectForKey("ProfileWorkExperience") as? String {
             workExperienceTextView.text = exp
         }
+        if let uri = defaults.objectForKey("ProfileAvatar") as? String {
+            print("image uri : \(uri)")
+            avatarImageView.sd_setImageWithURL(api.getImageUrl(uri), placeholderImage: UIImage(named: "DefaultProfile"), options: .RefreshCached)
+        }
+        for key in defaults.dictionaryRepresentation().keys {
+            print("\(defaults.objectForKey(key) as? String)")
+        }
     }
     func setProfileInfo() {
         defaults.setObject(nameLabel.text, forKey: "ProfileRealname")
         defaults.setObject(genderLabel.text, forKey: "ProfileGender")
         defaults.setObject(birthdayLabel.text, forKey: "ProfileBirthday")
-        defaults.setInteger(Int(statureLabel.text!)!, forKey: "ProfileStature")
+        if let stature = statureLabel.text {
+            defaults.setInteger(Int(stature)!, forKey: "ProfileStature")
+        } else {
+            defaults.setInteger(0, forKey: "ProfileStature")
+        }
+        
         defaults.setObject(locationCode, forKey: "ProfileCityID")
         defaults.setObject(qqLabel.text, forKey: "ProfileQQ")
         defaults.setObject(emailLabel.text, forKey: "ProfileEmail")
@@ -70,20 +82,54 @@ class EditingProfileTableViewController: UITableViewController {
     }
     
     @IBAction func save(sender: UIBarButtonItem) {
-        setProfileInfo()
+        if nameLabel.text!.isEmpty || genderLabel.text!.isEmpty || birthdayLabel.text!.isEmpty || locationLabel.text!.isEmpty {
+            print("empty")
+            let alertTitle = "信息不完整"
+            let alertMessage = "带星号的必须要填写噢"
+            
+            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+            let OKAction = UIAlertAction(title: "知道了", style: .Default, handler: nil)
+            alertController.addAction(OKAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+            return
+        }
+
+        
+        
         print(API.token!)
-        let params: [String: AnyObject] = ["access_token"  : API.token!,
-                                        "qq"            : qqLabel.text!,
-                                        "email"         : emailLabel.text!,
-                                        "realname"      : nameLabel.text!,
-                                        "gender"        : genderLabel.text!,
-                                        "cityid"        : "500100",
-                                        "height"        : Int(statureLabel.text!)!,
-                                        "birthday"      : birthdayLabel.text!,
-                                        "school"        : schoolLabel.text!,
-                                        "introduction"  : introductionTextView.text,
-                                        "workexperience": workExperienceTextView.text
-                                        ]
+        var params: [String: String] =
+            ["access_token"  : "\(API.token!)",
+             "realname"      : "\(nameLabel.text!)",
+             "gender"        : "\(genderLabel.text!)",
+             "cityid"        : "110000",
+             "birthday"      : "\(birthdayLabel.text!)"
+            ]
+        if let qq = qqLabel.text {
+            params["qq"] = "\(qq)"
+        }
+        if let email = emailLabel.text {
+            params["email"] = "\(email)"
+        }
+//        if let stature = statureLabel.text {
+//            if let value = Int(stature) {
+//                params["height"] = value
+//            }
+//        }
+        
+        
+        if let school = schoolLabel.text {
+            params["school"] = "\(school)"
+        }
+        if let intro = introductionTextView.text {
+            params["introduction"] = "\(intro)"
+        }
+        if let exp = workExperienceTextView.text {
+            params["workexperience"] = "\(exp)"
+        }
+    
+        print("params")
+        print(params)
+        
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         api.updateProfile(params) { response in
             switch response {
@@ -91,6 +137,7 @@ class EditingProfileTableViewController: UITableViewController {
                 let res = JSON(data: response.value!)
                 if res["status"].stringValue == "success" {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.setProfileInfo()
                         self.performSegueWithIdentifier("UnwindEditingToProfileSegue", sender: self)
                 } else if res["status"].stringValue == "failure" {
                     let alertTitle = "Error"
@@ -112,33 +159,40 @@ class EditingProfileTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
-            let indexPath = tableView.indexPathForSelectedRow!
-            let cell = tableView.cellForRowAtIndexPath(indexPath)!
+            
             switch identifier {
             case "ShowTextEditingSegue":
+                let indexPath = tableView.indexPathForSelectedRow!
+                let cell = tableView.cellForRowAtIndexPath(indexPath)!
                 let controller = segue.destinationViewController as! EditingTextViewController
                 controller.superLabel = cell.detailTextLabel
                 controller.name = cell.textLabel!.text
                 controller.detailsName = cell.detailTextLabel!.text
-                controller.navigationItem.title = "修改" + cell.textLabel!.text!
+                
             case "ShowGenderPickerSegue":
+                let indexPath = tableView.indexPathForSelectedRow!
+                let cell = tableView.cellForRowAtIndexPath(indexPath)!
                 let controller = segue.destinationViewController as! PickerViewController
                 controller.superLabel = cell.detailTextLabel
                 controller.type = .Some(.Gender)
-                controller.navigationItem.title = "修改" + cell.textLabel!.text!
+
             case "ShowLocationPickerSegue":
+                let indexPath = tableView.indexPathForSelectedRow!
+                let cell = tableView.cellForRowAtIndexPath(indexPath)!
                 let controller = segue.destinationViewController as! PickerViewController
                 controller.superLabel = cell.detailTextLabel
                 controller.type = .Some(.Location)
-                controller.navigationItem.title = "修改" + cell.textLabel!.text!
+
             case "ShowDatePickerSegue":
+                let indexPath = tableView.indexPathForSelectedRow!
+                let cell = tableView.cellForRowAtIndexPath(indexPath)!
                 let controller = segue.destinationViewController as! DatePickerViewController
                 controller.superLabel = cell.detailTextLabel
                 
                 
             case "UnwindEditingToProfileSegue":
                 let controller = segue.destinationViewController as! ProfileTableViewController
-                controller.updateLoginStatus()
+                controller.updateLoginStatus(refresh: true)
             default:
                 break
             }
@@ -154,11 +208,11 @@ extension EditingProfileTableViewController {
         
         switch (section, row) {
         case (0, 0):// 头像
+            showImagePicker()
             break
         case (1, 0):// 姓名
             showEditingTextView()
         case (1, 1):// 性别
-//            showGenderPicker()
             break
         case (1, 2):// 身高
             showEditingTextView()
@@ -190,7 +244,7 @@ extension EditingProfileTableViewController {
     }
 }
 
-extension EditingProfileTableViewController {
+extension EditingProfileTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func showEditingTextView() {
          performSegueWithIdentifier("ShowTextEditingSegue", sender: self)
     }
@@ -199,5 +253,41 @@ extension EditingProfileTableViewController {
     }
     func showLocationPicker() {
         performSegueWithIdentifier("ShowLocationPickerSegue", sender: self)
+    }
+    func showImagePicker() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .PhotoLibrary
+        self.presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        let imageData = UIImagePNGRepresentation(chosenImage)!
+        let imageBase64String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+        
+        
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        api.updateAvatar(["access_token": API.token!, "img": imageBase64String]) { response in
+            switch response {
+            case .Success:
+                let res = JSON(data: response.value!)
+                if res["status"].stringValue == "success" {
+                    self.avatarImageView.image = chosenImage
+                } else if res["status"].stringValue == "failure" {
+                    let alertTitle = "Error"
+                    let alertMessage = res["error_description"].stringValue
+                    
+                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    alertController.addAction(OKAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
+            case .Failure(let error):
+                print(error)
+            }
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+        }
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }

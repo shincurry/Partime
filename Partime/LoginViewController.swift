@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameTextField.becomeFirstResponder()
         initialViewStyle()
     }
     
@@ -152,7 +153,7 @@ class LoginViewController: UIViewController {
                 print("getProfile")
                 print(res)
                 let data = res["result"]
-                let defaults = NSUserDefaults.standardUserDefaults()
+                let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
                 defaults.setObject(data["realname"].stringValue, forKey: "ProfileRealname")
                 defaults.setObject(data["gender"].stringValue, forKey: "ProfileGender")
                 defaults.setObject(data["birthday"].stringValue, forKey: "ProfileBirthday")
@@ -160,32 +161,59 @@ class LoginViewController: UIViewController {
                 
                 if let qq = data["qq"].string {
                     defaults.setObject(qq, forKey: "ProfileQQ")
+                } else {
+                    defaults.setObject("", forKey: "ProfileQQ")
                 }
                 if let email = data["email"].string {
                     defaults.setObject(email, forKey: "ProfileEmail")
+                } else {
+                    defaults.setObject("", forKey: "ProfileEmail")
                 }
+
+                
                 if let stature = data["height"].string {
                     if let value = Int(stature) {
                         defaults.setInteger(value, forKey: "ProfileStature")
                     }
+                } else {
+                    defaults.setObject(0, forKey: "ProfileStature")
                 }
                 if let school = data["school"].string {
                     defaults.setObject(school, forKey: "ProfileSchool")
+                } else {
+                    defaults.setObject("", forKey: "ProfileSchool")
                 }
                 if let major = data["major"].string {
                     defaults.setObject(major, forKey: "ProfileMajor")
+                } else {
+                    defaults.setObject("", forKey: "ProfileMajor")
                 }
                 if let enrollYear = data["enrolyear"].string {
                     defaults.setObject(enrollYear, forKey: "ProfileEnrollYear")
+                } else {
+                    defaults.setObject("", forKey: "ProfileEnrollYear")
                 }
                 if let intro = data["introduction"].string {
                     defaults.setObject(intro, forKey: "ProfileIntroduction")
+                } else {
+                    defaults.setObject("", forKey: "ProfileIntroduction")
                 }
                 if let exp = data["workexperience"].string {
                     defaults.setObject(exp, forKey: "ProfileWorkExperience")
+                } else {
+                    defaults.setObject("", forKey: "ProfileWorkExperience")
+                }
+                if let avatar = data["protrait"].string {
+                    defaults.setObject(avatar, forKey: "ProfileAvatar")
+                } else {
+                    defaults.setObject("", forKey: "ProfileAvatar")
                 }
                 
                 defaults.synchronize()
+                
+                for key in defaults.dictionaryRepresentation().keys {
+                    print("\(defaults.objectForKey(key) as? String)")
+                }
             case .Failure(let error):
                 print(error)
             }

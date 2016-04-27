@@ -19,6 +19,7 @@ class API: NSObject {
     }()
     
     let baseUri = "http://www.aldjob.com/api"
+    let imageBaseUri = "http://www.aldjob.com"
     
     
     // --- User --
@@ -49,6 +50,11 @@ class API: NSObject {
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     
+    func updateAvatar(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/user/profile/logoUpdate.do"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    
 //    func getEmployeeProfile(params: [String: String], completion: Result<NSData, NSError> -> Void) {
 //        let uri = "/user/profile/employee.do"
 //        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
@@ -65,6 +71,19 @@ class API: NSObject {
 //        let uri = "/user/profile/employerUpdate.do"
 //        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
 //    }
+    
+    
+    // ---- Personal / Enterprise Verification
+    
+    func verifyPersonal(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/user/profile/personCertificate.do"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    func verifyEnterprise(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/user/profile/enterpriseCertificate.do"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    
     
     // -----
     func getCities(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
@@ -124,5 +143,34 @@ class API: NSObject {
         Alamofire.request(.POST, uri, parameters: parameters, encoding: .URL, headers: nil).responseData() { response in
             completion(response.result)
         }
+    }
+    
+    func verifyPersonalNew(datas: [String: NSData], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/user/profile/personCertificate.do"
+        uploadDatas(uri: baseUri + uri, datas: datas, completion: completion)
+    }
+    
+    func uploadDatas(uri uri: String, datas: [String: NSData], completion: Result<NSData, NSError> -> Void) {
+        Alamofire.upload(.POST, uri, multipartFormData: { parts in
+            for data in datas {
+                parts.appendBodyPart(data: data.1, name: data.0)
+            }
+            
+            }, encodingCompletion: { encodingResult in
+                
+            switch encodingResult {
+            case .Success(let upload, _, _):
+                upload.responseData() { response in
+                    completion(response.result)
+                }
+            case .Failure(let encodingError):
+                print(encodingError)
+            }
+        })
+    }
+    
+    
+    func getImageUrl(uri: String) -> NSURL {
+        return NSURL(string: imageBaseUri + uri)!
     }
 }

@@ -34,6 +34,8 @@
 		884E1A9D1C952E3C00B22F9C /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E1A9C1C952E3C00B22F9C /* GuideViewController.swift */; };
 		885262071CCE41940083072F /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885262061CCE41940083072F /* PickerViewController.swift */; };
 		885262091CCE4A670083072F /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885262081CCE4A670083072F /* DatePickerViewController.swift */; };
+		8852620E1CCF2D330083072F /* PersonalVerificationtableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8852620D1CCF2D330083072F /* PersonalVerificationtableViewController.swift */; };
+		885262101CCF90B10083072F /* EnterpriseVerificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8852620F1CCF90B10083072F /* EnterpriseVerificationTableViewController.swift */; };
 		8858A38D1C7203FB00EE86E5 /* pictures in Resources */ = {isa = PBXBuildFile; fileRef = 8858A38C1C7203FB00EE86E5 /* pictures */; };
 		8858A3911C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8858A3901C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift */; };
 		8859B6541C48E71D001D2011 /* GalleryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8859B6531C48E71D001D2011 /* GalleryDetailsViewController.swift */; };
@@ -122,6 +124,8 @@
 		884E1A9C1C952E3C00B22F9C /* GuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		885262061CCE41940083072F /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		885262081CCE4A670083072F /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		8852620D1CCF2D330083072F /* PersonalVerificationtableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalVerificationtableViewController.swift; sourceTree = "<group>"; };
+		8852620F1CCF90B10083072F /* EnterpriseVerificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterpriseVerificationTableViewController.swift; sourceTree = "<group>"; };
 		8858A38C1C7203FB00EE86E5 /* pictures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pictures; path = ../pictures; sourceTree = "<group>"; };
 		8858A3901C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullHomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		8859B6531C48E71D001D2011 /* GalleryDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryDetailsViewController.swift; sourceTree = "<group>"; };
@@ -329,6 +333,8 @@
 				8827EE021CCDD4D300DDB09D /* EditingTextViewController.swift */,
 				885262061CCE41940083072F /* PickerViewController.swift */,
 				885262081CCE4A670083072F /* DatePickerViewController.swift */,
+				8852620D1CCF2D330083072F /* PersonalVerificationtableViewController.swift */,
+				8852620F1CCF90B10083072F /* EnterpriseVerificationTableViewController.swift */,
 			);
 			name = ProfileGroup;
 			sourceTree = "<group>";
@@ -508,6 +514,7 @@
 				88DD03DD1C8185780097AF9F /* Theme.swift in Sources */,
 				8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */,
 				8827EE031CCDD4D300DDB09D /* EditingTextViewController.swift in Sources */,
+				885262101CCF90B10083072F /* EnterpriseVerificationTableViewController.swift in Sources */,
 				88DD03EB1C81D5490097AF9F /* RateStar.swift in Sources */,
 				883EDCA91C25578D00C41ED8 /* RegisterViewController.swift in Sources */,
 				881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */,
@@ -524,6 +531,7 @@
 				881F41271C475AEA0043DAC9 /* JobTableViewCell.swift in Sources */,
 				88DD03E51C81A8810097AF9F /* JobDetailsTableViewController.swift in Sources */,
 				880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */,
+				8852620E1CCF2D330083072F /* PersonalVerificationtableViewController.swift in Sources */,
 				88DD03ED1C81D5830097AF9F /* EditViewControl.swift in Sources */,
 				880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */,
 				88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */,

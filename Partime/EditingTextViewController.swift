@@ -24,8 +24,18 @@ class EditingTextViewController: UIViewController {
     @IBOutlet weak var editTextField: UITextField!
     
     func setData() {
+        if self.name == "身高" {
+            editTextField.keyboardType = .NumberPad
+        }
         if let name = self.name {
-            editNameLabel.text = name
+            if name.characters.last == "*" {
+                let text = name.componentsSeparatedByString(" ")[0]
+                editNameLabel.text = text
+                self.navigationItem.title = "修改" + text
+            } else {
+                editNameLabel.text = name
+                self.navigationItem.title = "修改" + name
+            }
         }
         if let detail = detailsName {
             editTextField.text = detail

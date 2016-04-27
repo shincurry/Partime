@@ -8,6 +8,9 @@
 
 import UIKit
 import KeychainAccess
+import SDWebImage
+import MJRefresh
+import SwiftyJSON
 
 class ProfileTableViewController: UITableViewController {
     
@@ -16,6 +19,7 @@ class ProfileTableViewController: UITableViewController {
         initialViewStyle()
         // Do any additional setup after loading the view.
         updateLoginStatus()
+//        tableView.mj_header = MJRefreshHeader(refreshingTarget: self, refreshingAction: #selector(updateProfile))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -32,7 +36,13 @@ class ProfileTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    let api = API.shared
     let alert = YXAlert()
+    let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
+    
+    @IBOutlet weak var personalVerification: UIButton!
+    @IBOutlet weak var enterpriseVerification: UIButton!
+    
     
     @IBOutlet weak var profileImage: UIImageView!
     
@@ -50,6 +60,7 @@ class ProfileTableViewController: UITableViewController {
         if let navigator = navigationController {
             navigator.navigationBar.barTintColor = Theme.mainColor
         }
+        
         
         profileImage.clipsToBounds = true
         profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
@@ -73,24 +84,101 @@ class ProfileTableViewController: UITableViewController {
         let keychain = Keychain(service: "com.windisco.Partime")
         keychain["accessToken"] = nil
         API.token = nil
-        alert.showNotificationAlert("Success", message: "Logout successfully", sender: self, completion: nil)
+        alert.showNotificationAlert("成功", message: "成功退出登录", sender: self, completion: nil)
+//        for key in defaults.dictionaryRepresentation().keys {
+//            defaults.removeObjectForKey(key)
+//        }
+//        defaults.synchronize()
+        
         updateLoginStatus()
     }
 
     
-    func updateLoginStatus() {
+    func updateLoginStatus(refresh refresh: Bool = false) {
         if let _ = API.token {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            print("ProfileRealname")
-            print(defaults.objectForKey("ProfileRealname") as? String)
+            personalVerification.hidden = false
+            enterpriseVerification.hidden = false
+            
             profileIdLabel.text = defaults.objectForKey("ProfileRealname") as? String
             
-            profileStatusLabel.text = "You have logged in."
+            profileStatusLabel.text = "已登录"
+            
+            if let uri = defaults.objectForKey("ProfileAvatar") as? String {
+                print("image uri : \(uri)")
+                if refresh {
+                    profileImage.sd_setImageWithURL(api.getImageUrl(uri), placeholderImage: UIImage(named: "DefaultProfile"), options: .RefreshCached)
+                } else {
+                    profileImage.sd_setImageWithURL(api.getImageUrl(uri), placeholderImage: UIImage(named: "DefaultProfile"))
+                }
+                
+            }
+            
         } else {
             profileIdLabel.text = "用户名"
             profileStatusLabel.text = "你还未登录"
+            personalVerification.hidden = true
+            enterpriseVerification.hidden = true
+            profileImage.image = UIImage(named: "DefaultProfile")
+            
+            
         }
         tableView.reloadData()
+    }
+    func updateProfile() {
+        api.getProfile(["access_token": API.token!]) { response in
+            switch response {
+            case .Success:
+                let res = JSON(data: response.value!)
+                let data = res["result"]
+                let defaults = NSUserDefaults.standardUserDefaults()
+                print("realname: \(data["realname"].stringValue)")
+                defaults.setObject(data["realname"].stringValue, forKey: "ProfileRealname")
+                defaults.setObject(data["gender"].stringValue, forKey: "ProfileGender")
+                defaults.setObject(data["birthday"].stringValue, forKey: "ProfileBirthday")
+                defaults.setObject(data["cityid"].stringValue, forKey: "ProfileCityID")
+                
+                if let qq = data["qq"].string {
+                    defaults.setObject(qq, forKey: "ProfileQQ")
+                }
+                if let email = data["email"].string {
+                    defaults.setObject(email, forKey: "ProfileEmail")
+                }
+                
+                
+                if let stature = data["height"].string {
+                    if let value = Int(stature) {
+                        defaults.setInteger(value, forKey: "ProfileStature")
+                    }
+                }
+                if let school = data["school"].string {
+                    defaults.setObject(school, forKey: "ProfileSchool")
+                }
+                if let major = data["major"].string {
+                    defaults.setObject(major, forKey: "ProfileMajor")
+                }
+                if let enrollYear = data["enrolyear"].string {
+                    defaults.setObject(enrollYear, forKey: "ProfileEnrollYear")
+                }
+                if let intro = data["introduction"].string {
+                    defaults.setObject(intro, forKey: "ProfileIntroduction")
+                }
+                if let exp = data["workexperience"].string {
+                    defaults.setObject(exp, forKey: "ProfileWorkExperience")
+                }
+                print(data["protrait"].stringValue)
+                if let avatar = data["protrait"].string {
+                    defaults.setObject(avatar, forKey: "ProfileAvatar")
+                }
+                print("ok")
+                defaults.synchronize()
+                self.updateLoginStatus()
+            case .Failure(let error):
+                print(error)
+            }
+            
+            
+            
+        }
     }
 
 }
