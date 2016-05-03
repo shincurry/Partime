@@ -33,7 +33,12 @@ class LocationTableViewController: UITableViewController {
                 let destination = segue.destinationViewController as! HomeViewController
                 if let index = tableView.indexPathForSelectedRow {
                     destination.location = Location.allPlaces.array![index.section-2]["sub"].array![index.row]["value"]["name"].stringValue
-                    Location.currentCity = Location.allPlaces.array![index.section-2]["sub"].array![index.row]["value"]
+//                    Location.currentCity = Location.allPlaces.array![index.section-2]["sub"].array![index.row]["value"]
+                    
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setInteger(index.section-2, forKey: "CurrentProvincePath")
+                    defaults.setInteger(index.row, forKey: "CurrentCityPath")
+                    
                 }
                 case "unwindHotCitiesToHomeViewController":
                 let destination = segue.destinationViewController as! HomeViewController
@@ -66,12 +71,11 @@ extension LocationTableViewController {
     override  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return NSLocalizedString("currentLocation", comment: "")
+            return "当前位置"
         case 1:
-            return NSLocalizedString("hotLocation", comment: "")
+            return "热门位置"
         default:
             return Location.allPlaces.array![section-2]["value"]["name"].stringValue
-//            return NSLocalizedString("location", comment: "")
         }
     }
     
@@ -95,6 +99,9 @@ extension LocationTableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 1:
+            return 0 // 暂时屏蔽
+            
+            
             // 需要改进？
 //            var count = Location.hotProvinces.count / 3
 //            if Location.hotProvinces.count % 3 != 0 {

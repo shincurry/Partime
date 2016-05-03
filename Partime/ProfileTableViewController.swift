@@ -19,7 +19,10 @@ class ProfileTableViewController: UITableViewController {
         initialViewStyle()
         // Do any additional setup after loading the view.
         updateLoginStatus()
-//        tableView.mj_header = MJRefreshHeader(refreshingTarget: self, refreshingAction: #selector(updateProfile))
+        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(updateProfile))
+        header.lastUpdatedTimeLabel.hidden = true
+        header.stateLabel.hidden = true
+        tableView.mj_header = header
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -35,6 +38,7 @@ class ProfileTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     let api = API.shared
     let alert = YXAlert()
@@ -53,8 +57,6 @@ class ProfileTableViewController: UITableViewController {
     
     @IBOutlet weak var profileIdLabel: UILabel!
     @IBOutlet weak var profileStatusLabel: UILabel!
-    
-    
     
     private func initialViewStyle() {
         if let navigator = navigationController {
@@ -94,7 +96,7 @@ class ProfileTableViewController: UITableViewController {
     }
 
     
-    func updateLoginStatus(refresh refresh: Bool = false) {
+    func updateLoginStatus() {
         if let _ = API.token {
             personalVerification.hidden = false
             enterpriseVerification.hidden = false
@@ -104,13 +106,7 @@ class ProfileTableViewController: UITableViewController {
             profileStatusLabel.text = "已登录"
             
             if let uri = defaults.objectForKey("ProfileAvatar") as? String {
-                print("image uri : \(uri)")
-                if refresh {
-                    profileImage.sd_setImageWithURL(api.getImageUrl(uri), placeholderImage: UIImage(named: "DefaultProfile"), options: .RefreshCached)
-                } else {
-                    profileImage.sd_setImageWithURL(api.getImageUrl(uri), placeholderImage: UIImage(named: "DefaultProfile"))
-                }
-                
+                profileImage.sd_setImageWithURL(api.getImageUrl(uri), placeholderImage: UIImage(named: "DefaultProfile"))
             }
             
         } else {
@@ -130,18 +126,26 @@ class ProfileTableViewController: UITableViewController {
             case .Success:
                 let res = JSON(data: response.value!)
                 let data = res["result"]
-                let defaults = NSUserDefaults.standardUserDefaults()
-                print("realname: \(data["realname"].stringValue)")
+                let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
                 defaults.setObject(data["realname"].stringValue, forKey: "ProfileRealname")
                 defaults.setObject(data["gender"].stringValue, forKey: "ProfileGender")
                 defaults.setObject(data["birthday"].stringValue, forKey: "ProfileBirthday")
+                
+                defaults.setObject(data["districtid"].stringValue, forKey: "ProfileDistrictID")
                 defaults.setObject(data["cityid"].stringValue, forKey: "ProfileCityID")
+                defaults.setObject(data["provinceid"].stringValue, forKey: "ProfileProvinceID")
+                defaults.setObject(data["city"].stringValue + " " + data["district"].stringValue, forKey: "ProfileLocationName")
+                
                 
                 if let qq = data["qq"].string {
                     defaults.setObject(qq, forKey: "ProfileQQ")
+                } else {
+                    defaults.setObject("", forKey: "ProfileQQ")
                 }
                 if let email = data["email"].string {
                     defaults.setObject(email, forKey: "ProfileEmail")
+                } else {
+                    defaults.setObject("", forKey: "ProfileEmail")
                 }
                 
                 
@@ -149,36 +153,49 @@ class ProfileTableViewController: UITableViewController {
                     if let value = Int(stature) {
                         defaults.setInteger(value, forKey: "ProfileStature")
                     }
+                } else {
+                    defaults.setObject(0, forKey: "ProfileStature")
                 }
                 if let school = data["school"].string {
                     defaults.setObject(school, forKey: "ProfileSchool")
+                } else {
+                    defaults.setObject("", forKey: "ProfileSchool")
                 }
                 if let major = data["major"].string {
                     defaults.setObject(major, forKey: "ProfileMajor")
+                } else {
+                    defaults.setObject("", forKey: "ProfileMajor")
                 }
                 if let enrollYear = data["enrolyear"].string {
                     defaults.setObject(enrollYear, forKey: "ProfileEnrollYear")
+                } else {
+                    defaults.setObject("", forKey: "ProfileEnrollYear")
                 }
                 if let intro = data["introduction"].string {
                     defaults.setObject(intro, forKey: "ProfileIntroduction")
+                } else {
+                    defaults.setObject("", forKey: "ProfileIntroduction")
                 }
                 if let exp = data["workexperience"].string {
                     defaults.setObject(exp, forKey: "ProfileWorkExperience")
+                } else {
+                    defaults.setObject("", forKey: "ProfileWorkExperience")
                 }
-                print(data["protrait"].stringValue)
                 if let avatar = data["protrait"].string {
                     defaults.setObject(avatar, forKey: "ProfileAvatar")
+                } else {
+                    defaults.setObject("", forKey: "ProfileAvatar")
                 }
-                print("ok")
+                
                 defaults.synchronize()
                 self.updateLoginStatus()
+                
             case .Failure(let error):
                 print(error)
             }
-            
-            
-            
+            self.tableView.mj_header.endRefreshing()
         }
+
     }
 
 }

@@ -808,13 +808,13 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="姓名">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="PingFangSC-Regular"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="HelveticaNeue"/>
                                                             </attributes>
                                                         </fragment>
@@ -837,7 +837,7 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="身份证号">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="PingFangSC-Regular"/>
                                                             </attributes>
                                                         </fragment>
@@ -885,7 +885,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正面" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSU-ta-ggD">
                                                     <rect key="frame" x="69" y="67" width="34" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Gb-f0-IDF">
@@ -920,7 +920,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="反面" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWA-UO-2T2">
                                                     <rect key="frame" x="69" y="67" width="34" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1609,10 +1609,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNp-7m-VYu">
-                                <rect key="frame" x="0.0" y="181" width="375" height="170"/>
+                                <rect key="frame" x="0.0" y="131" width="375" height="220"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="170" id="3Tz-1Z-fi4"/>
+                                    <constraint firstAttribute="height" constant="220" id="3Tz-1Z-fi4"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="oaM-Nf-4XE" id="9gg-Qv-YWA"/>
@@ -3880,6 +3880,9 @@
                                                 <state key="normal" title="忘记密码了？">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="fQV-hc-UmR" kind="show" identifier="ShowForgotPasswordSegue" id="XwZ-0M-aTx"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l8Y-gb-UEy">
                                                 <rect key="frame" x="22" y="14" width="267" height="42"/>
@@ -3947,7 +3950,7 @@
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="fQV-hc-UmR" kind="popoverPresentation" popoverAnchorView="DaA-xd-vp0" id="mPN-rV-Jz6">
+                                    <segue destination="fQV-hc-UmR" kind="popoverPresentation" identifier="ShowRegisterSegue" popoverAnchorView="DaA-xd-vp0" id="mPN-rV-Jz6">
                                         <popoverArrowDirection key="popoverArrowDirection" left="YES"/>
                                     </segue>
                                 </connections>
@@ -4137,6 +4140,7 @@
                         <outlet property="getValidateCodeButton" destination="cD3-m4-IPw" id="LkP-63-CLP"/>
                         <outlet property="passwordTextField" destination="YJ8-vl-xN6" id="TgM-F6-at0"/>
                         <outlet property="phoneNumberTextField" destination="OtI-Zi-OzK" id="n4u-Ti-BXe"/>
+                        <outlet property="titleLabel" destination="Cb4-qY-eaT" id="U9I-Al-EZx"/>
                         <outlet property="validateCodeTextField" destination="cOm-yv-bl0" id="Kzu-WV-O7w"/>
                         <segue destination="3cc-iP-s7u" kind="unwind" identifier="UnwindRegisterToProfileSegue" unwindAction="unwindToViewController:" id="iRL-Qa-7Jg"/>
                     </connections>
@@ -4144,7 +4148,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NEu-po-T3C" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="D9E-Lw-zVJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2272.5" y="1021.5"/>
+            <point key="canvasLocation" x="2411.5" y="1077.5"/>
         </scene>
         <!--Edit-->
         <scene sceneID="Gaa-2l-fYt">
@@ -4603,14 +4607,14 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="企业名称">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="PingFangSC-Regular"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="HelveticaNeue"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
@@ -4635,7 +4639,7 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="注册编码">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="PingFangSC-Regular"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
@@ -4661,7 +4665,7 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="企业地址">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="PingFangSC-Regular"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
@@ -4728,7 +4732,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="营业执照" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kID-CT-s2A">
                                                     <rect key="frame" x="111" y="88" width="68" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -4759,13 +4763,13 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="姓名">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="PingFangSC-Regular"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="HelveticaNeue"/>
                                                             </attributes>
                                                         </fragment>
@@ -4788,7 +4792,7 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="身份证号">
                                                             <attributes>
-                                                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="17" name="PingFangSC-Regular"/>
                                                             </attributes>
                                                         </fragment>
@@ -4836,7 +4840,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正面" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FyK-vH-RKJ">
                                                     <rect key="frame" x="69" y="67" width="34" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CUF-Eo-Pc7">
@@ -4871,7 +4875,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="反面" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfC-kD-xS2">
                                                     <rect key="frame" x="69" y="67" width="34" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -4939,9 +4943,10 @@
         <image name="Wallet" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="abC-sU-q5A"/>
-        <segue reference="V1F-4J-Upd"/>
         <segue reference="4aG-dB-X7a"/>
-        <segue reference="zsO-Bv-JRQ"/>
+        <segue reference="V1F-4J-Upd"/>
+        <segue reference="abC-sU-q5A"/>
+        <segue reference="XwZ-0M-aTx"/>
+        <segue reference="Bc7-9B-0gG"/>
     </inferredMetricsTieBreakers>
 </document>

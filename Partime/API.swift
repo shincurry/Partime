@@ -38,6 +38,10 @@ class API: NSObject {
         let uri = "/user/authorize.do"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
+    func forgotPassword(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/user/passwordForgot.do"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
     
     // Profile
     

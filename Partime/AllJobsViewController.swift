@@ -19,6 +19,8 @@ class AllJobsViewController: UIViewController {
         menuView.dataSource = self
         
         jobsTableView.mj_footer = MJRefreshAutoFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
+        
+        print(titleForRows)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -27,6 +29,8 @@ class AllJobsViewController: UIViewController {
         if let selection = jobsTableView.indexPathForSelectedRow {
             jobsTableView.deselectRowAtIndexPath(selection, animated: true)
         }
+        currentCounties = Location.getCurrentCounties()
+//        menuView.reloadData()
     }
     
     let api = API.shared
@@ -35,13 +39,11 @@ class AllJobsViewController: UIViewController {
     
     @IBOutlet weak var jobsTableView: UITableView!
     
-    var currentCity: String?
+    var currentCounties: [String]!
     
     var titleForSections = ["类型", "位置"]
-//    var titleForRows = [
-//        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], []]
     var titleForRows = [
-        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], []]
+        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], Location.getCurrentCounties()]
     
     var currentSelection = [0, 0]
     var currentPage = 0
@@ -128,13 +130,11 @@ extension AllJobsViewController: YXMenuViewDelegate, YXMenuViewDataSource {
             params["type"] = ""
         }
         
-        api.getJobs(params) { result in
-            switch result {
+        api.getJobs(params) { response in
+            switch response {
             case .Success:
-                if let value = result.value {
-                    self.jobsData = JSON(data: value).array!
-                    self.jobsTableView.reloadData()
-                }
+                self.jobsData = JSON(data: response.value!).array!
+                self.jobsTableView.reloadData()
             case .Failure(let error):
                 print(error)
             }

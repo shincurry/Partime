@@ -30,7 +30,6 @@ class EditingProfileTableViewController: UITableViewController {
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var statureLabel: UILabel!
     @IBOutlet weak var birthdayLabel: UILabel!
-    var locationCode: String? = "500100"
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var schoolLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -38,13 +37,22 @@ class EditingProfileTableViewController: UITableViewController {
     @IBOutlet weak var telephoneLabel: UILabel!
     @IBOutlet weak var introductionTextView: UITextView!
     @IBOutlet weak var workExperienceTextView: UITextView!
+    
+    var provinceCode: String?
+    var cityCode: String?
+    var districtCode: String?
 
     func getProfileInfo() {
         nameLabel.text = defaults.objectForKey("ProfileRealname") as? String
         genderLabel.text = defaults.objectForKey("ProfileGender") as? String
         birthdayLabel.text = defaults.objectForKey("ProfileBirthday") as? String
         statureLabel.text = "\(defaults.integerForKey("ProfileStature"))"
-        locationCode = defaults.objectForKey("ProfileCityID") as? String
+        
+        provinceCode = defaults.objectForKey("ProfileProvinceID") as? String
+        cityCode = defaults.objectForKey("ProfileCityID") as? String
+        districtCode = defaults.objectForKey("ProfileDistrictID") as? String
+        locationLabel.text = defaults.objectForKey("ProfileLocationName") as? String
+        
         qqLabel.text = defaults.objectForKey("ProfileQQ") as? String
         emailLabel.text = defaults.objectForKey("ProfileEmail") as? String
         schoolLabel.text = defaults.objectForKey("ProfileSchool") as? String
@@ -72,7 +80,11 @@ class EditingProfileTableViewController: UITableViewController {
             defaults.setInteger(0, forKey: "ProfileStature")
         }
         
-        defaults.setObject(locationCode, forKey: "ProfileCityID")
+        defaults.setObject(provinceCode, forKey: "ProfileProvinceID")
+        defaults.setObject(cityCode, forKey: "ProfileCityID")
+        defaults.setObject(districtCode, forKey: "ProfileDistrictID")
+        defaults.setObject(locationLabel.text, forKey: "ProfileLocationName")
+        
         defaults.setObject(qqLabel.text, forKey: "ProfileQQ")
         defaults.setObject(emailLabel.text, forKey: "ProfileEmail")
         defaults.setObject(schoolLabel.text, forKey: "ProfileSchool")
@@ -101,7 +113,7 @@ class EditingProfileTableViewController: UITableViewController {
             ["access_token"  : "\(API.token!)",
              "realname"      : "\(nameLabel.text!)",
              "gender"        : "\(genderLabel.text!)",
-             "cityid"        : "110000",
+             "districtid"    : "\(districtCode!)",
              "birthday"      : "\(birthdayLabel.text!)"
             ]
         if let qq = qqLabel.text {
@@ -127,8 +139,6 @@ class EditingProfileTableViewController: UITableViewController {
             params["workexperience"] = "\(exp)"
         }
     
-        print("params")
-        print(params)
         
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         api.updateProfile(params) { response in
@@ -181,6 +191,9 @@ class EditingProfileTableViewController: UITableViewController {
                 let cell = tableView.cellForRowAtIndexPath(indexPath)!
                 let controller = segue.destinationViewController as! PickerViewController
                 controller.superLabel = cell.detailTextLabel
+                controller.superProvinceCode = provinceCode
+                controller.superCityCode = cityCode
+                controller.superDistrictCode = districtCode
                 controller.type = .Some(.Location)
 
             case "ShowDatePickerSegue":
@@ -189,10 +202,9 @@ class EditingProfileTableViewController: UITableViewController {
                 let controller = segue.destinationViewController as! DatePickerViewController
                 controller.superLabel = cell.detailTextLabel
                 
-                
             case "UnwindEditingToProfileSegue":
                 let controller = segue.destinationViewController as! ProfileTableViewController
-                controller.updateLoginStatus(refresh: true)
+                controller.updateLoginStatus()
             default:
                 break
             }

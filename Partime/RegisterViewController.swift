@@ -11,12 +11,26 @@ import Spring
 import SwiftyJSON
 import MBProgressHUD
 
+enum RegisterType {
+    case Register
+    case ForgotPassword
+    case None
+}
+
 class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        switch type {
+        case .Register:
+            titleLabel.text = "注册"
+        case .ForgotPassword:
+            titleLabel.text = "重设密码"
+        default:
+            break
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,12 +41,16 @@ class RegisterViewController: UIViewController {
     let api = API.shared
     let alert = YXAlert()
     
+    var type: RegisterType = .None
+    
+    
     var isPhoneNumberOK = false
     var isPasswordOK = false
     var isValidateCodeOK = false
     
     var validateCodeID: String?
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var phoneNumberTextField: SpringTextField!
     @IBOutlet weak var validateCodeTextField: SpringTextField!
     @IBOutlet weak var getValidateCodeButton: UIButton!
@@ -83,11 +101,18 @@ class RegisterViewController: UIViewController {
     @IBAction func getValidateCode(sender: UIButton) {
         if let phoneNumber = phoneNumberTextField.text {
             MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            api.getValidateCode(["phonenumber": phoneNumber]) { response in
+            
+            var params: [String: AnyObject] = ["phonenumber": phoneNumber]
+            if type == .ForgotPassword {
+                params["isforgot"] = 1
+            }
+            print(params)
+            api.getValidateCode(params) { response in
                 
                 switch response {
                 case .Success:
                     let res = JSON(data: response.value!)
+                    print(res)
                     if res["status"].stringValue == "success" {
                         self.validateCodeID = res["validatecodeid"].stringValue
                         let alertController = UIAlertController(title: "Success", message: "Get validate code successfully", preferredStyle: .Alert)
@@ -131,18 +156,38 @@ class RegisterViewController: UIViewController {
                       "validatecode": validateCodeTextField.text!,
                       "validatecodeid": validateCodeID!,
                       "password": passwordTextField.text!
-                    ]
-        print(params)
+        ]
+        
+        switch type {
+        case .Register:
+            register(params)
+        case .ForgotPassword:
+            forgotPassword(params)
+        default:
+            break
+        }
+        
+        
+    }
+    
+    func register(params: [String: String]) {
+        
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         api.register(params) { response in
-            
             switch response {
             case .Success:
                 let res = JSON(data: response.value!)
                 if res["status"].stringValue == "success" {
                     API.token = res["access_token"].stringValue
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    self.performSegueWithIdentifier("UnwindRegisterToProfileSegue", sender: self)
+                    let alertTitle = "成功"
+                    let alertMessage = "注册账号成功"
+                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: { _ in
+                        self.performSegueWithIdentifier("UnwindRegisterToProfileSegue", sender: self)
+                    })
+                    alertController.addAction(OKAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
                 }
                 
                 if res["status"].stringValue == "failure" {
@@ -162,7 +207,45 @@ class RegisterViewController: UIViewController {
             }
             MBProgressHUD.hideHUDForView(self.view, animated: true)
         }
-        
+    }
+    
+    func forgotPassword(params: [String: String]) {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        api.forgotPassword(params) { response in
+            switch response {
+            case .Success:
+                let res = JSON(data: response.value!)
+                if res["status"].stringValue == "success" {
+                    API.token = res["access_token"].stringValue
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    let alertTitle = "成功"
+                    let alertMessage = "重设密码成功"
+                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: { _ in
+                        self.performSegueWithIdentifier("UnwindRegisterToLoginSegue", sender: self)
+                    })
+                    alertController.addAction(OKAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                }
+                
+                if res["status"].stringValue == "failure" {
+                    let alertTitle = "Error"
+                    let alertMessage = res["error_description"].stringValue
+                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    alertController.addAction(OKAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
+                
+            case .Failure(let error):
+                let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .Alert)
+                let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                alertController.addAction(OKAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+        }
     }
     
 }

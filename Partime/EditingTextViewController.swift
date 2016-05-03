@@ -26,7 +26,11 @@ class EditingTextViewController: UIViewController {
     func setData() {
         if self.name == "身高" {
             editTextField.keyboardType = .NumberPad
+        } else if self.name == "性别" {
+            superLabel?.text = "男"
         }
+        
+        
         if let name = self.name {
             if name.characters.last == "*" {
                 let text = name.componentsSeparatedByString(" ")[0]

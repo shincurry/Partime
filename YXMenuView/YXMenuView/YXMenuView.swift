@@ -244,7 +244,7 @@ extension YXMenuView {
         }
     }
     
-    func reloadData() {
+    public func reloadData() {
         reloadHeaderData()
         bodyView.reloadData()
     }

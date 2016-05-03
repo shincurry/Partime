@@ -21,9 +21,6 @@
 		881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */; };
 		881FCA201C23CDF000989FDF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA1F1C23CDF000989FDF /* LoginViewController.swift */; };
 		8820825E1CB140900043FC13 /* YXAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8820825D1CB140900043FC13 /* YXAlertController.swift */; };
-		882082631CB23E370043FC13 /* province.plist in Resources */ = {isa = PBXBuildFile; fileRef = 882082621CB23E370043FC13 /* province.plist */; };
-		882082661CB37D460043FC13 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 882082651CB37D460043FC13 /* address.plist */; };
-		882082681CB380550043FC13 /* address.json in Resources */ = {isa = PBXBuildFile; fileRef = 882082671CB380550043FC13 /* address.json */; };
 		8827EE001CCDC64600DDB09D /* EditingProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827EDFF1CCDC64600DDB09D /* EditingProfileTableViewController.swift */; };
 		8827EE031CCDD4D300DDB09D /* EditingTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827EE021CCDD4D300DDB09D /* EditingTextViewController.swift */; };
 		882829A31C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882829A21C78B30A009CEE5F /* LocationHotCitiesCollectionViewCell.swift */; };
@@ -57,6 +54,7 @@
 		88DD03E91C81B6090097AF9F /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03E81C81B6090097AF9F /* Company.swift */; };
 		88DD03EB1C81D5490097AF9F /* RateStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03EA1C81D5490097AF9F /* RateStar.swift */; };
 		88DD03ED1C81D5830097AF9F /* EditViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03EC1C81D5830097AF9F /* EditViewControl.swift */; };
+		88DDF4DC1CD0A78C000DF0D5 /* address.json in Resources */ = {isa = PBXBuildFile; fileRef = 88DDF4DB1CD0A78C000DF0D5 /* address.json */; };
 		88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
 /* End PBXBuildFile section */
@@ -110,9 +108,6 @@
 		881FCA121C23AF2800989FDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		881FCA1F1C23CDF000989FDF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8820825D1CB140900043FC13 /* YXAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXAlertController.swift; sourceTree = "<group>"; };
-		882082621CB23E370043FC13 /* province.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = province.plist; sourceTree = "<group>"; };
-		882082651CB37D460043FC13 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
-		882082671CB380550043FC13 /* address.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = address.json; sourceTree = "<group>"; };
 		8827EDFF1CCDC64600DDB09D /* EditingProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditingProfileTableViewController.swift; sourceTree = "<group>"; };
 		8827EE021CCDD4D300DDB09D /* EditingTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditingTextViewController.swift; sourceTree = "<group>"; };
 		8828299C1C78A928009CEE5F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -150,6 +145,7 @@
 		88DD03E81C81B6090097AF9F /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		88DD03EA1C81D5490097AF9F /* RateStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateStar.swift; sourceTree = "<group>"; };
 		88DD03EC1C81D5830097AF9F /* EditViewControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewControl.swift; sourceTree = "<group>"; };
+		88DDF4DB1CD0A78C000DF0D5 /* address.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = address.json; sourceTree = "<group>"; };
 		88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,9 +277,7 @@
 		882082601CB22D370043FC13 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				882082671CB380550043FC13 /* address.json */,
-				882082651CB37D460043FC13 /* address.plist */,
-				882082621CB23E370043FC13 /* province.plist */,
+				88DDF4DB1CD0A78C000DF0D5 /* address.json */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -442,11 +436,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				882082661CB37D460043FC13 /* address.plist in Resources */,
 				881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */,
-				882082681CB380550043FC13 /* address.json in Resources */,
 				88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */,
-				882082631CB23E370043FC13 /* province.plist in Resources */,
+				88DDF4DC1CD0A78C000DF0D5 /* address.json in Resources */,
 				881FCA0E1C23AF2800989FDF /* Assets.xcassets in Resources */,
 				88BF94311C745534002F8FA7 /* Main.storyboard in Resources */,
 				8858A38D1C7203FB00EE86E5 /* pictures in Resources */,

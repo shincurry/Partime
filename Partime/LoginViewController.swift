@@ -78,7 +78,14 @@ class LoginViewController: UIViewController {
             switch identifier {
             case "UnwindLoginOKToProfileTableViewController":
                 let controller = segue.destinationViewController as! ProfileTableViewController
-                controller.updateLoginStatus()                
+                controller.updateLoginStatus()
+                
+            case "ShowRegisterSegue":
+                let controller = segue.destinationViewController as! RegisterViewController
+                controller.type = .Register
+            case "ShowForgotPasswordSegue":
+                let controller = segue.destinationViewController as! RegisterViewController
+                controller.type = .ForgotPassword
             default:
                 break
             }
@@ -150,14 +157,17 @@ class LoginViewController: UIViewController {
             switch response {
             case .Success:
                 let res = JSON(data: response.value!)
-                print("getProfile")
-                print(res)
                 let data = res["result"]
                 let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
                 defaults.setObject(data["realname"].stringValue, forKey: "ProfileRealname")
                 defaults.setObject(data["gender"].stringValue, forKey: "ProfileGender")
                 defaults.setObject(data["birthday"].stringValue, forKey: "ProfileBirthday")
+                
+                defaults.setObject(data["districtid"].stringValue, forKey: "ProfileDistrictID")
                 defaults.setObject(data["cityid"].stringValue, forKey: "ProfileCityID")
+                defaults.setObject(data["provinceid"].stringValue, forKey: "ProfileProvinceID")
+                defaults.setObject(data["city"].stringValue + " " + data["district"].stringValue, forKey: "ProfileLocationName")
+                
                 
                 if let qq = data["qq"].string {
                     defaults.setObject(qq, forKey: "ProfileQQ")
