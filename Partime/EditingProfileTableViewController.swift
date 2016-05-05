@@ -21,6 +21,13 @@ class EditingProfileTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        //        clearsSelectionOnViewWillAppear NOT WORK on device
+        if let selection = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selection, animated: true)
+        }
+    }
     
     let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
     let api = API.shared
@@ -117,10 +124,14 @@ class EditingProfileTableViewController: UITableViewController {
              "birthday"      : "\(birthdayLabel.text!)"
             ]
         if let qq = qqLabel.text {
-            params["qq"] = "\(qq)"
+            if !qq.isEmpty {
+                params["qq"] = "\(qq)"
+            }
         }
         if let email = emailLabel.text {
-            params["email"] = "\(email)"
+            if !email.isEmpty {
+                params["email"] = "\(email)"
+            }
         }
 //        if let stature = statureLabel.text {
 //            if let value = Int(stature) {
@@ -130,25 +141,33 @@ class EditingProfileTableViewController: UITableViewController {
         
         
         if let school = schoolLabel.text {
-            params["school"] = "\(school)"
+            if !school.isEmpty {
+                params["school"] = "\(school)"
+            }
         }
         if let intro = introductionTextView.text {
-            params["introduction"] = "\(intro)"
+            if !intro.isEmpty {
+                params["introduction"] = "\(intro)"
+            }
         }
+        
         if let exp = workExperienceTextView.text {
-            params["workexperience"] = "\(exp)"
+            if !exp.isEmpty {
+                params["workexperience"] = "\(exp)"
+            }
         }
     
-        
+        print(params)
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         api.updateProfile(params) { response in
             switch response {
             case .Success:
                 let res = JSON(data: response.value!)
+                print(res)
                 if res["status"].stringValue == "success" {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                     self.setProfileInfo()
-                        self.performSegueWithIdentifier("UnwindEditingToProfileSegue", sender: self)
+                    self.performSegueWithIdentifier("UnwindEditingToProfileSegue", sender: self)
                 } else if res["status"].stringValue == "failure" {
                     let alertTitle = "Error"
                     let alertMessage = res["error_description"].stringValue
@@ -184,6 +203,7 @@ class EditingProfileTableViewController: UITableViewController {
                 let cell = tableView.cellForRowAtIndexPath(indexPath)!
                 let controller = segue.destinationViewController as! PickerViewController
                 controller.superLabel = cell.detailTextLabel
+                controller.superController = self
                 controller.type = .Some(.Gender)
 
             case "ShowLocationPickerSegue":
@@ -191,9 +211,7 @@ class EditingProfileTableViewController: UITableViewController {
                 let cell = tableView.cellForRowAtIndexPath(indexPath)!
                 let controller = segue.destinationViewController as! PickerViewController
                 controller.superLabel = cell.detailTextLabel
-                controller.superProvinceCode = provinceCode
-                controller.superCityCode = cityCode
-                controller.superDistrictCode = districtCode
+                controller.superController = self
                 controller.type = .Some(.Location)
 
             case "ShowDatePickerSegue":

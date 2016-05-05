@@ -66,7 +66,7 @@ extension JobsTableViewController {
         return tempData.count
     }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("jobTableViewCell", forIndexPath: indexPath) as! JobTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("JobCell", forIndexPath: indexPath) as! JobCell
         let data = tempData[indexPath.row]
         cell.locationLabel.text = data[3]
         cell.timeLabel.text = data[2]

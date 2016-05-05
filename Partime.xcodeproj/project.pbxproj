@@ -12,10 +12,9 @@
 		880A43381C58D5EB00E498BC /* YXFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A43371C58D5EB00E498BC /* YXFormat.swift */; };
 		880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A43391C58DA2E00E498BC /* YXLogin.swift */; };
 		8813C2411C73548800E05B32 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813C2401C73548800E05B32 /* Location.swift */; };
-		881F41271C475AEA0043DAC9 /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41261C475AEA0043DAC9 /* JobTableViewCell.swift */; };
+		881F41271C475AEA0043DAC9 /* JobCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41261C475AEA0043DAC9 /* JobCell.swift */; };
 		881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41291C4788A10043DAC9 /* LocationTableViewController.swift */; };
 		881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */; };
-		881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */; };
 		881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FCA061C23AF2800989FDF /* AppDelegate.swift */; };
 		881FCA0E1C23AF2800989FDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0D1C23AF2800989FDF /* Assets.xcassets */; };
 		881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881FCA0F1C23AF2800989FDF /* LaunchScreen.storyboard */; };
@@ -48,6 +47,14 @@
 		88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88BF943C1C74598B002F8FA7 /* Localizable.strings */; };
 		88CCDD601C93D5C9003A7747 /* AllJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CCDD5F1C93D5C9003A7747 /* AllJobsViewController.swift */; };
 		88CE6F071C7F3E1D00909A44 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */; };
+		88CF34EA1CDA09FE005E6A84 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF34E91CDA09FE005E6A84 /* MapViewController.swift */; };
+		88CF34ED1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF34EC1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift */; };
+		88CF34EF1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF34EE1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift */; };
+		88CF34F11CDB6BE2005E6A84 /* PublishSalaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF34F01CDB6BE2005E6A84 /* PublishSalaryViewController.swift */; };
+		88D036861CD862E2001E56B7 /* ProfileEditing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88D036841CD862E2001E56B7 /* ProfileEditing.storyboard */; };
+		88D036891CD8632A001E56B7 /* JobPublish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88D036871CD8632A001E56B7 /* JobPublish.storyboard */; };
+		88D0368B1CD864C3001E56B7 /* PublishEditingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D0368A1CD864C3001E56B7 /* PublishEditingTableViewController.swift */; };
+		88D036911CD8B863001E56B7 /* PublishEditingTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D036901CD8B863001E56B7 /* PublishEditingTextViewController.swift */; };
 		88DD03DD1C8185780097AF9F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03DC1C8185780097AF9F /* Theme.swift */; };
 		88DD03E51C81A8810097AF9F /* JobDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03E41C81A8810097AF9F /* JobDetailsTableViewController.swift */; };
 		88DD03E71C81B5400097AF9F /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03E61C81B5400097AF9F /* Job.swift */; };
@@ -97,10 +104,9 @@
 		880A43371C58D5EB00E498BC /* YXFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXFormat.swift; sourceTree = "<group>"; };
 		880A43391C58DA2E00E498BC /* YXLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXLogin.swift; sourceTree = "<group>"; };
 		8813C2401C73548800E05B32 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		881F41261C475AEA0043DAC9 /* JobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
+		881F41261C475AEA0043DAC9 /* JobCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobCell.swift; sourceTree = "<group>"; };
 		881F41291C4788A10043DAC9 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailsViewController.swift; sourceTree = "<group>"; };
 		881FCA031C23AF2800989FDF /* 阿拉丁兼职.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "阿拉丁兼职.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		881FCA061C23AF2800989FDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		881FCA0D1C23AF2800989FDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,6 +145,14 @@
 		88BF943E1C74598E002F8FA7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		88CCDD5F1C93D5C9003A7747 /* AllJobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllJobsViewController.swift; sourceTree = "<group>"; };
 		88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		88CF34E91CDA09FE005E6A84 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		88CF34EC1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishDateTimePickerViewController.swift; sourceTree = "<group>"; };
+		88CF34EE1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishGeneralPickerViewController.swift; sourceTree = "<group>"; };
+		88CF34F01CDB6BE2005E6A84 /* PublishSalaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishSalaryViewController.swift; sourceTree = "<group>"; };
+		88D036851CD862E2001E56B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ProfileEditing.storyboard; sourceTree = "<group>"; };
+		88D036881CD8632A001E56B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/JobPublish.storyboard; sourceTree = "<group>"; };
+		88D0368A1CD864C3001E56B7 /* PublishEditingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishEditingTableViewController.swift; sourceTree = "<group>"; };
+		88D036901CD8B863001E56B7 /* PublishEditingTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishEditingTextViewController.swift; sourceTree = "<group>"; };
 		88DD03DC1C8185780097AF9F /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		88DD03E41C81A8810097AF9F /* JobDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailsTableViewController.swift; sourceTree = "<group>"; };
 		88DD03E61C81B5400097AF9F /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
@@ -251,17 +265,18 @@
 			children = (
 				8866EE151CB8B1E5009FC83E /* TabBarController.swift */,
 				88BF94331C745534002F8FA7 /* Main.storyboard */,
+				88D036841CD862E2001E56B7 /* ProfileEditing.storyboard */,
+				88D036871CD8632A001E56B7 /* JobPublish.storyboard */,
 				884E1A9B1C952E1B00B22F9C /* FirstLaunchGroup */,
 				88B4CBC01C71C07B006FAC65 /* HomeGroup */,
 				88CCDD5E1C93D596003A7747 /* AllJobsGroup */,
 				88B4CBC11C71C093006FAC65 /* ProfileGroup */,
+				88CF34E81CDA09E4005E6A84 /* JobDetails */,
 				8897BA721C325CB6000DD480 /* SearchTableViewController.swift */,
 				88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */,
 				8831937D1C806E9E005FDE5A /* JobsTableViewController.swift */,
-				881F41261C475AEA0043DAC9 /* JobTableViewCell.swift */,
+				881F41261C475AEA0043DAC9 /* JobCell.swift */,
 				88BED4051CC51D870052D233 /* MyJobsTableViewCell.swift */,
-				881F41331C47BD440043DAC9 /* JobDetailsViewController.swift */,
-				88DD03E41C81A8810097AF9F /* JobDetailsTableViewController.swift */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -317,18 +332,14 @@
 		88B4CBC11C71C093006FAC65 /* ProfileGroup */ = {
 			isa = PBXGroup;
 			children = (
+				88D0368F1CD868B4001E56B7 /* Verification */,
+				88D0368E1CD86897001E56B7 /* ProfileEditing */,
+				88D0368D1CD86882001E56B7 /* Account */,
 				884296E71C4B7A9200DCB641 /* ProfileTableViewController.swift */,
 				881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */,
-				881FCA1F1C23CDF000989FDF /* LoginViewController.swift */,
-				883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */,
 				88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */,
 				88BED4031CC516D00052D233 /* MyJobsViewController.swift */,
-				8827EDFF1CCDC64600DDB09D /* EditingProfileTableViewController.swift */,
-				8827EE021CCDD4D300DDB09D /* EditingTextViewController.swift */,
-				885262061CCE41940083072F /* PickerViewController.swift */,
-				885262081CCE4A670083072F /* DatePickerViewController.swift */,
-				8852620D1CCF2D330083072F /* PersonalVerificationtableViewController.swift */,
-				8852620F1CCF90B10083072F /* EnterpriseVerificationTableViewController.swift */,
+				88D0368C1CD8686E001E56B7 /* JobPublish */,
 			);
 			name = ProfileGroup;
 			sourceTree = "<group>";
@@ -339,6 +350,56 @@
 				88CCDD5F1C93D5C9003A7747 /* AllJobsViewController.swift */,
 			);
 			name = AllJobsGroup;
+			sourceTree = "<group>";
+		};
+		88CF34E81CDA09E4005E6A84 /* JobDetails */ = {
+			isa = PBXGroup;
+			children = (
+				88DD03E41C81A8810097AF9F /* JobDetailsTableViewController.swift */,
+				88CF34E91CDA09FE005E6A84 /* MapViewController.swift */,
+			);
+			name = JobDetails;
+			sourceTree = "<group>";
+		};
+		88D0368C1CD8686E001E56B7 /* JobPublish */ = {
+			isa = PBXGroup;
+			children = (
+				88D0368A1CD864C3001E56B7 /* PublishEditingTableViewController.swift */,
+				88D036901CD8B863001E56B7 /* PublishEditingTextViewController.swift */,
+				88CF34EC1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift */,
+				88CF34EE1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift */,
+				88CF34F01CDB6BE2005E6A84 /* PublishSalaryViewController.swift */,
+			);
+			name = JobPublish;
+			sourceTree = "<group>";
+		};
+		88D0368D1CD86882001E56B7 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				881FCA1F1C23CDF000989FDF /* LoginViewController.swift */,
+				883EDCA81C25578D00C41ED8 /* RegisterViewController.swift */,
+			);
+			name = Account;
+			sourceTree = "<group>";
+		};
+		88D0368E1CD86897001E56B7 /* ProfileEditing */ = {
+			isa = PBXGroup;
+			children = (
+				8827EDFF1CCDC64600DDB09D /* EditingProfileTableViewController.swift */,
+				8827EE021CCDD4D300DDB09D /* EditingTextViewController.swift */,
+				885262061CCE41940083072F /* PickerViewController.swift */,
+				885262081CCE4A670083072F /* DatePickerViewController.swift */,
+			);
+			name = ProfileEditing;
+			sourceTree = "<group>";
+		};
+		88D0368F1CD868B4001E56B7 /* Verification */ = {
+			isa = PBXGroup;
+			children = (
+				8852620D1CCF2D330083072F /* PersonalVerificationtableViewController.swift */,
+				8852620F1CCF90B10083072F /* EnterpriseVerificationTableViewController.swift */,
+			);
+			name = Verification;
 			sourceTree = "<group>";
 		};
 		F6590DFA02D3469DEE09240C /* Pods */ = {
@@ -439,8 +500,10 @@
 				881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */,
 				88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */,
 				88DDF4DC1CD0A78C000DF0D5 /* address.json in Resources */,
+				88D036861CD862E2001E56B7 /* ProfileEditing.storyboard in Resources */,
 				881FCA0E1C23AF2800989FDF /* Assets.xcassets in Resources */,
 				88BF94311C745534002F8FA7 /* Main.storyboard in Resources */,
+				88D036891CD8632A001E56B7 /* JobPublish.storyboard in Resources */,
 				8858A38D1C7203FB00EE86E5 /* pictures in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,22 +568,28 @@
 				8813C2411C73548800E05B32 /* Location.swift in Sources */,
 				88DD03DD1C8185780097AF9F /* Theme.swift in Sources */,
 				8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */,
+				88CF34ED1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift in Sources */,
 				8827EE031CCDD4D300DDB09D /* EditingTextViewController.swift in Sources */,
+				88D036911CD8B863001E56B7 /* PublishEditingTextViewController.swift in Sources */,
 				885262101CCF90B10083072F /* EnterpriseVerificationTableViewController.swift in Sources */,
 				88DD03EB1C81D5490097AF9F /* RateStar.swift in Sources */,
 				883EDCA91C25578D00C41ED8 /* RegisterViewController.swift in Sources */,
 				881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */,
+				88CF34EA1CDA09FE005E6A84 /* MapViewController.swift in Sources */,
 				8827EE001CCDC64600DDB09D /* EditingProfileTableViewController.swift in Sources */,
 				884296E81C4B7A9200DCB641 /* ProfileTableViewController.swift in Sources */,
 				88CE6F071C7F3E1D00909A44 /* SearchResultViewController.swift in Sources */,
+				88D0368B1CD864C3001E56B7 /* PublishEditingTableViewController.swift in Sources */,
+				88CF34EF1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift in Sources */,
 				8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */,
 				88CCDD601C93D5C9003A7747 /* AllJobsViewController.swift in Sources */,
 				885262091CCE4A670083072F /* DatePickerViewController.swift in Sources */,
 				8831937E1C806E9E005FDE5A /* JobsTableViewController.swift in Sources */,
+				88CF34F11CDB6BE2005E6A84 /* PublishSalaryViewController.swift in Sources */,
 				88DD03E91C81B6090097AF9F /* Company.swift in Sources */,
 				881FCA071C23AF2800989FDF /* AppDelegate.swift in Sources */,
 				88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */,
-				881F41271C475AEA0043DAC9 /* JobTableViewCell.swift in Sources */,
+				881F41271C475AEA0043DAC9 /* JobCell.swift in Sources */,
 				88DD03E51C81A8810097AF9F /* JobDetailsTableViewController.swift in Sources */,
 				880A433A1C58DA2E00E498BC /* YXLogin.swift in Sources */,
 				8852620E1CCF2D330083072F /* PersonalVerificationtableViewController.swift in Sources */,
@@ -537,7 +606,6 @@
 				882829A51C78B582009CEE5F /* LocationHotCitiesTableViewCell.swift in Sources */,
 				88BED4061CC51D880052D233 /* MyJobsTableViewCell.swift in Sources */,
 				881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */,
-				881F41341C47BD440043DAC9 /* JobDetailsViewController.swift in Sources */,
 				88DD03E71C81B5400097AF9F /* Job.swift in Sources */,
 				88BED4041CC516D00052D233 /* MyJobsViewController.swift in Sources */,
 				8820825E1CB140900043FC13 /* YXAlertController.swift in Sources */,
@@ -581,6 +649,22 @@
 				88BF943E1C74598E002F8FA7 /* zh-Hans */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		88D036841CD862E2001E56B7 /* ProfileEditing.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				88D036851CD862E2001E56B7 /* Base */,
+			);
+			name = ProfileEditing.storyboard;
+			sourceTree = "<group>";
+		};
+		88D036871CD8632A001E56B7 /* JobPublish.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				88D036881CD8632A001E56B7 /* Base */,
+			);
+			name = JobPublish.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

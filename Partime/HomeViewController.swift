@@ -200,7 +200,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("recommendJobTableViewCell", forIndexPath: indexPath) as! JobTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("RecommendJobCell", forIndexPath: indexPath) as! JobCell
         let data = tempData[indexPath.row]
         cell.locationLabel.text = data[3]
         cell.timeLabel.text = data[2]

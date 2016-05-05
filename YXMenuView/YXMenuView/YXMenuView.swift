@@ -74,7 +74,7 @@ public class YXMenuView: UIView {
     var bodyView: UITableView!
     var shadowView: UIView?
     
-    
+    var headerSelectionTitle: [String] = []
 
     public var imageType: YXSectionViewImageType? {
         didSet {
@@ -132,6 +132,7 @@ extension YXMenuView {
         let buttonWidth = fullWidth / CGFloat(sectionNumber)
         let buttonHeight = headerView.frame.size.height
         for index in 0..<sectionNumber {
+            
             let sectionView = YXSectionView(frame: CGRectMake(CGFloat(index) * buttonWidth, 0, buttonWidth, buttonHeight))
             let button = sectionView.button
             button.addTarget(self, action: #selector(YXMenuView.selectSection(_:)), forControlEvents: .TouchUpInside)
@@ -244,8 +245,10 @@ extension YXMenuView {
         }
     }
     
-    public func reloadData() {
+    public func reloadHeader() {
         reloadHeaderData()
+    }
+    public func reloadBody() {
         bodyView.reloadData()
     }
 }
@@ -287,5 +290,7 @@ extension YXMenuView: UITableViewDelegate, UITableViewDataSource {
         delegate?.menuView?(self, didSelectRowAtIndexPath: indexPath)
         selections.reset()
         selectAction(.SelectSelf)
+        let subviews = headerView.subviews as! [YXSectionView]
+        subviews[indexPath.section].button.setTitle(bodyView.cellForRowAtIndexPath(indexPath)!.textLabel!.text!, forState: .Normal)
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 import YXMenuView
 import SwiftyJSON
 import MJRefresh
+import MBProgressHUD
 
 class AllJobsViewController: UIViewController {
     override func viewDidLoad() {
@@ -18,9 +19,8 @@ class AllJobsViewController: UIViewController {
         menuView.delegate = self
         menuView.dataSource = self
         
-        jobsTableView.mj_footer = MJRefreshAutoFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
-        
-        print(titleForRows)
+//        jobsTableView.mj_footer = MJRefreshAutoFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
+//        jobsTableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -29,8 +29,8 @@ class AllJobsViewController: UIViewController {
         if let selection = jobsTableView.indexPathForSelectedRow {
             jobsTableView.deselectRowAtIndexPath(selection, animated: true)
         }
-        currentCounties = Location.getCurrentCounties()
-//        menuView.reloadData()
+        currentCounties = ["不限"] + Location.getCurrentCounties().map({ county in return county["name"].stringValue })
+        menuView.reloadBody()
     }
     
     let api = API.shared
@@ -42,39 +42,53 @@ class AllJobsViewController: UIViewController {
     var currentCounties: [String]!
     
     var titleForSections = ["类型", "位置"]
+    
+    let baseLocation = ["不限"]
     var titleForRows = [
-        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], Location.getCurrentCounties()]
+        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], ["不限"] + Location.getCurrentCounties().map({ county in return county["name"].stringValue })]
     
     var currentSelection = [0, 0]
     var currentPage = 0
     
     
-    var jobsData: [JSON]?
+    var jobsData: [JSON] = []
     
     
     func loadNewData() {
-        print("loadNewData")
         currentPage += 1
-        var params = ["type": "\(currentSelection[0])",
-                      "page": "\(currentPage)",
-                      "country": ""]
+        var params: [String: AnyObject] = ["type":"",
+                                           "date": "",
+                                           "districtid": "",
+                                           "page": currentPage]
+        
         if currentSelection[0] == 0 {
             params["type"] = ""
+        } else {
+            params["type"] = "\(currentSelection[0])"
         }
-        api.getJobs(params) { result in
-            switch result {
+        
+        if currentSelection[1] == 0 {
+            params["districtid"] = ""
+        } else {
+            params["districtid"] = Location.getCurrentCounties()[currentSelection[1]-1]["code"].stringValue
+        }
+//        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        api.getJobs(params) { response in
+            switch response {
             case .Success:
-                if let value = result.value {
-                    let newData = self.jobsData! + JSON(data: value).array!
-                    self.jobsData = newData
-                    print(self.jobsData)
+                let res = JSON(data: response.value!)
+                if res["status"] == "success" {
+                    self.jobsData = res["result"].array!
                     self.jobsTableView.reloadData()
+                } else if res["status"] == "failure" {
+                    print("failure")
                 }
+                
             case .Failure(let error):
                 print(error)
             }
+//            MBProgressHUD.hideHUDForView(self.view, animated: true)
         }
-        jobsTableView.mj_footer = MJRefreshAutoFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
     }
 }
 
@@ -86,8 +100,7 @@ extension AllJobsViewController {
             case "ShowJobDetailsSegue":
                 let controller = segue.destinationViewController as! JobDetailsTableViewController
                 let selectedRow = jobsTableView.indexPathForSelectedRow!.row
-                controller.id = jobsData![selectedRow]["id"].stringValue
-//                controller.jobData = jobsData!.array![selectedRow]
+                controller.id = jobsData[selectedRow]["ptID"].stringValue
             default:
                 break
             }
@@ -123,22 +136,39 @@ extension AllJobsViewController: YXMenuViewDelegate, YXMenuViewDataSource {
     func menuView(menuView: YXMenuView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         currentSelection[indexPath.section] = indexPath.row
         currentPage = 1
-        var params = ["type": "\(currentSelection[0])",
-                      "page": "\(currentPage)",
-                      "country": ""]
+        
+        var params: [String: AnyObject] = ["type":"",
+                                           "date": "",
+                                           "districtid": "",
+                                           "page": currentPage]
+        
         if currentSelection[0] == 0 {
             params["type"] = ""
+        } else {
+            params["type"] = "\(currentSelection[0])"
         }
         
+        if currentSelection[1] == 0 {
+            params["districtid"] = ""
+        } else {
+            params["districtid"] = Location.getCurrentCounties()[currentSelection[1]-1]["code"].stringValue
+        }
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         api.getJobs(params) { response in
             switch response {
             case .Success:
-                self.jobsData = JSON(data: response.value!).array!
-                self.jobsTableView.reloadData()
+                let res = JSON(data: response.value!)
+                if res["status"] == "success" {
+                    self.jobsData = res["result"].array!
+                    self.jobsTableView.reloadData()
+                } else if res["status"] == "failure" {
+                    print("failure")
+                }
+                
             case .Failure(let error):
                 print(error)
             }
-
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
         }
     }
 }
@@ -149,27 +179,22 @@ extension AllJobsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let data = jobsData {
-            return data.count
-        } else {
-            return 0
-        }
+        return jobsData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("JobTableViewCell", forIndexPath: indexPath) as! JobTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("JobCell", forIndexPath: indexPath) as! JobCell
 
-        let data = jobsData![indexPath.row]
+        let data = jobsData[indexPath.row]
         print(data)
-        cell.locationLabel.text = data["cityid"].stringValue
-        cell.timeLabel.text = data["createtime"].stringValue
-        cell.salaryLabel.text = "\(data["salary"].stringValue) 元/ \(data["salaryunit"].stringValue)"
+        cell.locationLabel.text = data["district"].stringValue
+//        cell.timeLabel.text = data["dateBegin"].stringValue + "~" + data["dateEnd"].stringValue + " " + data["timeBegin"].stringValue + "~" + data["timeEnd"].stringValue
+        cell.timeLabel.text = data["dateBegin"].stringValue + " ~ " + data["dateEnd"].stringValue
+        cell.salaryLabel.text = "\(data["salary"].stringValue)元/\(data["salarytype"].stringValue)"
+        cell.salaryTypeLabel.text = data["salaryWhen"].stringValue
         cell.titleLabel.text = data["title"].stringValue
         cell.logoImage.image = UIImage(named: "Logo")
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
-    }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JobTableViewCell: UITableViewCell {
+class JobCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,11 +31,12 @@ class JobTableViewCell: UITableViewCell {
     @IBOutlet weak var timeImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     
-    @IBOutlet weak var salaryImage: UIImageView!
+    @IBOutlet weak var salaryTypeImage: UIImageView!
+    @IBOutlet weak var salaryTypeLabel: UILabel!
     @IBOutlet weak var salaryLabel: UILabel!
 }
 
-extension JobTableViewCell {
+extension JobCell {
     private func initialStyle() {
 //        locationImage.tintColor = UIColor.darkGrayColor()
 //        timeImage.tintColor = UIColor.darkGrayColor()
@@ -43,7 +44,7 @@ extension JobTableViewCell {
 //        let color = UIColor(red: 147/255.0, green: 44/255.0, blue: 48/255.0, alpha: 1)
         locationImage.tintColor = Theme.mainColor
         timeImage.tintColor = Theme.mainColor
-        salaryImage.tintColor = Theme.mainColor
+        salaryTypeImage.tintColor = Theme.mainColor
         
         logoImage.clipsToBounds = true
         logoImage.layer.cornerRadius = logoImage.frame.size.width / 2

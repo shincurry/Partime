@@ -102,18 +102,18 @@ class API: NSObject {
     
     // --- Part Time ---
     func getJobs(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/pt/getByTypeandPlace.do"
-        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+        let uri = "/pt/get"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     
     func getJobsCount(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-    let uri = "/pt/getCountByTypeandPlace.do"
-    httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+        let uri = "/pt/count"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
 
-    func getJobDetails(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/pt/getDetail.do"
-        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    func getJobDetails(jobID: String, completion: Result<NSData, NSError> -> Void) {
+        let uri = "/pt/" + jobID
+        httpGetRequest(uri: baseUri + uri, parameters: [:], completion: completion)
     }
     
     // ----- Employee Manager -----
@@ -137,7 +137,7 @@ class API: NSObject {
     // ----- Employer Manager -----
     
     func postAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employerManage/Post.do"
+        let uri = "/employer/post"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     
@@ -148,6 +148,12 @@ class API: NSObject {
             completion(response.result)
         }
     }
+    private func httpGetRequest(uri uri: String, parameters: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        Alamofire.request(.GET, uri, parameters: parameters, encoding: .URL, headers: nil).responseData() { response in
+            completion(response.result)
+        }
+    }
+    
     
     func verifyPersonalNew(datas: [String: NSData], completion: Result<NSData, NSError> -> Void) {
         let uri = "/user/profile/personCertificate.do"

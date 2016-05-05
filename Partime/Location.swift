@@ -27,13 +27,11 @@ class Location: NSObject {
     
     lazy var manager = CLLocationManager()
     
-    static func getCurrentCounties() -> [String] {
+    static func getCurrentCounties() -> [JSON] {
         let defaults = NSUserDefaults.standardUserDefaults()
         let provincePath = defaults.integerForKey("CurrentProvincePath")
         let cityPath = defaults.integerForKey("CurrentCityPath")
-        return allPlaces.array![provincePath]["sub"].array![cityPath]["sub"].array!.map() { county in
-            return county["name"].stringValue
-        }
+        return allPlaces.array![provincePath]["sub"].array![cityPath]["sub"].array!
     }
     
     static func getCounty(byCode code: String) -> JSON? {

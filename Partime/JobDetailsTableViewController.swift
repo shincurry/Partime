@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftyJSON
+import MBProgressHUD
+import MJRefresh
 
 class JobDetailsTableViewController: UITableViewController {
 
@@ -17,6 +19,8 @@ class JobDetailsTableViewController: UITableViewController {
         } else {
             joinButton.enabled = false
         }
+        
+        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadData))
     }
     
     override func viewDidLayoutSubviews() {
@@ -32,8 +36,6 @@ class JobDetailsTableViewController: UITableViewController {
     
     @IBOutlet weak var navigatorTitle: UINavigationItem!
     
-    @IBOutlet weak var picture: UIImageView!
-    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var locationImage: UIImageView!
@@ -41,12 +43,20 @@ class JobDetailsTableViewController: UITableViewController {
     @IBOutlet weak var timeImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     
+    
+    @IBOutlet weak var jobTypeLabel: UILabel!
+    @IBOutlet weak var memberCountLabel: UILabel!
+    @IBOutlet weak var salaryLabel: UILabel!
+    @IBOutlet weak var genderRequireLabel: UILabel!
+    
+    
+    
     @IBOutlet weak var rateLabel: UILabel!
     @IBOutlet weak var rateScoreLabel: UILabel!
     
     
-    @IBOutlet weak var jobDetailsText: UITextView!
-    
+    @IBOutlet weak var workRequireTextView: UITextView!
+    @IBOutlet weak var workContentTextView: UITextView!
     
     @IBOutlet weak var workDateLabel: UILabel!
     
@@ -73,22 +83,11 @@ class JobDetailsTableViewController: UITableViewController {
     
     var id: String? {
         didSet {
-            api.getJobDetails(["id": id!]) { result in
-                switch result {
-                case .Success:
-                    
-                    self.jobData = JSON(data: result.value!)
-                    
-                case .Failure(let error):
-                    print(error)
-                }
-                self.loadData()
-            }
-
+            loadData()
         }
     }
-    var jobData: JSON?
-    
+    var location: (Double, Double)?
+    var mapHidden = true
     
     @IBOutlet weak var joinButton: UIButton!
     @IBAction func join(sender: UIButton) {
@@ -112,47 +111,98 @@ class JobDetailsTableViewController: UITableViewController {
         
     }
     
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        switch identifier {
+            case "ShowMapSegue":
+                if let _ = location {
+                    return true
+                }
+            default:
+                break
+            }
+        return false
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            
+            switch identifier {
+            case "ShowMapSegue":
+                let controller = segue.destinationViewController as! MapViewController
+                controller.location = location
+                
+            default:
+                break
+            }
+            
+        }
+    }
+    
 }
 
 // MARK: - Table View Delegate and DataSource
 extension JobDetailsTableViewController {
-    func tempData() {
-        picture.image = UIImage(named: "./pictures/gallery-1.jpg")
-        navigatorTitle.title = "某不知名兼职工作"
-        titleLabel.text = "某不知名兼职工作"
-        locationLabel.text = "重庆理工大学"
-        timeLabel.text = "2016-1-1"
-        rateLabel.text = RateStar(score: 4).getStars()
-        jobDetailsText.text = "背书:\n我一再翻阅这些痛苦的回忆，一面不断地自问，是否在那个阳光灿烂的遥远的夏天，我生活中发狂的预兆已经开始，还是我对那个孩子的过度欲望，只是一种与生俱来的怪癖的最早迹象呢？在我努力分析自己的渴望、动机和行为等等的时候，我总陷入一种追忆往事的幻想，这种幻想为分析官能提供了无限的选择，并且促使想象中的每一条线路在我过去那片复杂得令人发疯的境界中漫无止境地一再往外分岔。可是，我深信，从某种魔法和宿命的观点而言，洛丽塔是从安娜贝尔开始的。\n我一再翻阅这些痛苦的回忆，一面不断地自问，是否在那个阳光灿烂的遥远的夏天，我生活中发狂的预兆已经开始，还是我对那个孩子的过度欲望，只是一种与生俱来的怪癖的最早迹象呢？在我努力分析自己的渴望、动机和行为等等的时候，我总陷入一种追忆往事的幻想，这种幻想为分析官能提供了无限的选择，并且促使想象中的每一条线路在我过去那片复杂得令人发疯的境界中漫无止境地一再往外分岔。可是，我深信，从某种魔法和宿命的观点而言，洛丽塔是从安娜贝尔开始的。"
-    }
-    
     func loadData() {
-        if let data = jobData {
-            print(data)
-            picture.image = UIImage(named: "./pictures/gallery-1.jpg")
-            navigatorTitle.title = data["title"].stringValue
-         
-            titleLabel.text = data["title"].stringValue
-            locationLabel.text = data["cityid"].stringValue
-            
-            timeLabel.text = data["begindate"].stringValue
-            workDateLabel.text = "\(data["begindate"].stringValue) ~ \(data["enddate"].stringValue)"
-            workTimeLabel.text = data["timebegin"].stringValue + " ~ " + data["timeend"].stringValue
-            
-            rateLabel.text = RateStar(score: 0).getStars()
-            rateScoreLabel.text = "0"
-            
-//            jobDetailsText.text = data[""]
-
-            
-            contactTelephoneButton.titleLabel!.text = data["mobile"].stringValue
-        } else {
-            tempData()
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        api.getJobDetails(id!) { response in
+            switch response {
+            case .Success:
+                let res = JSON(data: response.value!)
+                print(res)
+                if res["status"] == "success" {
+                    print(res["result"])
+                    self.setInfo(res["result"])
+                } else if res["status"] == "failure" {
+                    print("failure")
+                }
+            case .Failure(let error):
+                print(error)
+            }
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            self.tableView.mj_header.endRefreshing()
         }
         
+    }
+    
+    func setInfo(data: JSON) {
+        navigatorTitle.title = data["title"].stringValue
+        titleLabel.text = data["title"].stringValue
         
         
-
+        locationLabel.text = data["district"].stringValue
+        timeLabel.text = data["dateBegin"].stringValue
+        
+        
+        rateLabel.text = RateStar(score: 0).getStars()
+        rateScoreLabel.text = "0"
+        
+        
+        jobTypeLabel.text = data["type"].stringValue
+        memberCountLabel.text = "\(data["amount"].intValue)"
+        salaryLabel.text = data["salary"].stringValue + "元"
+        genderRequireLabel.text = data["genderneed"].stringValue
+        
+        
+        
+        workDateLabel.text = "\(data["dateBegin"].stringValue) ~ \(data["dateEnd"].stringValue)"
+        workTimeLabel.text = data["timeBegin"].stringValue + " ~ " + data["timeEnd"].stringValue
+        
+        
+        workContentTextView.text = data["institution"].stringValue
+        
+        
+        contactTelephoneButton.titleLabel!.text = data["contactphone"].stringValue
+        
+        if let address = data["address"].string {
+            mapLabel.text = address
+            if let latitude = data["latitude"].double {
+                if let longitude = data["longitude"].double {
+                    location = (latitude, longitude)
+                    mapHidden = false
+                }
+            }
+        }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -173,10 +223,14 @@ extension JobDetailsTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var cellHeight = super.tableView(tableView, heightForRowAtIndexPath: indexPath)
-        if indexPath.section == 1 && indexPath.row == 1 {
-            let originalHeight = jobDetailsText.frame.height
-            let fullHeight = jobDetailsText.fullSize().height
+        if indexPath.section == 1 && indexPath.row == 2 {
+            let originalHeight = workContentTextView.frame.height
+            let fullHeight = workContentTextView.fullSize().height
             cellHeight += fullHeight - originalHeight
+        } else if indexPath.section == 4 && indexPath.row == 1 {
+            if mapHidden {
+                cellHeight = 0
+            }
         }
         
         return cellHeight
