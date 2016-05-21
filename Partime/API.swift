@@ -118,19 +118,19 @@ class API: NSObject {
     
     // ----- Employee Manager -----
     func requestAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employeeManage/Request.do"
+        let uri = "/employee/request"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     func getMyJobsCount(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employeeManage/getCountbyStatus.do"
-        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+        let uri = "/employee/byStatusCount"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     func getMyJobs(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employeeManage/getbyStatus.do"
-        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+        let uri = "/employee/byStatus"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     func cancelAJobRequest(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employeeManage/cancelRequest.do"
+        let uri = "/employee/cancelRequest"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     

@@ -92,10 +92,12 @@ class JobDetailsTableViewController: UITableViewController {
     @IBOutlet weak var joinButton: UIButton!
     @IBAction func join(sender: UIButton) {
         if let id = self.id {
-            api.requestAJob(["access_token": API.token!, "id": id]) { result in
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            api.requestAJob(["access_token": API.token!, "ptID": id]) { result in
                 switch result {
                 case .Success:
                     let data = JSON(data: result.value!)
+                    print(data)
                     if data["status"].stringValue == "success" {
                         let alertController = UIAlertController(title: "Success", message: "Join successfully", preferredStyle: .Alert)
                         let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
@@ -106,6 +108,7 @@ class JobDetailsTableViewController: UITableViewController {
                 case .Failure(let error):
                     print(error)
                 }
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
             }
         }
         
@@ -189,7 +192,7 @@ extension JobDetailsTableViewController {
         workTimeLabel.text = data["timeBegin"].stringValue + " ~ " + data["timeEnd"].stringValue
         
         
-        workContentTextView.text = data["institution"].stringValue
+        workContentTextView.text = data["detailanddemand"].stringValue
         
         
         contactTelephoneButton.titleLabel!.text = data["contactphone"].stringValue

@@ -60,6 +60,8 @@ class HomeViewController: UIViewController {
         ["名字一定要很长来测试 UI", "100 元/日", "7:00-17:00", "重庆"],
         ["发传单", "60 元 / 日", "13:00-17:00", "重庆理工大学"]]
 
+    var collectionTitles = ["家政服务", "促销导购", "传单发放", "其他更多"]
+    var collectionDescriptions = ["零碎繁杂家务事", "促销商品", "发放广告传单", "更多兼职工作"]
 }
 
 // MARK: - Initial View Style
@@ -140,32 +142,27 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 3
+        return 1
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // temp code
-        if section == 1 {
-            return 1
-        }
-        if section == 2 {
-            return 2
-        }
         return 4
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if indexPath.section == 1 {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FullHomeNavigatorCell", forIndexPath: indexPath) as! FullHomeNavigatorCollectionViewCell
-            cell.backgroundColor = UIColor.whiteColor()
-            cell.picture.image = UIImage(named: "./pictures/f1.jpg")
-            return cell
-        } else {
+//        if indexPath.section == 1 {
+//            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("FullHomeNavigatorCell", forIndexPath: indexPath) as! FullHomeNavigatorCollectionViewCell
+//            cell.backgroundColor = UIColor.whiteColor()
+//            cell.picture.image = UIImage(named: "./pictures/f1.jpg")
+//            return cell
+//        } else {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HalfHomeNavigatorCell", forIndexPath: indexPath) as! HalfHomeNavigatorCollectionViewCell
+            cell.title.text = collectionTitles[indexPath.row]
+            cell.descriptionText.text = collectionDescriptions[indexPath.row]
             cell.backgroundColor = UIColor.whiteColor()
-            cell.icon.image = UIImage(named: "./pictures/b\(indexPath.row%3 + 1).jpg")
+//            cell.icon.image = UIImage(named: "./pictures/b\(indexPath.row%3 + 1).jpg")
             return cell
-        }
+//        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -202,20 +199,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RecommendJobCell", forIndexPath: indexPath) as! JobCell
         let data = tempData[indexPath.row]
+        cell.logoImage.image = UIImage(named: "Logo")
         cell.locationLabel.text = data[3]
         cell.timeLabel.text = data[2]
-        cell.salaryLabel.text = data[1]
+        cell.salaryLabel!.text = data[1]
         cell.titleLabel.text = data[0]
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Recommend"
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 76
-    }
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return recommendHeaderView
     }

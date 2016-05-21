@@ -41,13 +41,13 @@ class AllJobsViewController: UIViewController {
     
     var currentCounties: [String]!
     
-    var titleForSections = ["类型", "位置"]
+    var titleForSections = ["类型", "位置", "时间"]
     
     let baseLocation = ["不限"]
     var titleForRows = [
-        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], ["不限"] + Location.getCurrentCounties().map({ county in return county["name"].stringValue })]
+        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], ["不限"] + Location.getCurrentCounties().map({ county in return county["name"].stringValue }), ["不限", "最近一天", "最近两天", "最近一周"]]
     
-    var currentSelection = [0, 0]
+    var currentSelection = [0, 0, 0]
     var currentPage = 0
     
     
@@ -186,11 +186,10 @@ extension AllJobsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("JobCell", forIndexPath: indexPath) as! JobCell
 
         let data = jobsData[indexPath.row]
-        print(data)
         cell.locationLabel.text = data["district"].stringValue
 //        cell.timeLabel.text = data["dateBegin"].stringValue + "~" + data["dateEnd"].stringValue + " " + data["timeBegin"].stringValue + "~" + data["timeEnd"].stringValue
         cell.timeLabel.text = data["dateBegin"].stringValue + " ~ " + data["dateEnd"].stringValue
-        cell.salaryLabel.text = "\(data["salary"].stringValue)元/\(data["salarytype"].stringValue)"
+        cell.salaryLabel!.text = "\(data["salary"].stringValue)元/\(data["salaryType"].stringValue)"
         cell.salaryTypeLabel.text = data["salaryWhen"].stringValue
         cell.titleLabel.text = data["title"].stringValue
         cell.logoImage.image = UIImage(named: "Logo")

@@ -614,9 +614,11 @@
                         <outlet property="salaryLabel" destination="ij5-3l-JQr" id="Ax8-D3-4gd"/>
                         <outlet property="telephoneLabel" destination="5vI-xA-1D2" id="0Xo-2m-QzK"/>
                         <segue destination="sYU-1E-Okq" kind="show" identifier="ShowTextEditingSegue" id="phV-Sd-mMm"/>
+                        <segue destination="BIj-R0-7ic" kind="unwind" identifier="UnwindPublishJobToProfileSegue" unwindAction="unwindToViewController:" id="ARH-Di-YQ1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uod-yp-S6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="BIj-R0-7ic" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="294.5" y="640"/>
         </scene>
@@ -801,7 +803,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pi0-Ee-YZH">
                                 <rect key="frame" x="285" y="106" width="6" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工资待遇" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yt-bx-ECO">

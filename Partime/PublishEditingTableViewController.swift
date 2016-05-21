@@ -237,7 +237,10 @@ extension PublishEditingTableViewController {
                     let alertMessage = "发布兼职成功"
                     
                     let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: "完成", style: .Default, handler: nil)
+                    let OKAction = UIAlertAction(title: "完成", style: .Default, handler: { _ in
+                        self.performSegueWithIdentifier("UnwindPublishJobToProfileSegue", sender: self)
+                    
+                    })
                     alertController.addAction(OKAction)
                     self.presentViewController(alertController, animated: true, completion: nil)
                 }

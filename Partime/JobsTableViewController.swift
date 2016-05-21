@@ -70,7 +70,7 @@ extension JobsTableViewController {
         let data = tempData[indexPath.row]
         cell.locationLabel.text = data[3]
         cell.timeLabel.text = data[2]
-        cell.salaryLabel.text = data[1]
+        cell.salaryLabel!.text = data[1]
         cell.titleLabel.text = data[0]
         return cell
     }

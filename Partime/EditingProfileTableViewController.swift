@@ -116,7 +116,7 @@ class EditingProfileTableViewController: UITableViewController {
         
         
         print(API.token!)
-        var params: [String: String] =
+        var params: [String: AnyObject] =
             ["access_token"  : "\(API.token!)",
              "realname"      : "\(nameLabel.text!)",
              "gender"        : "\(genderLabel.text!)",
@@ -133,11 +133,11 @@ class EditingProfileTableViewController: UITableViewController {
                 params["email"] = "\(email)"
             }
         }
-//        if let stature = statureLabel.text {
-//            if let value = Int(stature) {
-//                params["height"] = value
-//            }
-//        }
+        if let stature = statureLabel.text {
+            if let value = Int(stature) {
+                params["height"] = value
+            }
+        }
         
         
         if let school = schoolLabel.text {

@@ -232,3 +232,28 @@ extension ProfileTableViewController {
     }
 
 }
+
+extension ProfileTableViewController {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "ShowRequestJobSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.type = .Request
+            case "ShowHireJobSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.type = .Hire
+            case "ShowWorkingJobSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.type = .Working
+            case "ShowDoneJobSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.type = .Done
+                
+            default:
+                break
+            }
+        }
+    }
+}

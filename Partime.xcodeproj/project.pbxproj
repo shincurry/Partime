@@ -40,6 +40,8 @@
 		8875B5841C241AD40050A735 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875B5831C241AD40050A735 /* Account.swift */; };
 		8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA721C325CB6000DD480 /* SearchTableViewController.swift */; };
 		8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA741C325CE1000DD480 /* HomeViewController.swift */; };
+		889EE6431CF01B20007C32E1 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889EE6411CF01B20007C32E1 /* Account.storyboard */; };
+		889EE6461CF01D5B007C32E1 /* MyJobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889EE6451CF01D5B007C32E1 /* MyJobsTableViewController.swift */; };
 		88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */; };
 		88BED4041CC516D00052D233 /* MyJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BED4031CC516D00052D233 /* MyJobsViewController.swift */; };
 		88BED4061CC51D880052D233 /* MyJobsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BED4051CC51D870052D233 /* MyJobsTableViewCell.swift */; };
@@ -51,6 +53,7 @@
 		88CF34ED1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF34EC1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift */; };
 		88CF34EF1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF34EE1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift */; };
 		88CF34F11CDB6BE2005E6A84 /* PublishSalaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CF34F01CDB6BE2005E6A84 /* PublishSalaryViewController.swift */; };
+		88CF34F51CDB8A92005E6A84 /* JobDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88CF34F31CDB8A92005E6A84 /* JobDetail.storyboard */; };
 		88D036861CD862E2001E56B7 /* ProfileEditing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88D036841CD862E2001E56B7 /* ProfileEditing.storyboard */; };
 		88D036891CD8632A001E56B7 /* JobPublish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88D036871CD8632A001E56B7 /* JobPublish.storyboard */; };
 		88D0368B1CD864C3001E56B7 /* PublishEditingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D0368A1CD864C3001E56B7 /* PublishEditingTableViewController.swift */; };
@@ -136,6 +139,8 @@
 		887B7FFE1CCE3F58003D149E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8897BA721C325CB6000DD480 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		8897BA741C325CE1000DD480 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		889EE6421CF01B20007C32E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Account.storyboard; sourceTree = "<group>"; };
+		889EE6451CF01D5B007C32E1 /* MyJobsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyJobsTableViewController.swift; sourceTree = "<group>"; };
 		88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfHomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		88BED4031CC516D00052D233 /* MyJobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyJobsViewController.swift; sourceTree = "<group>"; };
 		88BED4051CC51D870052D233 /* MyJobsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyJobsTableViewCell.swift; sourceTree = "<group>"; };
@@ -149,6 +154,7 @@
 		88CF34EC1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishDateTimePickerViewController.swift; sourceTree = "<group>"; };
 		88CF34EE1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishGeneralPickerViewController.swift; sourceTree = "<group>"; };
 		88CF34F01CDB6BE2005E6A84 /* PublishSalaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishSalaryViewController.swift; sourceTree = "<group>"; };
+		88CF34F41CDB8A92005E6A84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/JobDetail.storyboard; sourceTree = "<group>"; };
 		88D036851CD862E2001E56B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ProfileEditing.storyboard; sourceTree = "<group>"; };
 		88D036881CD8632A001E56B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/JobPublish.storyboard; sourceTree = "<group>"; };
 		88D0368A1CD864C3001E56B7 /* PublishEditingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishEditingTableViewController.swift; sourceTree = "<group>"; };
@@ -265,6 +271,8 @@
 			children = (
 				8866EE151CB8B1E5009FC83E /* TabBarController.swift */,
 				88BF94331C745534002F8FA7 /* Main.storyboard */,
+				889EE6411CF01B20007C32E1 /* Account.storyboard */,
+				88CF34F31CDB8A92005E6A84 /* JobDetail.storyboard */,
 				88D036841CD862E2001E56B7 /* ProfileEditing.storyboard */,
 				88D036871CD8632A001E56B7 /* JobPublish.storyboard */,
 				884E1A9B1C952E1B00B22F9C /* FirstLaunchGroup */,
@@ -315,6 +323,14 @@
 			name = FirstLaunchGroup;
 			sourceTree = "<group>";
 		};
+		889EE6441CF01D37007C32E1 /* MyJobs */ = {
+			isa = PBXGroup;
+			children = (
+				889EE6451CF01D5B007C32E1 /* MyJobsTableViewController.swift */,
+			);
+			name = MyJobs;
+			sourceTree = "<group>";
+		};
 		88B4CBC01C71C07B006FAC65 /* HomeGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +355,7 @@
 				881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */,
 				88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */,
 				88BED4031CC516D00052D233 /* MyJobsViewController.swift */,
+				889EE6441CF01D37007C32E1 /* MyJobs */,
 				88D0368C1CD8686E001E56B7 /* JobPublish */,
 			);
 			name = ProfileGroup;
@@ -499,7 +516,9 @@
 			files = (
 				881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */,
 				88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */,
+				889EE6431CF01B20007C32E1 /* Account.storyboard in Resources */,
 				88DDF4DC1CD0A78C000DF0D5 /* address.json in Resources */,
+				88CF34F51CDB8A92005E6A84 /* JobDetail.storyboard in Resources */,
 				88D036861CD862E2001E56B7 /* ProfileEditing.storyboard in Resources */,
 				881FCA0E1C23AF2800989FDF /* Assets.xcassets in Resources */,
 				88BF94311C745534002F8FA7 /* Main.storyboard in Resources */,
@@ -577,6 +596,7 @@
 				881F412A1C4788A10043DAC9 /* LocationTableViewController.swift in Sources */,
 				88CF34EA1CDA09FE005E6A84 /* MapViewController.swift in Sources */,
 				8827EE001CCDC64600DDB09D /* EditingProfileTableViewController.swift in Sources */,
+				889EE6461CF01D5B007C32E1 /* MyJobsTableViewController.swift in Sources */,
 				884296E81C4B7A9200DCB641 /* ProfileTableViewController.swift in Sources */,
 				88CE6F071C7F3E1D00909A44 /* SearchResultViewController.swift in Sources */,
 				88D0368B1CD864C3001E56B7 /* PublishEditingTableViewController.swift in Sources */,
@@ -633,6 +653,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		889EE6411CF01B20007C32E1 /* Account.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				889EE6421CF01B20007C32E1 /* Base */,
+			);
+			name = Account.storyboard;
+			sourceTree = "<group>";
+		};
 		88BF94331C745534002F8FA7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -649,6 +677,14 @@
 				88BF943E1C74598E002F8FA7 /* zh-Hans */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		88CF34F31CDB8A92005E6A84 /* JobDetail.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				88CF34F41CDB8A92005E6A84 /* Base */,
+			);
+			name = JobDetail.storyboard;
 			sourceTree = "<group>";
 		};
 		88D036841CD862E2001E56B7 /* ProfileEditing.storyboard */ = {
