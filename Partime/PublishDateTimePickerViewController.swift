@@ -43,10 +43,10 @@ class PublishDateTimePickerViewController: UIViewController {
         switch type {
         case .DateFrom:
             fallthrough
-            
         case .DateTo:
             pickerView.datePickerMode = .Date
             dateFormatter.dateFormat = "yyyy-MM-dd"
+            pickerView.minimumDate = NSDate()
         case .TimeFrom:
             fallthrough
         case .TimeTo:

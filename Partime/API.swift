@@ -111,8 +111,8 @@ class API: NSObject {
         httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
 
-    func getJobDetails(jobID: String, completion: Result<NSData, NSError> -> Void) {
-        let uri = "/pt/" + jobID
+    func getJobDetails(jobID: Int, completion: Result<NSData, NSError> -> Void) {
+        let uri = "/pt/\(jobID)"
         httpGetRequest(uri: baseUri + uri, parameters: [:], completion: completion)
     }
     
@@ -121,11 +121,11 @@ class API: NSObject {
         let uri = "/employee/request"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
-    func getMyJobsCount(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+    func getEmployeeJobsCount(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
         let uri = "/employee/byStatusCount"
         httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
-    func getMyJobs(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+    func getEmployeeJobs(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
         let uri = "/employee/byStatus"
         httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
@@ -141,6 +141,55 @@ class API: NSObject {
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     
+    func startAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/start"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    func endAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/end"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    
+    func deleteAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/delete"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    func getEmployerJobsCount(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/byStatusCount"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    func getEmployerJobs(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/byStatus"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    func getJobsHireMembers(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/applying/byStatus"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    func getJobsWorkingMembers(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/working/byStatus"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    func dealRequest(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/applying/passOrFail"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    func dealWorking(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/working/yesOrNo"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    
+    func getEmployeeProfile(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/userDetail"
+        httpGetRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    
+    
+    func finishAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
+        let uri = "/employer/working/end"
+        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
+    }
+    
     
     
     private func httpPostRequest(uri uri: String, parameters: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
@@ -150,6 +199,11 @@ class API: NSObject {
     }
     private func httpGetRequest(uri uri: String, parameters: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
         Alamofire.request(.GET, uri, parameters: parameters, encoding: .URL, headers: nil).responseData() { response in
+            completion(response.result)
+        }
+    }
+    private func httpGetRequest(uri uri: String, completion: Result<NSData, NSError> -> Void) {
+        Alamofire.request(.GET, uri, parameters: nil, encoding: .URL, headers: nil).responseData() { response in
             completion(response.result)
         }
     }
@@ -182,5 +236,11 @@ class API: NSObject {
     
     func getImageUrl(uri: String) -> NSURL {
         return NSURL(string: imageBaseUri + uri)!
+    }
+    
+    
+    func getAds(completion: Result<NSData, NSError> -> Void) {
+        let uri = "/app/ad"
+        httpGetRequest(uri: baseUri + uri, completion: completion)
     }
 }

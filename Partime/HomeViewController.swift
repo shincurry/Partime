@@ -7,21 +7,32 @@
 //
 
 import UIKit
+import MJRefresh
+import SwiftyJSON
+import SDWebImage
 
 class HomeViewController: UIViewController {
     let defaults = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        galleryTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(HomeViewController.nextGalleryImage), userInfo: nil, repeats: true)
         locationButton.title = defaults.valueForKey("location") as! String + " ▾"
         initialViewStyle()
+        
+        galleryTotalCount = defaults.integerForKey("galleryCount")
+        
+        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(updateHomeView))
+        header.lastUpdatedTimeLabel.hidden = true
+        header.stateLabel.hidden = true
+        scrollView.mj_header = header
+        
+        updateHomeView()
     }
     
     // 可能会调用多次
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        initialGallery()
+//        initialGallery()
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,11 +53,16 @@ class HomeViewController: UIViewController {
         
     }
     
+    let api = API.shared
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     var galleryTimer: NSTimer!
     @IBOutlet weak var galleryScrollView: UIScrollView!
     @IBOutlet weak var galleryPageControl: UIPageControl!
-    let galleryTotalCount = 3
-
+    var galleryTotalCount = 1
+    var galleryData: [GalleryData]?
+    typealias GalleryData = (imgSrc: String, toLink: String)
     @IBOutlet weak var homeCollection: UICollectionView!
 
     @IBOutlet weak var recommendHeaderLeftView: UIView!
@@ -62,6 +78,31 @@ class HomeViewController: UIViewController {
 
     var collectionTitles = ["家政服务", "促销导购", "传单发放", "其他更多"]
     var collectionDescriptions = ["零碎繁杂家务事", "促销商品", "发放广告传单", "更多兼职工作"]
+    
+    
+    func updateHomeView() {
+        api.getAds() { response in
+            switch response {
+            case .Success:
+                let res = JSON(data: response.value!)
+                if res["status"] == "success" {
+                    self.galleryData = res["result"].array!.map() { gallery in
+                        return (imgSrc: self.api.imageBaseUri + gallery["imgsrc"].stringValue, toLink: gallery["url"].stringValue)
+                    }
+                    self.galleryTotalCount = self.galleryData!.count
+                    self.defaults.setInteger(self.galleryTotalCount, forKey: "galleryCount")
+                
+                    self.initialGallery()
+                    self.scrollView.mj_header.endRefreshing()
+                } else if res["status"] == "failure" {
+                    print("failure")
+                }
+            case .Failure(let error):
+                print(error)
+            }
+            
+        }
+    }
 }
 
 // MARK: - Initial View Style
@@ -87,7 +128,7 @@ extension HomeViewController {
             switch identifier {
             case "ShowGalaryDetailsSegue":
                 let view = segue.destinationViewController as! GalleryDetailsViewController
-                view.detailsLink = "https://windisco.com" as String?
+                view.detailsLink = galleryData?[galleryPageControl.currentPage].toLink
             case "ShowRecommendJobsSegue":
                 let view = segue.destinationViewController as! JobsTableViewController
                 view.navigationTitle = NSLocalizedString("recommendJobs", comment: "")
@@ -107,17 +148,20 @@ extension HomeViewController: UIScrollViewDelegate {
     }
     
     private func initialGallery() {
-        let gallerySize = galleryScrollView.frame.size
-        for index in 0..<galleryTotalCount {
-            let imageX = CGFloat(index) * gallerySize.width
-            let imageView = UIImageView(frame: CGRectMake(imageX, 0, gallerySize.width, gallerySize.height))
-            imageView.image = UIImage(named: "./pictures/gallery-\(index+1).jpg")
-            imageView.contentMode = .ScaleAspectFill
-            galleryScrollView.addSubview(imageView)
+        if let data = galleryData {
+            let gallerySize = galleryScrollView.frame.size
+            for index in 0..<galleryTotalCount {
+                let imageX = CGFloat(index) * gallerySize.width
+                let imageView = UIImageView(frame: CGRectMake(imageX, 0, gallerySize.width, gallerySize.height))
+                imageView.sd_setImageWithURL(NSURL(string: data[index].imgSrc))
+                imageView.contentMode = .ScaleAspectFill
+                galleryScrollView.addSubview(imageView)
+            }
+            let contentWidth = gallerySize.width * CGFloat(galleryTotalCount)
+            galleryScrollView.contentSize = CGSizeMake(contentWidth, 0)
+            galleryPageControl.numberOfPages = galleryTotalCount
+            galleryTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(HomeViewController.nextGalleryImage), userInfo: nil, repeats: true)
         }
-        let contentWidth = gallerySize.width * CGFloat(galleryTotalCount)
-        galleryScrollView.contentSize = CGSizeMake(contentWidth, 0)
-        galleryPageControl.numberOfPages = galleryTotalCount
     }
     
     func nextGalleryImage() {
@@ -183,7 +227,27 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         let cellWidth = totalWidth / 2.0 - 1.0
         return CGSize(width: cellWidth, height: cellHeight)
-    } 
+    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let tabBar = self.tabBarController {
+            tabBar.selectedIndex = 1
+            if let controller = tabBar.viewControllers![tabBar.selectedIndex].childViewControllers[0] as? AllJobsViewController  {
+                switch indexPath.row {
+                case 0:
+                    controller.quickAccess(.LSJJ)
+                case 1:
+                    controller.quickAccess(.CXDG)
+                case 2:
+                    controller.quickAccess(.CDFF)
+                case 3:
+                    controller.quickAccess(.OTHER)
+                default:
+                    break
+                }
+                
+            }
+        }
+    }
 }
 
 // MARK: - Recommend Job Table View Delegate and DataSource

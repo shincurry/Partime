@@ -17,6 +17,8 @@ class PublishEditingTableViewController: UITableViewController {
         salary = 0
         salaryTypeCode = 14
         
+        contactLabel.text = defaults.objectForKey("ProfileRealname") as? String
+        telephoneLabel.text = defaults.objectForKey("ProfileTelephone") as? String
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -27,6 +29,7 @@ class PublishEditingTableViewController: UITableViewController {
     }
     
     let api = API.shared
+    let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
     
     @IBOutlet weak var jobNameLabel: UILabel!
     @IBOutlet weak var jobTypeLabel: UILabel!
@@ -124,6 +127,9 @@ class PublishEditingTableViewController: UITableViewController {
                 let controller = segue.destinationViewController as! PublishSalaryViewController
                 controller.superLabel = salaryLabel
                 controller.superController = self
+            case "UnwindPublishJobToProfileSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.getEmployerJobs()
             default:
                 break
             }
@@ -171,7 +177,9 @@ extension PublishEditingTableViewController {
         
         var params: [String: AnyObject] = ["access_token": API.token!,
                                            "title": jobNameLabel.text!,
-                                           "type": jobTypeCode!
+                                           "type": jobTypeCode!,
+                                           "contactName": contactLabel.text!,
+                                           "contactPhone": telephoneLabel
         ]
         
         if doPublish {
@@ -218,12 +226,6 @@ extension PublishEditingTableViewController {
             params["detailAndDemand"] = text
         }
         
-        if let text = contactLabel.text {
-            params["contactName"] = text
-        }
-        if let text = telephoneLabel.text {
-            params["contactPhone"] = text
-        }
         
         print(params)
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -233,10 +235,7 @@ extension PublishEditingTableViewController {
                 let res = JSON(data: response.value!)
                 print(res)
                 if res["status"].stringValue == "success" {
-                    let alertTitle = "成功"
-                    let alertMessage = "发布兼职成功"
-                    
-                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                    let alertController = UIAlertController(title: "成功", message: "发布兼职成功", preferredStyle: .Alert)
                     let OKAction = UIAlertAction(title: "完成", style: .Default, handler: { _ in
                         self.performSegueWithIdentifier("UnwindPublishJobToProfileSegue", sender: self)
                     

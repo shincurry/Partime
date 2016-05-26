@@ -16,6 +16,8 @@ class PublishEditingTextViewController: UIViewController {
         super.viewDidLoad()
         initView()
         editTextField.becomeFirstResponder()
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,27 +32,30 @@ class PublishEditingTextViewController: UIViewController {
     
     @IBOutlet weak var editNameLabel: UILabel!
     @IBOutlet weak var editTextField: UITextField!
+    @IBOutlet weak var alertMessageLabel: UILabel!
     
     func initView() {
         switch name {
-        case "工资待遇":
-            fallthrough
         case "招聘人数":
             editTextField.keyboardType = .NumberPad
-        case "联系电话":
+            alertMessageLabel.text = "请输入数字"
+        case "联系电话 *":
             editTextField.keyboardType = .PhonePad
+            alertMessageLabel.text = "请输入11位的电话号码"
         default:
             break
         }
+
         
         if name.characters.last == "*" {
             let text = name.componentsSeparatedByString(" ")[0]
             editNameLabel.text = text
-            self.navigationItem.title = "修改" + text
+            navigationItem.title = "修改" + text
         } else {
             editNameLabel.text = name
-            self.navigationItem.title = "修改" + name
+            navigationItem.title = "修改" + name
         }
+        
         editTextField.text = detailsName
     }
     @IBAction func editingEnd(sender: UITextField) {

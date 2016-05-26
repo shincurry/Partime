@@ -1,4 +1,4 @@
-//
+
 //  AppDelegate.swift
 //  Partime
 //
@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import KeychainAccess
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +18,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        
+        if let _ = API.token {
+            let keychain = Keychain(service: "com.windisco.Partime")
+            
+            API.shared.login(["phonenumber": keychain["username"]!, "password": keychain["password"]!]) { response in
+                switch response {
+                case .Success:
+                    let res = JSON(data: response.value!)
+                    print(res)
+                    if res["status"].stringValue == "success" {
+                        keychain["accessToken"] = res["access_token"].stringValue
+                        API.token = res["access_token"].stringValue
+                    }
+                    print(API.token)
+                case .Failure:
+                    break
+                }
+            }
+        }
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.boolForKey("isNotFirstLaunch") {
             print("not first launch")
@@ -26,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.setBool(true, forKey: "isNotFirstLaunch")
             defaults.setObject("位置", forKey: "location")
             defaults.setBool(false, forKey: "isLogin")
+            defaults.setInteger(1, forKey: "galleryCount")
             
 //            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
 //            let guideViewController = storyBoard.instantiateViewControllerWithIdentifier("GuideView")

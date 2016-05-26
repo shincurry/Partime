@@ -15,6 +15,9 @@ class EditingProfileTableViewController: UITableViewController {
         super.viewDidLoad()
         getProfileInfo()
         
+        avatarImageView.clipsToBounds = true
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width / 2
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,7 +89,7 @@ class EditingProfileTableViewController: UITableViewController {
         } else {
             defaults.setInteger(0, forKey: "ProfileStature")
         }
-        
+        print(defaults.integerForKey("ProfileStature"))
         defaults.setObject(provinceCode, forKey: "ProfileProvinceID")
         defaults.setObject(cityCode, forKey: "ProfileCityID")
         defaults.setObject(districtCode, forKey: "ProfileDistrictID")
@@ -117,11 +120,11 @@ class EditingProfileTableViewController: UITableViewController {
         
         print(API.token!)
         var params: [String: AnyObject] =
-            ["access_token"  : "\(API.token!)",
-             "realname"      : "\(nameLabel.text!)",
-             "gender"        : "\(genderLabel.text!)",
-             "districtid"    : "\(districtCode!)",
-             "birthday"      : "\(birthdayLabel.text!)"
+            ["access_token"  : API.token!,
+             "realname"      : nameLabel.text!,
+             "gender"        : genderLabel.text!,
+             "districtid"    : districtCode!,
+             "birthday"      : birthdayLabel.text!
             ]
         if let qq = qqLabel.text {
             if !qq.isEmpty {

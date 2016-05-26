@@ -43,7 +43,8 @@
 		889EE6431CF01B20007C32E1 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889EE6411CF01B20007C32E1 /* Account.storyboard */; };
 		889EE6461CF01D5B007C32E1 /* MyJobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889EE6451CF01D5B007C32E1 /* MyJobsTableViewController.swift */; };
 		88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */; };
-		88BED4041CC516D00052D233 /* MyJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BED4031CC516D00052D233 /* MyJobsViewController.swift */; };
+		88B645521CF328420010951A /* MemberEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B645511CF328420010951A /* MemberEditingViewController.swift */; };
+		88B645551CF328FB0010951A /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B645541CF328FB0010951A /* MemberCell.swift */; };
 		88BED4061CC51D880052D233 /* MyJobsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BED4051CC51D870052D233 /* MyJobsTableViewCell.swift */; };
 		88BF94311C745534002F8FA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88BF94331C745534002F8FA7 /* Main.storyboard */; };
 		88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88BF943C1C74598B002F8FA7 /* Localizable.strings */; };
@@ -66,6 +67,7 @@
 		88DD03ED1C81D5830097AF9F /* EditViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DD03EC1C81D5830097AF9F /* EditViewControl.swift */; };
 		88DDF4DC1CD0A78C000DF0D5 /* address.json in Resources */ = {isa = PBXBuildFile; fileRef = 88DDF4DB1CD0A78C000DF0D5 /* address.json */; };
 		88E50FB11C5F2A15006CD010 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */; };
+		88F1BB5D1CF5E9B600EA0FB3 /* LookProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1BB5C1CF5E9B600EA0FB3 /* LookProfileTableViewController.swift */; };
 		B35AFCF8ADE5C813372C43B2 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105B38B2F88D07E963522799 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -142,7 +144,8 @@
 		889EE6421CF01B20007C32E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Account.storyboard; sourceTree = "<group>"; };
 		889EE6451CF01D5B007C32E1 /* MyJobsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyJobsTableViewController.swift; sourceTree = "<group>"; };
 		88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfHomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
-		88BED4031CC516D00052D233 /* MyJobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyJobsViewController.swift; sourceTree = "<group>"; };
+		88B645511CF328420010951A /* MemberEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberEditingViewController.swift; sourceTree = "<group>"; };
+		88B645541CF328FB0010951A /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		88BED4051CC51D870052D233 /* MyJobsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyJobsTableViewCell.swift; sourceTree = "<group>"; };
 		88BF94301C745499002F8FA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		88BF943B1C74598B002F8FA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 		88DD03EC1C81D5830097AF9F /* EditViewControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewControl.swift; sourceTree = "<group>"; };
 		88DDF4DB1CD0A78C000DF0D5 /* address.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = address.json; sourceTree = "<group>"; };
 		88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
+		88F1BB5C1CF5E9B600EA0FB3 /* LookProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookProfileTableViewController.swift; sourceTree = "<group>"; };
 		9B4CEB8D450780C65BE14FC2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -283,7 +287,7 @@
 				8897BA721C325CB6000DD480 /* SearchTableViewController.swift */,
 				88CE6F061C7F3E1D00909A44 /* SearchResultViewController.swift */,
 				8831937D1C806E9E005FDE5A /* JobsTableViewController.swift */,
-				881F41261C475AEA0043DAC9 /* JobCell.swift */,
+				88B645531CF328E10010951A /* CellView */,
 				88BED4051CC51D870052D233 /* MyJobsTableViewCell.swift */,
 			);
 			name = MainView;
@@ -327,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				889EE6451CF01D5B007C32E1 /* MyJobsTableViewController.swift */,
+				88B645511CF328420010951A /* MemberEditingViewController.swift */,
 			);
 			name = MyJobs;
 			sourceTree = "<group>";
@@ -354,11 +359,20 @@
 				884296E71C4B7A9200DCB641 /* ProfileTableViewController.swift */,
 				881F412B1C4794450043DAC9 /* SettingsTableViewController.swift */,
 				88E50FB01C5F2A15006CD010 /* EditProfileTableViewController.swift */,
-				88BED4031CC516D00052D233 /* MyJobsViewController.swift */,
 				889EE6441CF01D37007C32E1 /* MyJobs */,
 				88D0368C1CD8686E001E56B7 /* JobPublish */,
+				88F1BB5C1CF5E9B600EA0FB3 /* LookProfileTableViewController.swift */,
 			);
 			name = ProfileGroup;
+			sourceTree = "<group>";
+		};
+		88B645531CF328E10010951A /* CellView */ = {
+			isa = PBXGroup;
+			children = (
+				881F41261C475AEA0043DAC9 /* JobCell.swift */,
+				88B645541CF328FB0010951A /* MemberCell.swift */,
+			);
+			name = CellView;
 			sourceTree = "<group>";
 		};
 		88CCDD5E1C93D596003A7747 /* AllJobsGroup */ = {
@@ -587,6 +601,7 @@
 				8813C2411C73548800E05B32 /* Location.swift in Sources */,
 				88DD03DD1C8185780097AF9F /* Theme.swift in Sources */,
 				8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */,
+				88F1BB5D1CF5E9B600EA0FB3 /* LookProfileTableViewController.swift in Sources */,
 				88CF34ED1CDB361B005E6A84 /* PublishDateTimePickerViewController.swift in Sources */,
 				8827EE031CCDD4D300DDB09D /* EditingTextViewController.swift in Sources */,
 				88D036911CD8B863001E56B7 /* PublishEditingTextViewController.swift in Sources */,
@@ -601,6 +616,7 @@
 				88CE6F071C7F3E1D00909A44 /* SearchResultViewController.swift in Sources */,
 				88D0368B1CD864C3001E56B7 /* PublishEditingTableViewController.swift in Sources */,
 				88CF34EF1CDB3ECF005E6A84 /* PublishGeneralPickerViewController.swift in Sources */,
+				88B645551CF328FB0010951A /* MemberCell.swift in Sources */,
 				8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */,
 				88CCDD601C93D5C9003A7747 /* AllJobsViewController.swift in Sources */,
 				885262091CCE4A670083072F /* DatePickerViewController.swift in Sources */,
@@ -623,11 +639,11 @@
 				884E1A9D1C952E3C00B22F9C /* GuideViewController.swift in Sources */,
 				8858A3911C72162500EE86E5 /* FullHomeNavigatorCollectionViewCell.swift in Sources */,
 				8859B6541C48E71D001D2011 /* GalleryDetailsViewController.swift in Sources */,
+				88B645521CF328420010951A /* MemberEditingViewController.swift in Sources */,
 				882829A51C78B582009CEE5F /* LocationHotCitiesTableViewCell.swift in Sources */,
 				88BED4061CC51D880052D233 /* MyJobsTableViewCell.swift in Sources */,
 				881F412C1C4794450043DAC9 /* SettingsTableViewController.swift in Sources */,
 				88DD03E71C81B5400097AF9F /* Job.swift in Sources */,
-				88BED4041CC516D00052D233 /* MyJobsViewController.swift in Sources */,
 				8820825E1CB140900043FC13 /* YXAlertController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

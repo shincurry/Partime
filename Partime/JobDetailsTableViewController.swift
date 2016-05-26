@@ -11,6 +11,10 @@ import SwiftyJSON
 import MBProgressHUD
 import MJRefresh
 
+enum JobStatus {
+    case None
+}
+
 class JobDetailsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -55,8 +59,16 @@ class JobDetailsTableViewController: UITableViewController {
     @IBOutlet weak var rateScoreLabel: UILabel!
     
     
-    @IBOutlet weak var workRequireTextView: UITextView!
-    @IBOutlet weak var workContentTextView: UITextView!
+    @IBOutlet weak var workRequireTextView: UITextView! {
+        didSet {
+            workRequireConstraint.constant = workRequireTextView.fullSize().height
+        }
+    }
+    @IBOutlet weak var workContentTextView: UITextView! {
+        didSet {
+            workContentConstraint.constant = workContentTextView.fullSize().height
+        }
+    }
     
     @IBOutlet weak var workDateLabel: UILabel!
     
@@ -66,8 +78,8 @@ class JobDetailsTableViewController: UITableViewController {
     @IBOutlet weak var companyLogoImage: UIImageView!
     @IBOutlet weak var companyNameLabel: UILabel!
     
-    @IBOutlet weak var contactQQImage: UIImageView!
-    @IBOutlet weak var contactQQButton: UIButton!
+    @IBOutlet weak var contactNameImage: UIImageView!
+    @IBOutlet weak var contactNameButton: UIButton!
     
     @IBOutlet weak var contactTelephoneImage: UIImageView!
     @IBOutlet weak var contactTelephoneButton: UIButton!
@@ -79,9 +91,11 @@ class JobDetailsTableViewController: UITableViewController {
     @IBOutlet weak var mapLabel: UILabel!
     
 
+    @IBOutlet weak var workRequireConstraint: NSLayoutConstraint!
+    @IBOutlet weak var workContentConstraint: NSLayoutConstraint!
     let api = API.shared
     
-    var id: String? {
+    var id: Int? {
         didSet {
             loadData()
         }
@@ -99,11 +113,28 @@ class JobDetailsTableViewController: UITableViewController {
                     let data = JSON(data: result.value!)
                     print(data)
                     if data["status"].stringValue == "success" {
-                        let alertController = UIAlertController(title: "Success", message: "Join successfully", preferredStyle: .Alert)
-                        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                        let alertController = UIAlertController(title: "兼职报名", message: "兼职报名成功", preferredStyle: .Alert)
+                        let OKAction = UIAlertAction(title: "完成", style: .Default, handler: nil)
                         alertController.addAction(OKAction)
-                        self.presentViewController(alertController, animated: true) {
+                        self.presentViewController(alertController, animated: true) {}
+                    } else if data["status"] == "failure" {
+                        var message = ""
+                        if data["code"].intValue == 422 {
+                            message = "自己的兼职不能报名"
+                        } else if data["code"].intValue == 409 {
+                            message = "这个兼职已经报名"
+                        } else if data["code"].intValue == 410 {
+                            message = "兼职已超过开始日期，不能报名"
+                        } else if data["code"].intValue == 416 {
+                            message = "和已报名的（申请中或已通过）时间冲突"
+                        } else if data["code"].intValue == 406 {
+                            message = "未知错误"
                         }
+
+                        let alertController = UIAlertController(title: "报名失败", message: message, preferredStyle: .Alert)
+                        let OKAction = UIAlertAction(title: "完成", style: .Default, handler: nil)
+                        alertController.addAction(OKAction)
+                        self.presentViewController(alertController, animated: true) {}
                     }
                 case .Failure(let error):
                     print(error)
@@ -152,7 +183,6 @@ extension JobDetailsTableViewController {
             switch response {
             case .Success:
                 let res = JSON(data: response.value!)
-                print(res)
                 if res["status"] == "success" {
                     print(res["result"])
                     self.setInfo(res["result"])
@@ -183,19 +213,22 @@ extension JobDetailsTableViewController {
         
         jobTypeLabel.text = data["type"].stringValue
         memberCountLabel.text = "\(data["amount"].intValue)"
-        salaryLabel.text = data["salary"].stringValue + "元"
+        salaryLabel.text = data["salary"].stringValue + "元" + "/" + data["salarytype"].stringValue
         genderRequireLabel.text = data["genderneed"].stringValue
         
         
+        if !data["dateBegin"].stringValue.isEmpty && !data["dateEnd"].stringValue.isEmpty {
+            workDateLabel.text = "\(data["dateBegin"].stringValue) ~ \(data["dateEnd"].stringValue)"
+        }
+        if !data["timeBegin"].stringValue.isEmpty && !data["timeEnd"].stringValue.isEmpty {
+            workTimeLabel.text = data["timeBegin"].stringValue + " ~ " + data["timeEnd"].stringValue
+        }
         
-        workDateLabel.text = "\(data["dateBegin"].stringValue) ~ \(data["dateEnd"].stringValue)"
-        workTimeLabel.text = data["timeBegin"].stringValue + " ~ " + data["timeEnd"].stringValue
+        workRequireTextView.text = data["detailanddemand"].stringValue
+        workContentTextView.text = data["description"].stringValue
         
-        
-        workContentTextView.text = data["detailanddemand"].stringValue
-        
-        
-        contactTelephoneButton.titleLabel!.text = data["contactphone"].stringValue
+        contactNameButton.setTitle(data["contactname"].stringValue, forState: .Normal)
+        contactTelephoneButton.setTitle(data["contactphone"].stringValue, forState: .Normal)
         
         if let address = data["address"].string {
             mapLabel.text = address
@@ -208,14 +241,14 @@ extension JobDetailsTableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        if indexPath.section == 0 && indexPath.row == 0 {
-        
-            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0)
-        }
-        return cell
-    }
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+//        if indexPath.section == 0 && indexPath.row == 0 {
+//        
+//            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0)
+//        }
+//        return cell
+//    }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
@@ -226,10 +259,18 @@ extension JobDetailsTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var cellHeight = super.tableView(tableView, heightForRowAtIndexPath: indexPath)
-        if indexPath.section == 1 && indexPath.row == 2 {
-            let originalHeight = workContentTextView.frame.height
-            let fullHeight = workContentTextView.fullSize().height
-            cellHeight += fullHeight - originalHeight
+//        if indexPath.section == 1 && indexPath.row == 2 {
+//            let originalHeight = workRequireTextView.frame.height
+//            let fullHeight = workRequireTextView.fullSize().height
+//            cellHeight += fullHeight - originalHeight
+//        } else if indexPath.section == 1 && indexPath.row == 3 {
+//            let originalHeight = workContentTextView.frame.height
+//            let fullHeight = workContentTextView.fullSize().height
+//            cellHeight += fullHeight - originalHeight
+        if indexPath.section == 3 && indexPath.row == 0 {
+            if mapHidden {
+                cellHeight = 0
+            }
         } else if indexPath.section == 4 && indexPath.row == 1 {
             if mapHidden {
                 cellHeight = 0
@@ -249,7 +290,7 @@ extension JobDetailsTableViewController {
         companyLogoImage.layer.cornerRadius = companyLogoImage.frame.size.width / 2
         locationImage.tintColor = Theme.mainColor
         timeImage.tintColor = Theme.mainColor
-        contactQQImage.tintColor = Theme.mainColor
+        contactNameImage.tintColor = Theme.mainColor
         contactTelephoneImage.tintColor = Theme.mainColor
         contactEmailImage.tintColor = Theme.mainColor
         mapImage.tintColor = Theme.mainColor
@@ -261,12 +302,12 @@ extension JobDetailsTableViewController {
     @IBAction func calling(sender: UIButton) {
         let phoneNumber = sender.currentTitle!
         let url = NSURL(string: "tel://\(phoneNumber)")!
-        let alertTitle = NSLocalizedString("contactAlertTitle", comment: "")
-        let alertMessage = String.localizedStringWithFormat(NSLocalizedString("contactAlertMessage", comment: ""), phoneNumber)
+        let alertTitle = "拨打电话"
+        let alertMessage = "你确定要拨打 \(phoneNumber) 这个电话号码吗？"
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
-        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default) { (action) in
+        let OKAction = UIAlertAction(title: "确定", style: .Default) { (action) in
             UIApplication.sharedApplication().openURL(url)
         }
         alertController.addAction(OKAction)

@@ -157,6 +157,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h0R-ii-gFX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Afg-LE-igN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1904.5" y="1731.5"/>
         </scene>
@@ -292,9 +293,6 @@
                                 </constraints>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Close" image="Close"/>
-                                <connections>
-                                    <segue destination="bhn-WJ-0g5" kind="unwind" identifier="UnwindRegisterToLoginSegue" unwindAction="unwindToViewController:" id="XOE-Wp-p8v"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -317,12 +315,12 @@
                         <outlet property="phoneNumberTextField" destination="h8L-h6-KIY" id="ZLK-kf-YAg"/>
                         <outlet property="titleLabel" destination="yey-CP-71q" id="qu7-my-Nbr"/>
                         <outlet property="validateCodeTextField" destination="Q52-ca-Gpx" id="pQx-aw-VXL"/>
+                        <segue destination="Afg-LE-igN" kind="unwind" identifier="UnwindRegisterToLoginSegue" unwindAction="unwindToViewController:" id="6Wg-PQ-x44"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X04-G4-L4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bhn-WJ-0g5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2627.5" y="1132.5"/>
+            <point key="canvasLocation" x="2607.5" y="416.5"/>
         </scene>
     </scenes>
     <resources>

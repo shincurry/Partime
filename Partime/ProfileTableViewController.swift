@@ -31,6 +31,11 @@ class ProfileTableViewController: UITableViewController {
         if let selection = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(selection, animated: true)
         }
+        
+        let flag = (API.token != nil) ? true : false
+        jobButtons.forEach() { buttton in
+            buttton.enabled = flag
+        }
     }
 
     
@@ -43,6 +48,8 @@ class ProfileTableViewController: UITableViewController {
     let api = API.shared
     let alert = YXAlert()
     let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
+    
+    @IBOutlet var jobButtons: [UIButton]!
     
     @IBOutlet weak var personalVerification: UIButton!
     @IBOutlet weak var enterpriseVerification: UIButton!
@@ -87,12 +94,11 @@ class ProfileTableViewController: UITableViewController {
         keychain["accessToken"] = nil
         API.token = nil
         alert.showNotificationAlert("成功", message: "成功退出登录", sender: self, completion: nil)
-//        for key in defaults.dictionaryRepresentation().keys {
-//            defaults.removeObjectForKey(key)
-//        }
-//        defaults.synchronize()
-        
         updateLoginStatus()
+        let flag = (API.token != nil) ? true : false
+        jobButtons.forEach() { buttton in
+            buttton.enabled = flag
+        }
     }
 
     
@@ -121,6 +127,10 @@ class ProfileTableViewController: UITableViewController {
         tableView.reloadData()
     }
     func updateProfile() {
+        guard let _ = API.token else {
+            tableView.mj_header.endRefreshing()
+            return
+        }
         api.getProfile(["access_token": API.token!]) { response in
             switch response {
             case .Success:
@@ -149,10 +159,8 @@ class ProfileTableViewController: UITableViewController {
                 }
                 
                 
-                if let stature = data["height"].string {
-                    if let value = Int(stature) {
-                        defaults.setInteger(value, forKey: "ProfileStature")
-                    }
+                if let stature = data["height"].int {
+                    defaults.setInteger(stature, forKey: "ProfileStature")
                 } else {
                     defaults.setObject(0, forKey: "ProfileStature")
                 }
@@ -238,19 +246,31 @@ extension ProfileTableViewController {
         
         if let identifier = segue.identifier {
             switch identifier {
-            case "ShowRequestJobSegue":
+            case "ShowEmployeeRequestJobSegue":
                 let controller = segue.destinationViewController as! MyJobsTableViewController
-                controller.type = .Request
-            case "ShowHireJobSegue":
+                controller.type = (.Employee, .Request)
+
+            case "ShowEmployeeHireJobSegue":
                 let controller = segue.destinationViewController as! MyJobsTableViewController
-                controller.type = .Hire
-            case "ShowWorkingJobSegue":
+                controller.type = (.Employee, .Hire)
+            case "ShowEmployeeWorkingJobSegue":
                 let controller = segue.destinationViewController as! MyJobsTableViewController
-                controller.type = .Working
-            case "ShowDoneJobSegue":
+                controller.type = (.Employee, .Working)
+            case "ShowEmployeeDoneJobSegue":
                 let controller = segue.destinationViewController as! MyJobsTableViewController
-                controller.type = .Done
-                
+                controller.type = (.Employee, .Done)
+            case "ShowEmployerPublishJobSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.type = (.Employer, .Request)
+            case "ShowEmployerHireJobSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.type = (.Employer, .Hire)
+            case "ShowEmployerWorkingJobSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.type = (.Employer, .Working)
+            case "ShowEmployerDoneJobSegue":
+                let controller = segue.destinationViewController as! MyJobsTableViewController
+                controller.type = (.Employer, .Done)
             default:
                 break
             }

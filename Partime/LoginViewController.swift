@@ -159,6 +159,7 @@ class LoginViewController: UIViewController {
                 let res = JSON(data: response.value!)
                 let data = res["result"]
                 let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
+                defaults.setObject(data["phone"].stringValue, forKey: "ProfileTelephone")
                 defaults.setObject(data["realname"].stringValue, forKey: "ProfileRealname")
                 defaults.setObject(data["gender"].stringValue, forKey: "ProfileGender")
                 defaults.setObject(data["birthday"].stringValue, forKey: "ProfileBirthday")
@@ -220,19 +221,10 @@ class LoginViewController: UIViewController {
                 }
                 
                 defaults.synchronize()
-                
-                for key in defaults.dictionaryRepresentation().keys {
-                    print("\(defaults.objectForKey(key) as? String)")
-                }
             case .Failure(let error):
                 print(error)
             }
-            
-            
-
         }
-        
-        
     }
 }
 

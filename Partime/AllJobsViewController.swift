@@ -12,6 +12,13 @@ import SwiftyJSON
 import MJRefresh
 import MBProgressHUD
 
+enum QuickAccess: Int {
+    case LSJJ = 5
+    case CXDG = 2
+    case CDFF = 1
+    case OTHER = 10
+}
+
 class AllJobsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +26,7 @@ class AllJobsViewController: UIViewController {
         menuView.delegate = self
         menuView.dataSource = self
         
-//        jobsTableView.mj_footer = MJRefreshAutoFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
-//        jobsTableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
+        jobsTableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,21 +51,18 @@ class AllJobsViewController: UIViewController {
     
     let baseLocation = ["不限"]
     var titleForRows = [
-        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], ["不限"] + Location.getCurrentCounties().map({ county in return county["name"].stringValue }), ["不限", "最近一天", "最近两天", "最近一周"]]
-    
+        ["不限", "传单派发", "促销导购", "话务客服", "礼仪模特", "老师家教", "服务员", "问卷调查", "审核录入", "地推拉访", "其它"], ["不限"] + Location.getCurrentCounties().map({ county in return county["name"].stringValue }), ["不限", "最近一周", "最近两周", "最近一个月"]]
     var currentSelection = [0, 0, 0]
     var currentPage = 0
     
     
     var jobsData: [JSON] = []
     
-    
     func loadNewData() {
-        currentPage += 1
         var params: [String: AnyObject] = ["type":"",
                                            "date": "",
                                            "districtid": "",
-                                           "page": currentPage]
+                                           "page": currentPage+1]
         
         if currentSelection[0] == 0 {
             params["type"] = ""
@@ -78,8 +81,10 @@ class AllJobsViewController: UIViewController {
             case .Success:
                 let res = JSON(data: response.value!)
                 if res["status"] == "success" {
-                    self.jobsData = res["result"].array!
+                    self.jobsData += res["result"].array!
                     self.jobsTableView.reloadData()
+                    self.currentPage += 1
+                    self.jobsTableView.mj_footer.endRefreshing()
                 } else if res["status"] == "failure" {
                     print("failure")
                 }
@@ -90,53 +95,14 @@ class AllJobsViewController: UIViewController {
 //            MBProgressHUD.hideHUDForView(self.view, animated: true)
         }
     }
-}
-
-
-extension AllJobsViewController {
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "ShowJobDetailsSegue":
-                let controller = segue.destinationViewController as! JobDetailsTableViewController
-                let selectedRow = jobsTableView.indexPathForSelectedRow!.row
-                controller.id = jobsData[selectedRow]["ptID"].stringValue
-            default:
-                break
-            }
-        }
-
-    }
-}
-
-extension AllJobsViewController {
-    private func initialViewStyle() {
-        automaticallyAdjustsScrollViewInsets = false
-        if let navigator = navigationController {
-            navigator.navigationBar.barTintColor = Theme.mainColor
-        }
-        menuView.tintColor = Theme.mainColor
-    }
-}
-
-
-extension AllJobsViewController: YXMenuViewDelegate, YXMenuViewDataSource {
-    func numberOfSectionsInYXMenuView(menuView: YXMenuView) -> Int {
-        return titleForSections.count
-    }
-    func menuView(menuView: YXMenuView, numberOfRowsInSection section: Int) -> Int {
-        return titleForRows[section].count
-    }
-    func menuView(menuView: YXMenuView, titleForHeaderInSection section: Int) -> String {
-        return titleForSections[section]
-    }
-    func menuView(menuView: YXMenuView, titleForRowAtIndexPath indexPath: NSIndexPath) -> String {
-        return titleForRows[indexPath.section][indexPath.row]
-    }
-    func menuView(menuView: YXMenuView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        currentSelection[indexPath.section] = indexPath.row
+    
+    func quickAccess(type: QuickAccess) {
         currentPage = 1
-        
+        currentSelection[0] = type.rawValue
+        filtersJob()
+    }
+    
+    func filtersJob() {
         var params: [String: AnyObject] = ["type":"",
                                            "date": "",
                                            "districtid": "",
@@ -173,6 +139,55 @@ extension AllJobsViewController: YXMenuViewDelegate, YXMenuViewDataSource {
     }
 }
 
+
+extension AllJobsViewController {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "ShowJobDetailsSegue":
+                let controller = segue.destinationViewController as! JobDetailsTableViewController
+                let selectedRow = jobsTableView.indexPathForSelectedRow!.row
+                controller.id = jobsData[selectedRow]["ptID"].intValue
+            default:
+                break
+            }
+        }
+
+    }
+}
+
+extension AllJobsViewController {
+    private func initialViewStyle() {
+        automaticallyAdjustsScrollViewInsets = false
+        if let navigator = navigationController {
+            navigator.navigationBar.barTintColor = Theme.mainColor
+        }
+        menuView.tintColor = Theme.mainColor
+    }
+}
+
+
+extension AllJobsViewController: YXMenuViewDelegate, YXMenuViewDataSource {
+    func numberOfSectionsInYXMenuView(menuView: YXMenuView) -> Int {
+        return titleForSections.count
+    }
+    func menuView(menuView: YXMenuView, numberOfRowsInSection section: Int) -> Int {
+        return titleForRows[section].count
+    }
+    func menuView(menuView: YXMenuView, titleForHeaderInSection section: Int) -> String {
+        return titleForSections[section]
+    }
+    func menuView(menuView: YXMenuView, titleForRowAtIndexPath indexPath: NSIndexPath) -> String {
+        return titleForRows[indexPath.section][indexPath.row]
+    }
+    func menuView(menuView: YXMenuView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        currentSelection[indexPath.section] = indexPath.row
+        currentPage = 1
+        
+        filtersJob()
+    }
+}
+
 extension AllJobsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -186,9 +201,14 @@ extension AllJobsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("JobCell", forIndexPath: indexPath) as! JobCell
 
         let data = jobsData[indexPath.row]
-        cell.locationLabel.text = data["district"].stringValue
+        if !data["district"].stringValue.isEmpty {
+            cell.locationLabel.text = data["district"].stringValue
+        }
 //        cell.timeLabel.text = data["dateBegin"].stringValue + "~" + data["dateEnd"].stringValue + " " + data["timeBegin"].stringValue + "~" + data["timeEnd"].stringValue
-        cell.timeLabel.text = data["dateBegin"].stringValue + " ~ " + data["dateEnd"].stringValue
+        
+        if !data["dateBegin"].stringValue.isEmpty && !data["dateEnd"].stringValue.isEmpty {
+            cell.timeLabel.text = data["dateBegin"].stringValue + " ~ " + data["dateEnd"].stringValue
+        }
         cell.salaryLabel!.text = "\(data["salary"].stringValue)元/\(data["salaryType"].stringValue)"
         cell.salaryTypeLabel.text = data["salaryWhen"].stringValue
         cell.titleLabel.text = data["title"].stringValue
