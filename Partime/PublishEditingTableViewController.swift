@@ -179,7 +179,7 @@ extension PublishEditingTableViewController {
                                            "title": jobNameLabel.text!,
                                            "type": jobTypeCode!,
                                            "contactName": contactLabel.text!,
-                                           "contactPhone": telephoneLabel
+                                           "contactPhone": telephoneLabel.text!
         ]
         
         if doPublish {
@@ -197,6 +197,8 @@ extension PublishEditingTableViewController {
         }
         if let text = endTimeLabel.text {
             params["timeEnd"] = text
+        } else {
+            
         }
         if let sal = salary {
             params["salary"] = sal

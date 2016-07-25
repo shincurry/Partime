@@ -10,8 +10,6 @@ import UIKit
 import CoreLocation
 import SwiftyJSON
 
-
-
 class Location: NSObject {
     
     static var allPlaces: JSON = {
@@ -55,7 +53,11 @@ extension Location: CLLocationManagerDelegate {
     func startLocation() {
         print("start")
         
-        
+        let manager = CLLocationManager()
+        if CLLocationManager.locationServicesEnabled() {
+            manager.startUpdatingLocation()
+        }
+
         
     }
 }

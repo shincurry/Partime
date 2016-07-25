@@ -56,7 +56,10 @@ class EditingProfileTableViewController: UITableViewController {
         nameLabel.text = defaults.objectForKey("ProfileRealname") as? String
         genderLabel.text = defaults.objectForKey("ProfileGender") as? String
         birthdayLabel.text = defaults.objectForKey("ProfileBirthday") as? String
-        statureLabel.text = "\(defaults.integerForKey("ProfileStature"))"
+        let stature = defaults.integerForKey("ProfileStature")
+        if stature != 0 {
+            statureLabel.text = "\(stature)"
+        }
         
         provinceCode = defaults.objectForKey("ProfileProvinceID") as? String
         cityCode = defaults.objectForKey("ProfileCityID") as? String
@@ -85,7 +88,9 @@ class EditingProfileTableViewController: UITableViewController {
         defaults.setObject(genderLabel.text, forKey: "ProfileGender")
         defaults.setObject(birthdayLabel.text, forKey: "ProfileBirthday")
         if let stature = statureLabel.text {
-            defaults.setInteger(Int(stature)!, forKey: "ProfileStature")
+            if let value = Int(stature) {
+                defaults.setInteger(value, forKey: "ProfileStature")
+            }
         } else {
             defaults.setInteger(0, forKey: "ProfileStature")
         }

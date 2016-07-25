@@ -39,7 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.boolForKey("isNotFirstLaunch") {
             print("not first launch")
+            
+            
         } else {
+            showGuideView()
             print("first launch")
             
             defaults.setBool(true, forKey: "isNotFirstLaunch")
@@ -47,14 +50,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.setBool(false, forKey: "isLogin")
             defaults.setInteger(1, forKey: "galleryCount")
             
-//            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-//            let guideViewController = storyBoard.instantiateViewControllerWithIdentifier("GuideView")
-//            if let window = self.window {
-//                window.rootViewController = guideViewController
-//                window.makeKeyAndVisible()
-//            }
         }
         return true
+    }
+    
+    func showGuideView() {
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let guideViewController = storyBoard.instantiateViewControllerWithIdentifier("GuideView")
+        if let window = self.window {
+            window.rootViewController = guideViewController
+            window.makeKeyAndVisible()
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

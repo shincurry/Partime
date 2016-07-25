@@ -40,7 +40,6 @@
 		8875B5841C241AD40050A735 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875B5831C241AD40050A735 /* Account.swift */; };
 		8897BA731C325CB6000DD480 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA721C325CB6000DD480 /* SearchTableViewController.swift */; };
 		8897BA751C325CE1000DD480 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8897BA741C325CE1000DD480 /* HomeViewController.swift */; };
-		889EE6431CF01B20007C32E1 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889EE6411CF01B20007C32E1 /* Account.storyboard */; };
 		889EE6461CF01D5B007C32E1 /* MyJobsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889EE6451CF01D5B007C32E1 /* MyJobsTableViewController.swift */; };
 		88B4CBBF1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */; };
 		88B645521CF328420010951A /* MemberEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B645511CF328420010951A /* MemberEditingViewController.swift */; };
@@ -141,7 +140,6 @@
 		887B7FFE1CCE3F58003D149E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8897BA721C325CB6000DD480 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		8897BA741C325CE1000DD480 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		889EE6421CF01B20007C32E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Account.storyboard; sourceTree = "<group>"; };
 		889EE6451CF01D5B007C32E1 /* MyJobsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyJobsTableViewController.swift; sourceTree = "<group>"; };
 		88B4CBBE1C71AD30006FAC65 /* HalfHomeNavigatorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfHomeNavigatorCollectionViewCell.swift; sourceTree = "<group>"; };
 		88B645511CF328420010951A /* MemberEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberEditingViewController.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 			children = (
 				8866EE151CB8B1E5009FC83E /* TabBarController.swift */,
 				88BF94331C745534002F8FA7 /* Main.storyboard */,
-				889EE6411CF01B20007C32E1 /* Account.storyboard */,
 				88CF34F31CDB8A92005E6A84 /* JobDetail.storyboard */,
 				88D036841CD862E2001E56B7 /* ProfileEditing.storyboard */,
 				88D036871CD8632A001E56B7 /* JobPublish.storyboard */,
@@ -479,7 +476,7 @@
 				TargetAttributes = {
 					881FCA021C23AF2800989FDF = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 525R2U87NG;
+						DevelopmentTeam = F86ABKXNGB;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
@@ -530,7 +527,6 @@
 			files = (
 				881FCA111C23AF2800989FDF /* LaunchScreen.storyboard in Resources */,
 				88BF943A1C74598B002F8FA7 /* Localizable.strings in Resources */,
-				889EE6431CF01B20007C32E1 /* Account.storyboard in Resources */,
 				88DDF4DC1CD0A78C000DF0D5 /* address.json in Resources */,
 				88CF34F51CDB8A92005E6A84 /* JobDetail.storyboard in Resources */,
 				88D036861CD862E2001E56B7 /* ProfileEditing.storyboard in Resources */,
@@ -669,14 +665,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		889EE6411CF01B20007C32E1 /* Account.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				889EE6421CF01B20007C32E1 /* Base */,
-			);
-			name = Account.storyboard;
-			sourceTree = "<group>";
-		};
 		88BF94331C745534002F8FA7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -758,7 +746,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -797,7 +785,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -816,7 +804,7 @@
 				INFOPLIST_FILE = Partime/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.windisco.Partime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.windisco.aldjob;
 				PRODUCT_NAME = "阿拉丁兼职";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -834,7 +822,7 @@
 				INFOPLIST_FILE = Partime/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.windisco.Partime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.windisco.aldjob;
 				PRODUCT_NAME = "阿拉丁兼职";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

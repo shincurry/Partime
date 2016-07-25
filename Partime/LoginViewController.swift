@@ -83,6 +83,7 @@ class LoginViewController: UIViewController {
             case "ShowRegisterSegue":
                 let controller = segue.destinationViewController as! RegisterViewController
                 controller.type = .Register
+                controller.superController = self
             case "ShowForgotPasswordSegue":
                 let controller = segue.destinationViewController as! RegisterViewController
                 controller.type = .ForgotPassword
@@ -218,6 +219,14 @@ class LoginViewController: UIViewController {
                     defaults.setObject(avatar, forKey: "ProfileAvatar")
                 } else {
                     defaults.setObject("", forKey: "ProfileAvatar")
+                }
+                if let cert = data["personcerticification"].int {
+                    let bool = cert == 29 ? false : true
+                    defaults.setObject(bool, forKey: "ProfileIsPersonalVerified")
+                }
+                if let cert = data["enterprisecertification"].int {
+                    let bool = cert == 29 ? false : true
+                    defaults.setObject(bool, forKey: "ProfileIsEnterpriseVerified")
                 }
                 
                 defaults.synchronize()

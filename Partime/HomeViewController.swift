@@ -10,6 +10,7 @@ import UIKit
 import MJRefresh
 import SwiftyJSON
 import SDWebImage
+import MBProgressHUD
 
 class HomeViewController: UIViewController {
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -27,6 +28,7 @@ class HomeViewController: UIViewController {
         scrollView.mj_header = header
         
         updateHomeView()
+        getJobs()
     }
     
     // 可能会调用多次
@@ -55,6 +57,8 @@ class HomeViewController: UIViewController {
     
     let api = API.shared
     
+    var jobsData: [JSON] = []
+    
     @IBOutlet weak var scrollView: UIScrollView!
     
     var galleryTimer: NSTimer!
@@ -69,6 +73,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var recommendHeaderView: UIView!
     @IBOutlet weak var recommendHeaderMoreButton: UIButton!
     
+    @IBOutlet weak var jobsTableView: UITableView!
     
     let tempData: [[String]] = [["德克士收银员", "100 元 / 日", "7:00 - 17:00", "重庆"],
         ["发传单", "60 元/日", "13:00-17:00", "重庆理工大学"],
@@ -102,6 +107,36 @@ class HomeViewController: UIViewController {
             }
             
         }
+    }
+    
+    func getJobs() {
+        let params: [String: AnyObject] = ["type":"",
+                                           "date": "",
+                                           "districtid": "",
+                                           "page": 1]
+        
+        
+
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        api.getJobs(params) { response in
+            switch response {
+            case .Success:
+                let res = JSON(data: response.value!)
+                if res["status"] == "success" {
+                    self.jobsData = res["result"].array!.enumerate().filter({ (index, _) in return (index<5) }).map({ (_, element) in return element })
+                    self.jobsTableView.reloadData()
+                } else if res["status"] == "failure" {
+                    print("failure")
+                }
+                
+            case .Failure(let error):
+                print(error)
+            }
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+        }
+    }
+    @IBAction func refreshJobs(sender: UIButton) {
+        getJobs()
     }
 }
 
@@ -257,17 +292,25 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return jobsData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RecommendJobCell", forIndexPath: indexPath) as! JobCell
-        let data = tempData[indexPath.row]
+        
+        let data = jobsData[indexPath.row]
+        if !data["district"].stringValue.isEmpty {
+            cell.locationLabel.text = data["district"].stringValue
+        }
+        //        cell.timeLabel.text = data["dateBegin"].stringValue + "~" + data["dateEnd"].stringValue + " " + data["timeBegin"].stringValue + "~" + data["timeEnd"].stringValue
+        
+        if !data["dateBegin"].stringValue.isEmpty && !data["dateEnd"].stringValue.isEmpty {
+            cell.timeLabel.text = data["dateBegin"].stringValue + " ~ " + data["dateEnd"].stringValue
+        }
+        cell.salaryLabel!.text = "\(data["salary"].stringValue)元/\(data["salaryType"].stringValue)"
+        cell.salaryTypeLabel.text = data["salaryWhen"].stringValue
+        cell.titleLabel.text = data["title"].stringValue
         cell.logoImage.image = UIImage(named: "Logo")
-        cell.locationLabel.text = data[3]
-        cell.timeLabel.text = data[2]
-        cell.salaryLabel!.text = data[1]
-        cell.titleLabel.text = data[0]
         return cell
     }
     
@@ -277,5 +320,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 42
     }
-    
+
 }

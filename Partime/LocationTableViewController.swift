@@ -107,8 +107,8 @@ extension LocationTableViewController {
 //            if Location.hotProvinces.count % 3 != 0 {
 //                count += 1
 //            }   
-            let count = 2
-            return CGFloat(66 * count)
+//            let count = 2
+//            return CGFloat(66 * count)
         default:
             return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
         }

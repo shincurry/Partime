@@ -12,6 +12,7 @@ class DatePickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        datePickerView.maximumDate = NSDate()
     }
     var dateFormatter = NSDateFormatter()
     var superLabel: UILabel?

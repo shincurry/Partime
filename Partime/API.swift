@@ -18,8 +18,8 @@ class API: NSObject {
         return keychain["accessToken"]
     }()
     
-    let baseUri = "http://www.aldjob.com/api"
-    let imageBaseUri = "http://www.aldjob.com"
+    let baseUri = ""
+    let imageBaseUri = ""
     
     
     // --- User --
@@ -58,24 +58,6 @@ class API: NSObject {
         let uri = "/user/profile/logoUpdate.do"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
-    
-//    func getEmployeeProfile(params: [String: String], completion: Result<NSData, NSError> -> Void) {
-//        let uri = "/user/profile/employee.do"
-//        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
-//    }
-//    func updateEmployeeProfile(params: [String: String], completion: Result<NSData, NSError> -> Void) {
-//        let uri = "/user/profile/employeeUpdate.do"
-//        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
-//    }
-//    func getEmployerProfile(params: [String: String], completion: Result<NSData, NSError> -> Void) {
-//        let uri = "/user/profile/employer.do"
-//        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
-//    }
-//    func updateEmployerProfile(params: [String: String], completion: Result<NSData, NSError> -> Void) {
-//        let uri = "/user/profile/employerUpdate.do"
-//        httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
-//    }
-    
     
     // ---- Personal / Enterprise Verification
     
@@ -137,21 +119,21 @@ class API: NSObject {
     // ----- Employer Manager -----
     
     func postAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employer/post"
+        let uri = "/employer/post/post"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     
     func startAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employer/start"
+        let uri = "/employer/post/start"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     func endAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employer/end"
+        let uri = "/employer/applying/end"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     
     func deleteAJob(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {
-        let uri = "/employer/delete"
+        let uri = "/employer/post/delete"
         httpPostRequest(uri: baseUri + uri, parameters: params, completion: completion)
     }
     func getEmployerJobsCount(params: [String: AnyObject], completion: Result<NSData, NSError> -> Void) {

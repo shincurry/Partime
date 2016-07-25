@@ -104,8 +104,8 @@ class ProfileTableViewController: UITableViewController {
     
     func updateLoginStatus() {
         if let _ = API.token {
-            personalVerification.hidden = false
-            enterpriseVerification.hidden = false
+            personalVerification.hidden = defaults.boolForKey("ProfileIsPersonalVerified")
+            enterpriseVerification.hidden = defaults.boolForKey("ProfileIsEnterpriseVerified")
             
             profileIdLabel.text = defaults.objectForKey("ProfileRealname") as? String
             
@@ -194,6 +194,14 @@ class ProfileTableViewController: UITableViewController {
                 } else {
                     defaults.setObject("", forKey: "ProfileAvatar")
                 }
+                if let cert = data["personcerticification"].int {
+                    let bool = cert == 29 ? false : true
+                    defaults.setObject(bool, forKey: "ProfileIsPersonalVerified")
+                }
+                if let cert = data["enterprisecertification"].int {
+                    let bool = cert == 29 ? false : true
+                    defaults.setObject(bool, forKey: "ProfileIsEnterpriseVerified")
+                }
                 
                 defaults.synchronize()
                 self.updateLoginStatus()
@@ -206,6 +214,10 @@ class ProfileTableViewController: UITableViewController {
 
     }
 
+    
+    @IBAction func unwindRegisterToProfileTableViewController(sender: UIStoryboardSegue) {
+        
+    }
 }
 
 // MARK: - Profile Table View Delegate

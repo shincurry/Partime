@@ -275,7 +275,7 @@ extension MemberEditingViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         let statusCode = membersData[indexPath.row]["status"].intValue
-        if statusCode == 33 || statusCode == 35 {
+        if statusCode == 33 || (statusCode == 35 && type! == .Working) {
             return true
         } else {
             return false
@@ -296,11 +296,18 @@ extension MemberEditingViewController: UITableViewDelegate, UITableViewDataSourc
                     switch response {
                     case .Success:
                         let res = JSON(data: response.value!)
+                        print(res)
                         if res["status"] == "success" {
                             self.membersData[indexPath.row]["status"] = 35
                             self.memberTableView.reloadData()
                         } else if res["status"] == "failure" {
                             print("failure")
+                            let alertTitle = "操作失败"
+                            let alertMessage = res["error_description"].stringValue
+                            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                            let OKAction = UIAlertAction(title: "知道了", style: .Default, handler: nil)
+                            alertController.addAction(OKAction)
+                            self.presentViewController(alertController, animated: true, completion: nil)
                         }
                     case .Failure(let error):
                         print(error)
@@ -321,6 +328,12 @@ extension MemberEditingViewController: UITableViewDelegate, UITableViewDataSourc
                             self.memberTableView.reloadData()
                         } else if res["status"] == "failure" {
                             print("failure")
+                            let alertTitle = "操作失败"
+                            let alertMessage = res["error_description"].stringValue
+                            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                            let OKAction = UIAlertAction(title: "知道了", style: .Default, handler: nil)
+                            alertController.addAction(OKAction)
+                            self.presentViewController(alertController, animated: true, completion: nil)
                         }
                     case .Failure(let error):
                         print(error)
@@ -336,7 +349,7 @@ extension MemberEditingViewController: UITableViewDelegate, UITableViewDataSourc
                                                "ptID": id!,
                                                "userID": data["userID"].stringValue]
             
-            let workedAction = UITableViewRowAction(style: .Normal, title: "工作已完成", handler: { action in
+            let workedAction = UITableViewRowAction(style: .Normal, title: "已完成", handler: { action in
                 params["status"] = 36
                 print(params)
                 MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -358,7 +371,7 @@ extension MemberEditingViewController: UITableViewDelegate, UITableViewDataSourc
                 }
             })
             workedAction.backgroundColor = UIColor(hue: 109.0 / 360.0 , saturation: 0.71, brightness: 0.82, alpha: 1.00)
-            let notWorkAction = UITableViewRowAction(style: .Default, title: "工作未完成", handler: { action in
+            let notWorkAction = UITableViewRowAction(style: .Default, title: "未完成", handler: { action in
                 params["status"] = 37
                 MBProgressHUD.showHUDAddedTo(self.view, animated: true)
                 self.api.dealWorking(params) { response in

@@ -10,7 +10,14 @@ import UIKit
 
 class Theme {
 //    static let mainColor = UIColor(red: 147/255.0, green: 44/255.0, blue: 48/255.0, alpha: 1)
-    static let mainColor = UIColor(hue: 27 / 360.0, saturation: 0.76, brightness: 0.94, alpha: 1.00)
+//    static let mainColor = UIColor(hue: 27 / 360.0, saturation: 0.76, brightness: 0.94, alpha: 1.00)
+//    static let mainColor = UIColor(hue: 197 / 360.0, saturation: 0.89, brightness: 0.91, alpha: 1.00)
+//    static let mainColor = UIColor(hue: 67 / 360.0, saturation: 79, brightness: 0.8, alpha: 1.00)
+    
+//    static let mainColor = UIColor(red: 0.443, green: 0.647, blue: 0.784, alpha: 1.00)
+    static let mainColor = UIColor(hue: 207 / 360.0, saturation: 0.67, brightness: 0.83, alpha: 1.00)
+    
+    
     static let mainTranslucentColor = UIColor(hue: 28 / 360.0, saturation: 0.73, brightness: 0.89, alpha: 1.00)
     static let backgroundColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.00)
     static let headerLeftColor = Theme.mainColor.translucent()

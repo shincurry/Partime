@@ -61,12 +61,12 @@ class JobDetailsTableViewController: UITableViewController {
     
     @IBOutlet weak var workRequireTextView: UITextView! {
         didSet {
-            workRequireConstraint.constant = workRequireTextView.fullSize().height
+//            workRequireConstraint.constant = workRequireTextView.fullSize().height
         }
     }
     @IBOutlet weak var workContentTextView: UITextView! {
         didSet {
-            workContentConstraint.constant = workContentTextView.fullSize().height
+//            workContentConstraint.constant = workContentTextView.fullSize().height
         }
     }
     

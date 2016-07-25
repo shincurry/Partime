@@ -10,6 +10,7 @@ import UIKit
 import Spring
 import SwiftyJSON
 import MBProgressHUD
+import KeychainAccess
 
 enum RegisterType {
     case Register
@@ -25,11 +26,25 @@ class RegisterViewController: UIViewController {
         // Do any additional setup after loading the view.
         switch type {
         case .Register:
-            titleLabel.text = "注册"
+            navigationItem.title = "注册"
         case .ForgotPassword:
-            titleLabel.text = "重设密码"
+            navigationItem.title = "重设密码"
         default:
             break
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        addKeyboardNotification()
+        if let tab = tabBarController {
+            tab.tabBar.hidden = true
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        removeKeyboardNotification()
+        if let tab = tabBarController {
+            tab.tabBar.hidden = false
         }
     }
 
@@ -50,13 +65,40 @@ class RegisterViewController: UIViewController {
     
     var validateCodeID: String?
     
-    @IBOutlet weak var titleLabel: UILabel!
+    var superController: LoginViewController?
+    
     @IBOutlet weak var phoneNumberTextField: SpringTextField!
     @IBOutlet weak var validateCodeTextField: SpringTextField!
     @IBOutlet weak var getValidateCodeButton: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: SpringTextField!
 
+    func addKeyboardNotification() {
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "UnwindRegisterToProfileSegue":
+                let controller = segue.destinationViewController as! ProfileTableViewController
+                controller.updateLoginStatus()
+            default:
+                break
+            }
+            
+        }
+    }
+    
+    
+    
     @IBAction func phoneNumberDidEndEdit(sender: SpringTextField) {
         sender.layer.borderWidth = 1
         sender.layer.cornerRadius = 8
@@ -115,8 +157,8 @@ class RegisterViewController: UIViewController {
                     print(res)
                     if res["status"].stringValue == "success" {
                         self.validateCodeID = res["validatecodeid"].stringValue
-                        let alertController = UIAlertController(title: "Success", message: "Get validate code successfully", preferredStyle: .Alert)
-                        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                        let alertController = UIAlertController(title: "成功", message: "成功获取验证码", preferredStyle: .Alert)
+                        let OKAction = UIAlertAction(title: "好的", style: .Default, handler: nil)
                         alertController.addAction(OKAction)
                         self.presentViewController(alertController, animated: true, completion: nil)
                         sender.enabled = false
@@ -124,10 +166,7 @@ class RegisterViewController: UIViewController {
                     }
                     
                     if res["status"].stringValue == "failure" {
-                        //                        print(res["error_description"])
-                        let alertTitle = "Error"
-                        let alertMessage = res["error_description"].stringValue
-                        self.alert.showNotificationAlert(alertTitle, message: alertMessage, sender: self, completion: nil)
+                        self.alert.showNotificationAlert("失败", message: "获取验证码失败", sender: self, completion: nil)
                     }
                     
                 case .Failure(let error):
@@ -178,22 +217,25 @@ class RegisterViewController: UIViewController {
             case .Success:
                 let res = JSON(data: response.value!)
                 if res["status"].stringValue == "success" {
+                    let keychain = Keychain(service: "com.windisco.Partime")
+                    keychain["accessToken"] = res["access_token"].stringValue
                     API.token = res["access_token"].stringValue
+                    
+                    keychain["username"] = self.phoneNumberTextField.text
+                    keychain["password"] = self.passwordTextField.text
+                    
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    let alertTitle = "成功"
-                    let alertMessage = "注册账号成功"
-                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: { _ in
+                    let alertController = UIAlertController(title: "成功", message: "注册账号成功", preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: "好的", style: .Default, handler: { _ in
                         self.performSegueWithIdentifier("UnwindRegisterToProfileSegue", sender: self)
+                        self.superController!.performSegueWithIdentifier("UnwindLoginOKToProfileTableViewController", sender: self)
                     })
                     alertController.addAction(OKAction)
                     self.presentViewController(alertController, animated: true, completion: nil)
                 }
                 
                 if res["status"].stringValue == "failure" {
-                    let alertTitle = "Error"
-                    let alertMessage = res["error_description"].stringValue
-                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                    let alertController = UIAlertController(title: "失败", message: "注册失败", preferredStyle: .Alert)
                     let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
                     alertController.addAction(OKAction)
                     self.presentViewController(alertController, animated: true, completion: nil)
@@ -218,10 +260,8 @@ class RegisterViewController: UIViewController {
                 if res["status"].stringValue == "success" {
                     API.token = res["access_token"].stringValue
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    let alertTitle = "成功"
-                    let alertMessage = "重设密码成功"
-                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: { _ in
+                    let alertController = UIAlertController(title: "成功", message: "重设密码成功", preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: "好的", style: .Default, handler: { _ in
                         self.performSegueWithIdentifier("UnwindRegisterToLoginSegue", sender: self)
                     })
                     alertController.addAction(OKAction)
@@ -230,10 +270,8 @@ class RegisterViewController: UIViewController {
                 }
                 
                 if res["status"].stringValue == "failure" {
-                    let alertTitle = "Error"
-                    let alertMessage = res["error_description"].stringValue
-                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    let alertController = UIAlertController(title: "失败", message: "重设密码出错", preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: "好的", style: .Default, handler: nil)
                     alertController.addAction(OKAction)
                     self.presentViewController(alertController, animated: true, completion: nil)
                 }
