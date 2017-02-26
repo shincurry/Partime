@@ -24,15 +24,15 @@ class EditingProfileTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        clearsSelectionOnViewWillAppear NOT WORK on device
         if let selection = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(selection, animated: true)
+            tableView.deselectRow(at: selection, animated: true)
         }
     }
     
-    let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
+    let defaults = UserDefaults(suiteName: "ProfileDefaults")!
     let api = API.shared
     
     @IBOutlet weak var avatarImageView: UIImageView!
@@ -53,71 +53,71 @@ class EditingProfileTableViewController: UITableViewController {
     var districtCode: String?
 
     func getProfileInfo() {
-        nameLabel.text = defaults.objectForKey("ProfileRealname") as? String
-        genderLabel.text = defaults.objectForKey("ProfileGender") as? String
-        birthdayLabel.text = defaults.objectForKey("ProfileBirthday") as? String
-        let stature = defaults.integerForKey("ProfileStature")
+        nameLabel.text = defaults.object(forKey: "ProfileRealname") as? String
+        genderLabel.text = defaults.object(forKey: "ProfileGender") as? String
+        birthdayLabel.text = defaults.object(forKey: "ProfileBirthday") as? String
+        let stature = defaults.integer(forKey: "ProfileStature")
         if stature != 0 {
             statureLabel.text = "\(stature)"
         }
         
-        provinceCode = defaults.objectForKey("ProfileProvinceID") as? String
-        cityCode = defaults.objectForKey("ProfileCityID") as? String
-        districtCode = defaults.objectForKey("ProfileDistrictID") as? String
-        locationLabel.text = defaults.objectForKey("ProfileLocationName") as? String
+        provinceCode = defaults.object(forKey: "ProfileProvinceID") as? String
+        cityCode = defaults.object(forKey: "ProfileCityID") as? String
+        districtCode = defaults.object(forKey: "ProfileDistrictID") as? String
+        locationLabel.text = defaults.object(forKey: "ProfileLocationName") as? String
         
-        qqLabel.text = defaults.objectForKey("ProfileQQ") as? String
-        emailLabel.text = defaults.objectForKey("ProfileEmail") as? String
-        schoolLabel.text = defaults.objectForKey("ProfileSchool") as? String
-        if let intro = defaults.objectForKey("ProfileIntroduction") as? String {
+        qqLabel.text = defaults.object(forKey: "ProfileQQ") as? String
+        emailLabel.text = defaults.object(forKey: "ProfileEmail") as? String
+        schoolLabel.text = defaults.object(forKey: "ProfileSchool") as? String
+        if let intro = defaults.object(forKey: "ProfileIntroduction") as? String {
             introductionTextView.text = intro
         }
-        if let exp = defaults.objectForKey("ProfileWorkExperience") as? String {
+        if let exp = defaults.object(forKey: "ProfileWorkExperience") as? String {
             workExperienceTextView.text = exp
         }
-        if let uri = defaults.objectForKey("ProfileAvatar") as? String {
+        if let uri = defaults.object(forKey: "ProfileAvatar") as? String {
             print("image uri : \(uri)")
-            avatarImageView.sd_setImageWithURL(api.getImageUrl(uri), placeholderImage: UIImage(named: "DefaultProfile"), options: .RefreshCached)
+            avatarImageView.sd_setImage(with: api.getImageUrl(uri), placeholderImage: UIImage(named: "DefaultProfile"), options: .refreshCached)
         }
         for key in defaults.dictionaryRepresentation().keys {
-            print("\(defaults.objectForKey(key) as? String)")
+            print("\(defaults.object(forKey: key) as? String)")
         }
     }
     func setProfileInfo() {
-        defaults.setObject(nameLabel.text, forKey: "ProfileRealname")
-        defaults.setObject(genderLabel.text, forKey: "ProfileGender")
-        defaults.setObject(birthdayLabel.text, forKey: "ProfileBirthday")
+        defaults.set(nameLabel.text, forKey: "ProfileRealname")
+        defaults.set(genderLabel.text, forKey: "ProfileGender")
+        defaults.set(birthdayLabel.text, forKey: "ProfileBirthday")
         if let stature = statureLabel.text {
             if let value = Int(stature) {
-                defaults.setInteger(value, forKey: "ProfileStature")
+                defaults.set(value, forKey: "ProfileStature")
             }
         } else {
-            defaults.setInteger(0, forKey: "ProfileStature")
+            defaults.set(0, forKey: "ProfileStature")
         }
-        print(defaults.integerForKey("ProfileStature"))
-        defaults.setObject(provinceCode, forKey: "ProfileProvinceID")
-        defaults.setObject(cityCode, forKey: "ProfileCityID")
-        defaults.setObject(districtCode, forKey: "ProfileDistrictID")
-        defaults.setObject(locationLabel.text, forKey: "ProfileLocationName")
+        print(defaults.integer(forKey: "ProfileStature"))
+        defaults.set(provinceCode, forKey: "ProfileProvinceID")
+        defaults.set(cityCode, forKey: "ProfileCityID")
+        defaults.set(districtCode, forKey: "ProfileDistrictID")
+        defaults.set(locationLabel.text, forKey: "ProfileLocationName")
         
-        defaults.setObject(qqLabel.text, forKey: "ProfileQQ")
-        defaults.setObject(emailLabel.text, forKey: "ProfileEmail")
-        defaults.setObject(schoolLabel.text, forKey: "ProfileSchool")
-        defaults.setObject(introductionTextView.text, forKey: "ProfileIntroduction")
-        defaults.setObject(workExperienceTextView.text, forKey: "ProfileWorkExperience")
+        defaults.set(qqLabel.text, forKey: "ProfileQQ")
+        defaults.set(emailLabel.text, forKey: "ProfileEmail")
+        defaults.set(schoolLabel.text, forKey: "ProfileSchool")
+        defaults.set(introductionTextView.text, forKey: "ProfileIntroduction")
+        defaults.set(workExperienceTextView.text, forKey: "ProfileWorkExperience")
         defaults.synchronize()
     }
     
-    @IBAction func save(sender: UIBarButtonItem) {
+    @IBAction func save(_ sender: UIBarButtonItem) {
         if nameLabel.text!.isEmpty || genderLabel.text!.isEmpty || birthdayLabel.text!.isEmpty || locationLabel.text!.isEmpty {
             print("empty")
             let alertTitle = "信息不完整"
             let alertMessage = "带星号的必须要填写噢"
             
-            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-            let OKAction = UIAlertAction(title: "知道了", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "知道了", style: .default, handler: nil)
             alertController.addAction(OKAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             return
         }
 
@@ -125,111 +125,111 @@ class EditingProfileTableViewController: UITableViewController {
         
         print(API.token!)
         var params: [String: AnyObject] =
-            ["access_token"  : API.token!,
-             "realname"      : nameLabel.text!,
-             "gender"        : genderLabel.text!,
-             "districtid"    : districtCode!,
-             "birthday"      : birthdayLabel.text!
+            ["access_token"  : API.token! as AnyObject,
+             "realname"      : nameLabel.text! as AnyObject,
+             "gender"        : genderLabel.text! as AnyObject,
+             "districtid"    : districtCode! as AnyObject,
+             "birthday"      : birthdayLabel.text! as AnyObject
             ]
         if let qq = qqLabel.text {
             if !qq.isEmpty {
-                params["qq"] = "\(qq)"
+                params["qq"] = "\(qq)" as AnyObject?
             }
         }
         if let email = emailLabel.text {
             if !email.isEmpty {
-                params["email"] = "\(email)"
+                params["email"] = "\(email)" as AnyObject?
             }
         }
         if let stature = statureLabel.text {
             if let value = Int(stature) {
-                params["height"] = value
+                params["height"] = value as AnyObject?
             }
         }
         
         
         if let school = schoolLabel.text {
             if !school.isEmpty {
-                params["school"] = "\(school)"
+                params["school"] = "\(school)" as AnyObject?
             }
         }
         if let intro = introductionTextView.text {
             if !intro.isEmpty {
-                params["introduction"] = "\(intro)"
+                params["introduction"] = "\(intro)" as AnyObject?
             }
         }
         
         if let exp = workExperienceTextView.text {
             if !exp.isEmpty {
-                params["workexperience"] = "\(exp)"
+                params["workexperience"] = "\(exp)" as AnyObject?
             }
         }
     
         print(params)
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         api.updateProfile(params) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 print(res)
                 if res["status"].stringValue == "success" {
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    MBProgressHUD.hide(for: self.view, animated: true)
                     self.setProfileInfo()
-                    self.performSegueWithIdentifier("UnwindEditingToProfileSegue", sender: self)
+                    self.performSegue(withIdentifier: "UnwindEditingToProfileSegue", sender: self)
                 } else if res["status"].stringValue == "failure" {
                     let alertTitle = "Error"
                     let alertMessage = res["error_description"].stringValue
                     
-                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
                 
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
 
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             
             switch identifier {
             case "ShowTextEditingSegue":
                 let indexPath = tableView.indexPathForSelectedRow!
-                let cell = tableView.cellForRowAtIndexPath(indexPath)!
-                let controller = segue.destinationViewController as! EditingTextViewController
+                let cell = tableView.cellForRow(at: indexPath)!
+                let controller = segue.destination as! EditingTextViewController
                 controller.superLabel = cell.detailTextLabel
                 controller.name = cell.textLabel!.text
                 controller.detailsName = cell.detailTextLabel!.text
                 
             case "ShowGenderPickerSegue":
                 let indexPath = tableView.indexPathForSelectedRow!
-                let cell = tableView.cellForRowAtIndexPath(indexPath)!
-                let controller = segue.destinationViewController as! PickerViewController
+                let cell = tableView.cellForRow(at: indexPath)!
+                let controller = segue.destination as! PickerViewController
                 controller.superLabel = cell.detailTextLabel
                 controller.superController = self
-                controller.type = .Some(.Gender)
+                controller.type = .some(.gender)
 
             case "ShowLocationPickerSegue":
                 let indexPath = tableView.indexPathForSelectedRow!
-                let cell = tableView.cellForRowAtIndexPath(indexPath)!
-                let controller = segue.destinationViewController as! PickerViewController
+                let cell = tableView.cellForRow(at: indexPath)!
+                let controller = segue.destination as! PickerViewController
                 controller.superLabel = cell.detailTextLabel
                 controller.superController = self
-                controller.type = .Some(.Location)
+                controller.type = .some(.location)
 
             case "ShowDatePickerSegue":
                 let indexPath = tableView.indexPathForSelectedRow!
-                let cell = tableView.cellForRowAtIndexPath(indexPath)!
-                let controller = segue.destinationViewController as! DatePickerViewController
+                let cell = tableView.cellForRow(at: indexPath)!
+                let controller = segue.destination as! DatePickerViewController
                 controller.superLabel = cell.detailTextLabel
                 
             case "UnwindEditingToProfileSegue":
-                let controller = segue.destinationViewController as! ProfileTableViewController
+                let controller = segue.destination as! ProfileTableViewController
                 controller.updateLoginStatus()
             default:
                 break
@@ -240,7 +240,7 @@ class EditingProfileTableViewController: UITableViewController {
 }
 
 extension EditingProfileTableViewController {
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = indexPath.section
         let row = indexPath.row
         
@@ -284,31 +284,31 @@ extension EditingProfileTableViewController {
 
 extension EditingProfileTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func showEditingTextView() {
-         performSegueWithIdentifier("ShowTextEditingSegue", sender: self)
+         performSegue(withIdentifier: "ShowTextEditingSegue", sender: self)
     }
     func showGenderPicker() {
-        performSegueWithIdentifier("ShowGenderPickerSegue", sender: self)
+        performSegue(withIdentifier: "ShowGenderPickerSegue", sender: self)
     }
     func showLocationPicker() {
-        performSegueWithIdentifier("ShowLocationPickerSegue", sender: self)
+        performSegue(withIdentifier: "ShowLocationPickerSegue", sender: self)
     }
     func showImagePicker() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        imagePicker.sourceType = .PhotoLibrary
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+        imagePicker.sourceType = .photoLibrary
+        self.present(imagePicker, animated: true, completion: nil)
     }
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
         let imageData = UIImagePNGRepresentation(chosenImage)!
-        let imageBase64String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+        let imageBase64String = imageData.base64EncodedString(options: .lineLength64Characters)
         
         
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        api.updateAvatar(["access_token": API.token!, "img": imageBase64String]) { response in
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        api.updateAvatar(["access_token": API.token! as AnyObject, "img": imageBase64String as AnyObject]) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 if res["status"].stringValue == "success" {
                     self.avatarImageView.image = chosenImage
@@ -316,16 +316,16 @@ extension EditingProfileTableViewController: UIImagePickerControllerDelegate, UI
                     let alertTitle = "Error"
                     let alertMessage = res["error_description"].stringValue
                     
-                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
 }

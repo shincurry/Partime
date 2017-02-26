@@ -25,7 +25,7 @@ class EditingTextViewController: UIViewController {
     
     func setData() {
         if self.name == "身高" {
-            editTextField.keyboardType = .NumberPad
+            editTextField.keyboardType = .numberPad
         } else if self.name == "性别" {
             superLabel?.text = "男"
         }
@@ -33,7 +33,7 @@ class EditingTextViewController: UIViewController {
         
         if let name = self.name {
             if name.characters.last == "*" {
-                let text = name.componentsSeparatedByString(" ")[0]
+                let text = name.components(separatedBy: " ")[0]
                 editNameLabel.text = text
                 self.navigationItem.title = "修改" + text
             } else {
@@ -45,7 +45,7 @@ class EditingTextViewController: UIViewController {
             editTextField.text = detail
         }
     }
-    @IBAction func editingEnd(sender: UITextField) {
+    @IBAction func editingEnd(_ sender: UITextField) {
         if let lebel = superLabel {
             lebel.text = editTextField.text
         }

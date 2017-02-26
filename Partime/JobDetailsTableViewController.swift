@@ -12,7 +12,7 @@ import MBProgressHUD
 import MJRefresh
 
 enum JobStatus {
-    case None
+    case none
 }
 
 class JobDetailsTableViewController: UITableViewController {
@@ -21,10 +21,10 @@ class JobDetailsTableViewController: UITableViewController {
         super.viewDidLoad()
         if let _ = API.token {
         } else {
-            joinButton.enabled = false
+            joinButton.isEnabled = false
         }
         
-        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadData))
+//        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadData))
     }
     
     override func viewDidLayoutSubviews() {
@@ -104,19 +104,19 @@ class JobDetailsTableViewController: UITableViewController {
     var mapHidden = true
     
     @IBOutlet weak var joinButton: UIButton!
-    @IBAction func join(sender: UIButton) {
+    @IBAction func join(_ sender: UIButton) {
         if let id = self.id {
-            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            api.requestAJob(["access_token": API.token!, "ptID": id]) { result in
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            api.requestAJob(["access_token": API.token! as AnyObject, "ptID": id as AnyObject]) { result in
                 switch result {
-                case .Success:
+                case .success:
                     let data = JSON(data: result.value!)
                     print(data)
                     if data["status"].stringValue == "success" {
-                        let alertController = UIAlertController(title: "兼职报名", message: "兼职报名成功", preferredStyle: .Alert)
-                        let OKAction = UIAlertAction(title: "完成", style: .Default, handler: nil)
+                        let alertController = UIAlertController(title: "兼职报名", message: "兼职报名成功", preferredStyle: .alert)
+                        let OKAction = UIAlertAction(title: "完成", style: .default, handler: nil)
                         alertController.addAction(OKAction)
-                        self.presentViewController(alertController, animated: true) {}
+                        self.present(alertController, animated: true) {}
                     } else if data["status"] == "failure" {
                         var message = ""
                         if data["code"].intValue == 422 {
@@ -131,22 +131,22 @@ class JobDetailsTableViewController: UITableViewController {
                             message = "未知错误"
                         }
 
-                        let alertController = UIAlertController(title: "报名失败", message: message, preferredStyle: .Alert)
-                        let OKAction = UIAlertAction(title: "完成", style: .Default, handler: nil)
+                        let alertController = UIAlertController(title: "报名失败", message: message, preferredStyle: .alert)
+                        let OKAction = UIAlertAction(title: "完成", style: .default, handler: nil)
                         alertController.addAction(OKAction)
-                        self.presentViewController(alertController, animated: true) {}
+                        self.present(alertController, animated: true) {}
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
             }
         }
         
     }
     
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch identifier {
             case "ShowMapSegue":
                 if let _ = location {
@@ -158,12 +158,12 @@ class JobDetailsTableViewController: UITableViewController {
         return false
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             
             switch identifier {
             case "ShowMapSegue":
-                let controller = segue.destinationViewController as! MapViewController
+                let controller = segue.destination as! MapViewController
                 controller.location = location
                 
             default:
@@ -178,10 +178,10 @@ class JobDetailsTableViewController: UITableViewController {
 // MARK: - Table View Delegate and DataSource
 extension JobDetailsTableViewController {
     func loadData() {
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         api.getJobDetails(id!) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 if res["status"] == "success" {
                     print(res["result"])
@@ -189,16 +189,16 @@ extension JobDetailsTableViewController {
                 } else if res["status"] == "failure" {
                     print("failure")
                 }
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
-            self.tableView.mj_header.endRefreshing()
+            MBProgressHUD.hide(for: self.view, animated: true)
+//            self.tableView.mj_header.endRefreshing()
         }
         
     }
     
-    func setInfo(data: JSON) {
+    func setInfo(_ data: JSON) {
         navigatorTitle.title = data["title"].stringValue
         titleLabel.text = data["title"].stringValue
         
@@ -227,8 +227,8 @@ extension JobDetailsTableViewController {
         workRequireTextView.text = data["detailanddemand"].stringValue
         workContentTextView.text = data["description"].stringValue
         
-        contactNameButton.setTitle(data["contactname"].stringValue, forState: .Normal)
-        contactTelephoneButton.setTitle(data["contactphone"].stringValue, forState: .Normal)
+        contactNameButton.setTitle(data["contactname"].stringValue, for: UIControlState())
+        contactTelephoneButton.setTitle(data["contactphone"].stringValue, for: UIControlState())
         
         if let address = data["address"].string {
             mapLabel.text = address
@@ -250,15 +250,15 @@ extension JobDetailsTableViewController {
 //        return cell
 //    }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0
         }
         return 12
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var cellHeight = super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var cellHeight = super.tableView(tableView, heightForRowAt: indexPath)
 //        if indexPath.section == 1 && indexPath.row == 2 {
 //            let originalHeight = workRequireTextView.frame.height
 //            let fullHeight = workRequireTextView.fullSize().height
@@ -284,7 +284,7 @@ extension JobDetailsTableViewController {
 
 // MARK: - View Style
 extension JobDetailsTableViewController {
-    private func initialViewStyle() {
+    fileprivate func initialViewStyle() {
         tableView.backgroundColor = Theme.backgroundColor
         companyLogoImage.clipsToBounds = true
         companyLogoImage.layer.cornerRadius = companyLogoImage.frame.size.width / 2
@@ -299,31 +299,31 @@ extension JobDetailsTableViewController {
 
 // MARK: - Contact Quick Launch
 extension JobDetailsTableViewController {
-    @IBAction func calling(sender: UIButton) {
+    @IBAction func calling(_ sender: UIButton) {
         let phoneNumber = sender.currentTitle!
-        let url = NSURL(string: "tel://\(phoneNumber)")!
+        let url = URL(string: "tel://\(phoneNumber)")!
         let alertTitle = "拨打电话"
         let alertMessage = "你确定要拨打 \(phoneNumber) 这个电话号码吗？"
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        let OKAction = UIAlertAction(title: "确定", style: .Default) { (action) in
-            UIApplication.sharedApplication().openURL(url)
+        let OKAction = UIAlertAction(title: "确定", style: .default) { (action) in
+            UIApplication.shared.openURL(url)
         }
         alertController.addAction(OKAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func mailing(sender: UIButton) {
+    @IBAction func mailing(_ sender: UIButton) {
         let email = sender.currentTitle!
-        let url = NSURL(string: "mailto://\(email)")!
-        UIApplication.sharedApplication().openURL(url)
+        let url = URL(string: "mailto://\(email)")!
+        UIApplication.shared.openURL(url)
     }
     
-    @IBAction func qq(sender: UIButton) {
+    @IBAction func qq(_ sender: UIButton) {
         let qq = sender.currentTitle!
-        let url = NSURL(string: "mqq://\(qq)")!
-        UIApplication.sharedApplication().openURL(url)
+        let url = URL(string: "mqq://\(qq)")!
+        UIApplication.shared.openURL(url)
         
     }
 }

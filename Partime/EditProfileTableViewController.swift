@@ -16,8 +16,8 @@ class EditProfileTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = Theme.backgroundColor
         dateFormatter.dateFormat = "yyyy-M-d"
-        takePhotoButton.setTitleColor(Theme.mainColor, forState: .Normal)
-        selectPhotoButton.setTitleColor(Theme.mainColor, forState: .Normal)
+        takePhotoButton.setTitleColor(Theme.mainColor, for: UIControlState())
+        selectPhotoButton.setTitleColor(Theme.mainColor, for: UIControlState())
         
         getProfileInfo()
     }
@@ -38,7 +38,7 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var nicknameTextField: UITextField!
 
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
     let api = API.shared
     // MARK: - Gender Picker Properties
     let gender = [NSLocalizedString("male", comment: ""), NSLocalizedString("female", comment: "")]
@@ -48,12 +48,12 @@ class EditProfileTableViewController: UITableViewController {
 
     
     // MARK: - Date Picker Properties
-    var dateFormatter = NSDateFormatter()
+    var dateFormatter = DateFormatter()
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    @IBAction func dateChanged(sender: UIDatePicker) {
-        dateLabel.text = dateFormatter.stringFromDate(datePicker.date)
+    @IBAction func dateChanged(_ sender: UIDatePicker) {
+        dateLabel.text = dateFormatter.string(from: datePicker.date)
     }
     
     
@@ -71,45 +71,45 @@ class EditProfileTableViewController: UITableViewController {
     
     
     func getProfileInfo() {
-        nicknameLabel.text = defaults.objectForKey("ProfileRealname") as? String
-        genderLabel.text = defaults.objectForKey("ProfileGender") as? String
-        introduceText.text = defaults.objectForKey("ProfileTellUs") as! String
+        nicknameLabel.text = defaults.object(forKey: "ProfileRealname") as? String
+        genderLabel.text = defaults.object(forKey: "ProfileGender") as? String
+        introduceText.text = defaults.object(forKey: "ProfileTellUs") as! String
     }
     func setProfileInfo() {
-        print(nicknameLabel.text)
-        defaults.setObject(nicknameLabel.text, forKey: "ProfileRealname")
-        defaults.setObject(genderLabel.text, forKey: "ProfileGender")
-        defaults.setObject(introduceText.text, forKey: "ProfileTellUs")
+        print(nicknameLabel.text ?? "")
+        defaults.set(nicknameLabel.text, forKey: "ProfileRealname")
+        defaults.set(genderLabel.text, forKey: "ProfileGender")
+        defaults.set(introduceText.text, forKey: "ProfileTellUs")
 
     }
     
-    @IBAction func saveProfile(sender: UIBarButtonItem) {
+    @IBAction func saveProfile(_ sender: UIBarButtonItem) {
         setProfileInfo()
         print(API.token!)
         let params: [String: String] = ["access_token": API.token!,
-                      "email": defaults.objectForKey("ProfileEmail") as! String,
-                      "username": defaults.objectForKey("ProfileUsername") as! String,
-                      "realname": defaults.objectForKey("ProfileRealname") as! String,
-                      "gender": defaults.objectForKey("ProfileGender") as! String,
-                      "birthday": defaults.objectForKey("ProfileUsername") as! String,
-                      "inschoolid": defaults.objectForKey("ProfileInSchoolID") as! String,
-                      "school": defaults.objectForKey("ProfileSchool") as! String,
+                      "email": defaults.object(forKey: "ProfileEmail") as! String,
+                      "username": defaults.object(forKey: "ProfileUsername") as! String,
+                      "realname": defaults.object(forKey: "ProfileRealname") as! String,
+                      "gender": defaults.object(forKey: "ProfileGender") as! String,
+                      "birthday": defaults.object(forKey: "ProfileUsername") as! String,
+                      "inschoolid": defaults.object(forKey: "ProfileInSchoolID") as! String,
+                      "school": defaults.object(forKey: "ProfileSchool") as! String,
                       
-                      "major": defaults.objectForKey("ProfileUsername") as! String,
+                      "major": defaults.object(forKey: "ProfileUsername") as! String,
                       "theyear": "",
-                      "tellus": defaults.objectForKey("ProfileTellUs") as! String,
+                      "tellus": defaults.object(forKey: "ProfileTellUs") as! String,
                       "bookpttypeids": "",
-                      "wechatid": defaults.objectForKey("ProfileWechatID") as! String,
+                      "wechatid": defaults.object(forKey: "ProfileWechatID") as! String,
         ]
         
-        api.updateProfile(params) { result in
+        api.updateProfile(params as [String : AnyObject]) { result in
             switch result {
-            case .Success:
+            case .success:
                 print("updateEmployeeProfile")
                 print(result.value!)
                 print(JSON(data: result.value!).stringValue)
-                self.performSegueWithIdentifier("UnwindEditToProfileTableViewController", sender: self)
-            case .Failure(let error):
+                self.performSegue(withIdentifier: "UnwindEditToProfileTableViewController", sender: self)
+            case .failure(let error):
                 print(error)
             }
             
@@ -118,11 +118,11 @@ class EditProfileTableViewController: UITableViewController {
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case "UnwindEditToProfileTableViewController":
-                let controller = segue.destinationViewController as! ProfileTableViewController
+                let controller = segue.destination as! ProfileTableViewController
                 controller.updateLoginStatus()
             default:
                 break
@@ -134,20 +134,20 @@ class EditProfileTableViewController: UITableViewController {
 
 // MARK: - Table View Delegate
 extension EditProfileTableViewController {
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let status = editControl.selectionAt(indexPath)
-        if status == .SelectNone {
+        if status == .selectNone {
             return
         }
-        if status == .SelectSelf {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if status == .selectSelf {
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
         tableView.beginUpdates()
         tableView.endUpdates()
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let isHidden = editControl.currentHiddenStatus[indexPath.section][indexPath.row].1
         
         switch (indexPath.section, indexPath.row) {
@@ -165,16 +165,16 @@ extension EditProfileTableViewController {
             }
         // Gender Cell
         case (1, 3):
-            genderPicker.hidden = isHidden
+            genderPicker.isHidden = isHidden
             if isHidden {
                 let selectedRow = (genderLabel.text == "Male" ? 0 : 1)
                 genderPicker.selectRow(selectedRow, inComponent: 0, animated: true)
             }
         // Birthday Cell
         case (1, 5):
-            datePicker.hidden = isHidden
+            datePicker.isHidden = isHidden
             if isHidden {
-                datePicker.date = dateFormatter.dateFromString(dateLabel.text!)!
+                datePicker.date = dateFormatter.date(from: dateLabel.text!)!
             }
         default:
             break
@@ -182,14 +182,14 @@ extension EditProfileTableViewController {
         if isHidden {
             return 0
         } else {
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+            return super.tableView(tableView, heightForRowAt: indexPath)
         }
     }
 }
 
 // MARK: - Picker Delegate and Datasource
 extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch pickerView {
         case genderPicker:
             return 1
@@ -200,12 +200,12 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
         case genderPicker:
             return gender.count
         case locationPicker:
-            let selectInComponent0 = locationPicker.selectedRowInComponent(0)
+            let selectInComponent0 = locationPicker.selectedRow(inComponent: 0)
             
             
             let provinces = Location.allPlaces.array!
@@ -213,7 +213,7 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
                 return provinces.count
             }
             let cities = provinces[selectInComponent0]["sub"].array!
-            let selectInComponent1 = locationPicker.selectedRowInComponent(1)
+            let selectInComponent1 = locationPicker.selectedRow(inComponent: 1)
             if component == 1 {
                 return cities.count
             }
@@ -227,18 +227,18 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
         case genderPicker:
             return gender[row]
         case locationPicker:
-            let selectInComponent0 = locationPicker.selectedRowInComponent(0)
+            let selectInComponent0 = locationPicker.selectedRow(inComponent: 0)
             
             let province = Location.allPlaces.array!
             if component == 0 {
                 return province[row]["value"]["name"].stringValue
             }
-            let selectInComponent1 = locationPicker.selectedRowInComponent(1)
+            let selectInComponent1 = locationPicker.selectedRow(inComponent: 1)
             let city = province[selectInComponent0]["sub"].array!
             if component == 1 {
                 return city[row]["value"]["name"].stringValue
@@ -252,14 +252,14 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
         
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case genderPicker:
             genderLabel.text = gender[row]
         case locationPicker:
-            let selectInComponent0 = locationPicker.selectedRowInComponent(0)
-            let selectInComponent1 = locationPicker.selectedRowInComponent(1)
-            let selectInComponent2 = locationPicker.selectedRowInComponent(2)
+            let selectInComponent0 = locationPicker.selectedRow(inComponent: 0)
+            let selectInComponent1 = locationPicker.selectedRow(inComponent: 1)
+            let selectInComponent2 = locationPicker.selectedRow(inComponent: 2)
             if component == 0 {
                 locationPicker.selectRow(0, inComponent: 1, animated: true)
                 locationPicker.reloadComponent(1)
@@ -289,10 +289,10 @@ extension EditProfileTableViewController: UIPickerViewDelegate, UIPickerViewData
 
 // MARK: - Nickname TextField Delegate
 extension EditProfileTableViewController {
-    @IBAction func editingChanged(sender: UITextField) {
+    @IBAction func editingChanged(_ sender: UITextField) {
         nicknameLabel.text = nicknameTextField.text
         // 当清空输入框重新输入文本的时候需要重新 Layout Label
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) {
             cell.layoutSubviews()
         }
     }
@@ -301,24 +301,24 @@ extension EditProfileTableViewController {
 
 extension EditProfileTableViewController {
     
-    @IBAction func selectPhoto(sender: UIButton) {
+    @IBAction func selectPhoto(_ sender: UIButton) {
         print("selectPhoto")
     }
-    @IBAction func takePhoto(sender: UIButton) {
+    @IBAction func takePhoto(_ sender: UIButton) {
         print("takePhoto")
     }
     
 }
 
 extension EditProfileTableViewController: UITextViewDelegate {
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         let length = textView.text.characters.count
         if length > 140 {
-            restOfCharactersCount.textColor = UIColor.redColor()
-            saveButton.enabled = false
+            restOfCharactersCount.textColor = UIColor.red
+            saveButton.isEnabled = false
         } else {
-            restOfCharactersCount.textColor = UIColor.lightGrayColor()
-            saveButton.enabled = true
+            restOfCharactersCount.textColor = UIColor.lightGray
+            saveButton.isEnabled = true
         }
         restOfCharactersCount.text = String(140 - length)
     }

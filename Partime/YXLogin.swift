@@ -10,7 +10,7 @@ import Foundation
 
 class YXLogin: NSObject {
     let format = YXFormat()
-    func verify(account account: String, password: String) -> (Bool, FormatType, Bool) {
+    func verify(account: String, password: String) -> (Bool, FormatType, Bool) {
         let (accountResult, type) = format.verifyByAccount(account)
         
         let passwordResult = format.verifyByPassword(password)

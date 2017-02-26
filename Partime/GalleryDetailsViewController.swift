@@ -15,11 +15,11 @@ class GalleryDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        actionBarButton.enabled = false
+        actionBarButton.isEnabled = false
         loadWebPage()
         // Do any additional setup after loading the view.
         
-        loaderView = DGActivityIndicatorView(type: .BallClipRotateMultiple, tintColor: Theme.mainColor, size: 64.0)
+        loaderView = DGActivityIndicatorView(type: .ballClipRotateMultiple, tintColor: Theme.mainColor, size: 64.0)
         
         if let loader = loaderView {
             loader.frame.origin = CGPoint(x: view.frame.size.width / 2.0, y: view.frame.size.height / 2.0 - 50)
@@ -35,15 +35,15 @@ class GalleryDetailsViewController: UIViewController {
     
     
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if let tab = tabBarController {
-            tab.tabBar.hidden = true
+            tab.tabBar.isHidden = true
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         if let tab = tabBarController {
-            tab.tabBar.hidden = false
+            tab.tabBar.isHidden = false
         }
     }
     
@@ -62,51 +62,51 @@ class GalleryDetailsViewController: UIViewController {
     }
     */
 
-    @IBAction func actionBarButtonClicked(sender: UIBarButtonItem) {
-        let activityViewController = UIActivityViewController(activityItems: [NSURL(string: detailsLink!)!], applicationActivities: nil)
-        activityViewController.excludedActivityTypes = [UIActivityTypeMail, UIActivityTypePrint]        
-        presentViewController(activityViewController, animated: true, completion: {})
+    @IBAction func actionBarButtonClicked(_ sender: UIBarButtonItem) {
+        let activityViewController = UIActivityViewController(activityItems: [URL(string: detailsLink!)!], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivityType.mail, UIActivityType.print]        
+        present(activityViewController, animated: true, completion: {})
     }
 }
 
 extension GalleryDetailsViewController: UIWebViewDelegate {
-    func webViewDidFinishLoad(webView: UIWebView) {
-        if webView.stringByEvaluatingJavaScriptFromString("document.readyState") == "complete" {
-            navigationItem.title = webView.stringByEvaluatingJavaScriptFromString("document.title")
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        if webView.stringByEvaluatingJavaScript(from: "document.readyState") == "complete" {
+            navigationItem.title = webView.stringByEvaluatingJavaScript(from: "document.title")
             if let loader = loaderView {
                 loader.stopAnimating()
-                loader.hidden = true
+                loader.isHidden = true
             }
-            if let colorString = webView.stringByEvaluatingJavaScriptFromString("document.body.style.backgroundColor") {
+            if let colorString = webView.stringByEvaluatingJavaScript(from: "document.body.style.backgroundColor") {
                 view.backgroundColor = initColorWith(string: colorString)
 
             }
             
 
-            actionBarButton.enabled = true
+            actionBarButton.isEnabled = true
         } else {
             navigationItem.title = NSLocalizedString("webStatusLoadFailed", comment: "")
         }
     }
     
-    private func loadWebPage() {
+    fileprivate func loadWebPage() {
         webView.delegate = self
         if let link = detailsLink {
-            let url = NSURL(string: link)!
-            let request = NSURLRequest(URL: url)
+            let url = URL(string: link)!
+            let request = URLRequest(url: url)
             webView.loadRequest(request)
         }
     }
     
-    private func initColorWith(string colorString: String) -> UIColor? {
+    fileprivate func initColorWith(string colorString: String) -> UIColor? {
         if colorString.hasPrefix("rgb(") {
-            var color = (colorString as NSString).substringFromIndex(4)
-            color = (color as NSString).substringToIndex(color.characters.count-1)
-            let colorStringArray = color.componentsSeparatedByString(", ")
+            var color = (colorString as NSString).substring(from: 4)
+            color = (color as NSString).substring(to: color.characters.count-1)
+            let colorStringArray = color.components(separatedBy: ", ")
             let colorArray = colorStringArray.map({ c in return Float(c)! / 255.0 })
             return UIColor(colorLiteralRed: colorArray[0], green: colorArray[1], blue: colorArray[2], alpha: 1.00)
         } else {
-            return UIColor.whiteColor()
+            return UIColor.white
         }
     }
 }

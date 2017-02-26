@@ -9,7 +9,7 @@
 import Foundation
 
 enum RateStar: Int {
-    case Zero = 0, One, Two, Three, Four, Five
+    case zero = 0, one, two, three, four, five
     
     init(score: Int) {
         self = RateStar(rawValue: score)!

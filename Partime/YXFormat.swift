@@ -9,11 +9,11 @@
 import Foundation
 
 enum FormatType {
-    case PhoneNumber
-    case Email
-    case ID
-    case Password
-    case None
+    case phoneNumber
+    case email
+    case id
+    case password
+    case none
 }
 
 struct MyRegex {
@@ -21,11 +21,11 @@ struct MyRegex {
     
     init(_ pattern: String) {
         regex = try? NSRegularExpression(pattern: pattern,
-            options: .CaseInsensitive)
+            options: .caseInsensitive)
     }
     
-    func match(input: String) -> Bool {
-        if let matches = regex?.matchesInString(input,
+    func match(_ input: String) -> Bool {
+        if let matches = regex?.matches(in: input,
             options: [],
             range: NSMakeRange(0, input.characters.count)) {
                 return matches.count > 0
@@ -45,23 +45,23 @@ func =~ (lhs: String, rhs: String) -> Bool {
 }
 
 class YXFormat: NSObject {
-    func verifyByAccount(text: String) -> (Bool, FormatType) {
+    func verifyByAccount(_ text: String) -> (Bool, FormatType) {
         if verifyByPhoneNumber(text) {
-            return (true, .PhoneNumber)
+            return (true, .phoneNumber)
         }
         if verifyByEmail(text) {
-            return (true, .Email)
+            return (true, .email)
         }
         if verifyByID(text) {
-            return (true, .ID)
+            return (true, .id)
         }
         
         
-        return (false, .None)
+        return (false, .none)
     }
     
     
-    func verifyByEmail(text: String) -> Bool {
+    func verifyByEmail(_ text: String) -> Bool {
         let emailPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         if text =~ emailPattern {
             return true
@@ -70,7 +70,7 @@ class YXFormat: NSObject {
         }
     }
     
-    func verifyByPhoneNumber(text: String) -> Bool {
+    func verifyByPhoneNumber(_ text: String) -> Bool {
         let phonePattern = "^1[0-9]{10}$"
         if text =~ phonePattern {
             return true
@@ -79,7 +79,7 @@ class YXFormat: NSObject {
         }
     }
     
-    func verifyByID(text: String) -> Bool {
+    func verifyByID(_ text: String) -> Bool {
         let idPattern = "\\D[a-zA-Z0-9_]{5,15}$"
         if text =~ idPattern {
             return true
@@ -88,7 +88,7 @@ class YXFormat: NSObject {
         }
     }
     
-    func verifyByPassword(text: String) -> Bool {
+    func verifyByPassword(_ text: String) -> Bool {
         if text.characters.count >= 6 {
             return true
         } else {

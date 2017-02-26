@@ -33,29 +33,29 @@ class GuideViewController: UIViewController {
 
 // MARK: - Guide Scroll View
 extension GuideViewController: UIScrollViewDelegate {
-    private func initialGuideScrollView() {
+    fileprivate func initialGuideScrollView() {
         let guideSize = guideScrollView.frame.size
         for index in 0..<guidePageTotalCount {
             let imageX = CGFloat(index) * guideSize.width
-            let imageView = UIImageView(frame: CGRectMake(imageX, 0, guideSize.width, guideSize.height))
+            let imageView = UIImageView(frame: CGRect(x: imageX, y: 0, width: guideSize.width, height: guideSize.height))
             imageView.image = UIImage(named: "./pictures/launch-\(index+1).jpg")
-            imageView.contentMode = .ScaleAspectFill
+            imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             guideScrollView.addSubview(imageView)
         }
         
         let contentWidth = guideSize.width * CGFloat(guidePageTotalCount)
         let contentHeight = guideScrollView.frame.size.height
-        guideScrollView.contentSize = CGSizeMake(contentWidth, contentHeight)
+        guideScrollView.contentSize = CGSize(width: contentWidth, height: contentHeight)
         guidePageControl.numberOfPages = guidePageTotalCount
     }
     
-    @IBAction func guideCurrentPageChange(sender: UIPageControl) {
+    @IBAction func guideCurrentPageChange(_ sender: UIPageControl) {
         let imageX = CGFloat(guidePageControl.currentPage) * guideScrollView.frame.size.width
-        guideScrollView.setContentOffset(CGPointMake(imageX, 0), animated: true)
+        guideScrollView.setContentOffset(CGPoint(x: imageX, y: 0), animated: true)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollViewWidth = guideScrollView.frame.size.width
         let offsetX = guideScrollView.contentOffset.x
         guidePageControl.currentPage = (Int)((offsetX + scrollViewWidth / 2) / scrollViewWidth)
@@ -64,7 +64,7 @@ extension GuideViewController: UIScrollViewDelegate {
 }
 
 extension GuideViewController {
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }

@@ -24,23 +24,23 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         addKeyboardNotification()
         if let tab = tabBarController {
-            tab.tabBar.hidden = true
+            tab.tabBar.isHidden = true
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         removeKeyboardNotification()
         if let tab = tabBarController {
-            tab.tabBar.hidden = false
+            tab.tabBar.isHidden = false
         }
     }
     
     
     // hide keyboard when touch background
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         usernameTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
     let api = API.shared
 
     var loginStatus = false
-    var loginType = FormatType.ID
+    var loginType = FormatType.id
     var username: String {
         get {
            return usernameTextField.text!
@@ -73,20 +73,20 @@ class LoginViewController: UIViewController {
     
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case "UnwindLoginOKToProfileTableViewController":
-                let controller = segue.destinationViewController as! ProfileTableViewController
+                let controller = segue.destination as! ProfileTableViewController
                 controller.updateLoginStatus()
                 
             case "ShowRegisterSegue":
-                let controller = segue.destinationViewController as! RegisterViewController
-                controller.type = .Register
+                let controller = segue.destination as! RegisterViewController
+                controller.type = .register
                 controller.superController = self
             case "ShowForgotPasswordSegue":
-                let controller = segue.destinationViewController as! RegisterViewController
-                controller.type = .ForgotPassword
+                let controller = segue.destination as! RegisterViewController
+                controller.type = .forgotPassword
             default:
                 break
             }
@@ -94,12 +94,12 @@ class LoginViewController: UIViewController {
     }
     
     
-    @IBAction func loginButtonClicked(sender: UIButton) {
+    @IBAction func loginButtonClicked(_ sender: UIButton) {
         if !username.isEmpty && !password.isEmpty {
-            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            api.login(["phonenumber": username, "password": password]) { response in
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            api.login(["phonenumber": username as AnyObject, "password": password as AnyObject]) { response in
                 switch response {
-                case .Success:
+                case .success:
                     let res = JSON(data: response.value!)
                     print(res)
                     
@@ -113,13 +113,13 @@ class LoginViewController: UIViewController {
                         
                         self.saveProfileInfo()
                         self.passwordTextField.resignFirstResponder()
-                        let alertController = UIAlertController(title: "Success", message: "Login successfully", preferredStyle: .Alert)
-                        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: { _ in
-                            self.performSegueWithIdentifier("UnwindLoginOKToProfileTableViewController", sender: self)
+                        let alertController = UIAlertController(title: "Success", message: "Login successfully", preferredStyle: .alert)
+                        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
+                            self.performSegue(withIdentifier: "UnwindLoginOKToProfileTableViewController", sender: self)
                         })
                         
                         alertController.addAction(OKAction)
-                        self.presentViewController(alertController, animated: true, completion: nil)
+                        self.present(alertController, animated: true, completion: nil)
                     }
                     
                     if res["status"].stringValue == "failure" {
@@ -127,20 +127,20 @@ class LoginViewController: UIViewController {
                         let alertTitle = "Error"
                         let alertMessage = res["error_description"].stringValue
                         
-                        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-                        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                        let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
                         alertController.addAction(OKAction)
-                        self.presentViewController(alertController, animated: true, completion: nil)
+                        self.present(alertController, animated: true, completion: nil)
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
-                    let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                     return
                 }
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
             }
         } else {
             loginButton.animation = "shake"
@@ -154,83 +154,83 @@ class LoginViewController: UIViewController {
     
     
     func saveProfileInfo() {
-        api.getProfile(["access_token": API.token!]) { response in
+        api.getProfile(["access_token": API.token! as AnyObject]) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 let data = res["result"]
-                let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
-                defaults.setObject(data["phone"].stringValue, forKey: "ProfileTelephone")
-                defaults.setObject(data["realname"].stringValue, forKey: "ProfileRealname")
-                defaults.setObject(data["gender"].stringValue, forKey: "ProfileGender")
-                defaults.setObject(data["birthday"].stringValue, forKey: "ProfileBirthday")
+                let defaults = UserDefaults(suiteName: "ProfileDefaults")!
+                defaults.set(data["phone"].stringValue, forKey: "ProfileTelephone")
+                defaults.set(data["realname"].stringValue, forKey: "ProfileRealname")
+                defaults.set(data["gender"].stringValue, forKey: "ProfileGender")
+                defaults.set(data["birthday"].stringValue, forKey: "ProfileBirthday")
                 
-                defaults.setObject(data["districtid"].stringValue, forKey: "ProfileDistrictID")
-                defaults.setObject(data["cityid"].stringValue, forKey: "ProfileCityID")
-                defaults.setObject(data["provinceid"].stringValue, forKey: "ProfileProvinceID")
-                defaults.setObject(data["city"].stringValue + " " + data["district"].stringValue, forKey: "ProfileLocationName")
+                defaults.set(data["districtid"].stringValue, forKey: "ProfileDistrictID")
+                defaults.set(data["cityid"].stringValue, forKey: "ProfileCityID")
+                defaults.set(data["provinceid"].stringValue, forKey: "ProfileProvinceID")
+                defaults.set(data["city"].stringValue + " " + data["district"].stringValue, forKey: "ProfileLocationName")
                 
                 
                 if let qq = data["qq"].string {
-                    defaults.setObject(qq, forKey: "ProfileQQ")
+                    defaults.set(qq, forKey: "ProfileQQ")
                 } else {
-                    defaults.setObject("", forKey: "ProfileQQ")
+                    defaults.set("", forKey: "ProfileQQ")
                 }
                 if let email = data["email"].string {
-                    defaults.setObject(email, forKey: "ProfileEmail")
+                    defaults.set(email, forKey: "ProfileEmail")
                 } else {
-                    defaults.setObject("", forKey: "ProfileEmail")
+                    defaults.set("", forKey: "ProfileEmail")
                 }
 
                 
                 if let stature = data["height"].string {
                     if let value = Int(stature) {
-                        defaults.setInteger(value, forKey: "ProfileStature")
+                        defaults.set(value, forKey: "ProfileStature")
                     }
                 } else {
-                    defaults.setObject(0, forKey: "ProfileStature")
+                    defaults.set(0, forKey: "ProfileStature")
                 }
                 if let school = data["school"].string {
-                    defaults.setObject(school, forKey: "ProfileSchool")
+                    defaults.set(school, forKey: "ProfileSchool")
                 } else {
-                    defaults.setObject("", forKey: "ProfileSchool")
+                    defaults.set("", forKey: "ProfileSchool")
                 }
                 if let major = data["major"].string {
-                    defaults.setObject(major, forKey: "ProfileMajor")
+                    defaults.set(major, forKey: "ProfileMajor")
                 } else {
-                    defaults.setObject("", forKey: "ProfileMajor")
+                    defaults.set("", forKey: "ProfileMajor")
                 }
                 if let enrollYear = data["enrolyear"].string {
-                    defaults.setObject(enrollYear, forKey: "ProfileEnrollYear")
+                    defaults.set(enrollYear, forKey: "ProfileEnrollYear")
                 } else {
-                    defaults.setObject("", forKey: "ProfileEnrollYear")
+                    defaults.set("", forKey: "ProfileEnrollYear")
                 }
                 if let intro = data["introduction"].string {
-                    defaults.setObject(intro, forKey: "ProfileIntroduction")
+                    defaults.set(intro, forKey: "ProfileIntroduction")
                 } else {
-                    defaults.setObject("", forKey: "ProfileIntroduction")
+                    defaults.set("", forKey: "ProfileIntroduction")
                 }
                 if let exp = data["workexperience"].string {
-                    defaults.setObject(exp, forKey: "ProfileWorkExperience")
+                    defaults.set(exp, forKey: "ProfileWorkExperience")
                 } else {
-                    defaults.setObject("", forKey: "ProfileWorkExperience")
+                    defaults.set("", forKey: "ProfileWorkExperience")
                 }
                 if let avatar = data["protrait"].string {
-                    defaults.setObject(avatar, forKey: "ProfileAvatar")
+                    defaults.set(avatar, forKey: "ProfileAvatar")
                 } else {
-                    defaults.setObject("", forKey: "ProfileAvatar")
+                    defaults.set("", forKey: "ProfileAvatar")
                 }
                 if let cert = data["personcerticification"].int {
                     let bool = cert == 29 ? false : true
-                    defaults.setObject(bool, forKey: "ProfileIsPersonalVerified")
+                    defaults.set(bool, forKey: "ProfileIsPersonalVerified")
                 }
                 if let cert = data["enterprisecertification"].int {
                     let bool = cert == 29 ? false : true
-                    defaults.setObject(bool, forKey: "ProfileIsEnterpriseVerified")
+                    defaults.set(bool, forKey: "ProfileIsEnterpriseVerified")
                 }
                 
                 defaults.synchronize()
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
         }
@@ -241,76 +241,76 @@ class LoginViewController: UIViewController {
 
 
 extension LoginViewController {
-    private func initialViewStyle() {
+    fileprivate func initialViewStyle() {
         usernameTextField.leftView = SpringImageView(image: UIImage(named: "LoginUser"))
-        usernameTextField.leftViewMode = .Always
+        usernameTextField.leftViewMode = .always
         if let view = usernameTextField.leftView {
-            view.tintColor = UIColor.grayColor()
+            view.tintColor = UIColor.gray
         }
         
         passwordTextField.leftView = UIImageView(image: UIImage(named: "Key"))
-        passwordTextField.leftViewMode = .Always
+        passwordTextField.leftViewMode = .always
         if let view = passwordTextField.leftView {
-            view.tintColor = UIColor.grayColor()
+            view.tintColor = UIColor.gray
         }
         
-        loginButton.backgroundColor = UIColor.lightGrayColor()
+        loginButton.backgroundColor = UIColor.lightGray
     }
 }
 
 // MARK: - Resize View when pop up keyboard
 extension LoginViewController {
-    func keyboardWillChangeFrame(notification: NSNotification) {
-        var animationDuration: NSTimeInterval?
-        let info: NSDictionary = notification.userInfo!
-        animationDuration =  info.objectForKey(UIKeyboardAnimationDurationUserInfoKey) as? NSTimeInterval
-        let keyboardRect = info.objectForKey(UIKeyboardFrameEndUserInfoKey)?.CGRectValue!
+    func keyboardWillChangeFrame(_ notification: Notification) {
+        var animationDuration: TimeInterval?
+        let info: NSDictionary = notification.userInfo! as NSDictionary
+        animationDuration =  info.object(forKey: UIKeyboardAnimationDurationUserInfoKey) as? TimeInterval
+        let keyboardRect = (info.object(forKey: UIKeyboardFrameEndUserInfoKey) as AnyObject).cgRectValue!
         let inputViewFrame = inputAccountView.frame
-        let move = loginView.frame.origin.y + inputViewFrame.origin.y + inputViewFrame.size.height + (keyboardRect?.size.height)! - view.frame.size.height - 20
+        let move = loginView.frame.origin.y + inputViewFrame.origin.y + inputViewFrame.size.height + (keyboardRect.size.height) - view.frame.size.height - 20
         if (move > 0) {
-            UIView.animateWithDuration(animationDuration!, animations: {
+            UIView.animate(withDuration: animationDuration!, animations: {
                 self.view.bounds.origin.y = move
             })
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
-        var animationDuration: NSTimeInterval?
-        let info: NSDictionary = notification.userInfo!
-        animationDuration =  info.objectForKey(UIKeyboardAnimationDurationUserInfoKey) as? NSTimeInterval
+    func keyboardWillHide(_ notification: Notification) {
+        var animationDuration: TimeInterval?
+        let info: NSDictionary = notification.userInfo! as NSDictionary
+        animationDuration =  info.object(forKey: UIKeyboardAnimationDurationUserInfoKey) as? TimeInterval
     
-        UIView.animateWithDuration(animationDuration!, animations: {
+        UIView.animate(withDuration: animationDuration!, animations: {
                 self.view.bounds.origin.y = 0
         })
     }
     
     func addKeyboardNotification() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillChangeFrame(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func removeKeyboardNotification() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillChangeFrameNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 }
 
 // MARK: Delegate - username and password text field delegate
 extension LoginViewController: UITextFieldDelegate {
     
-    @IBAction func usernameTextChanged(sender: UITextField) {
+    @IBAction func usernameTextChanged(_ sender: UITextField) {
         let (accountResult, typeResult, passwordResult)  = login.verify(account: username, password: password)
         changeTextFieldIcon(typeResult)
         loginButtonAnimate(accountResult && passwordResult)
     }
-    @IBAction func passwordTextChanged(sender: UITextField) {
+    @IBAction func passwordTextChanged(_ sender: UITextField) {
         let (accountResult, typeResult, passwordResult)  = login.verify(account: username, password: password)
         changeTextFieldIcon(typeResult)
         loginButtonAnimate(accountResult && passwordResult)
     }
     
-    private func loginButtonAnimate(current: Bool) {
+    fileprivate func loginButtonAnimate(_ current: Bool) {
         loginButton.animation = "pop"
         loginButton.force = 0.3
         
@@ -319,29 +319,29 @@ extension LoginViewController: UITextFieldDelegate {
             if loginStatus {
                 loginButton.backgroundColor = Theme.mainColor
             } else {
-                loginButton.backgroundColor = UIColor.lightGrayColor()
+                loginButton.backgroundColor = UIColor.lightGray
             }
             loginButton.animate()
         }
     }
     
-    private func changeTextFieldIcon(type: FormatType) {
+    fileprivate func changeTextFieldIcon(_ type: FormatType) {
         var type = type
         guard let view = usernameTextField.leftView as? SpringImageView else {
             print("have no left view")
             return
         }
-        if (type == .None) {
-            type = .ID
+        if (type == .none) {
+            type = .id
         }
         
         if loginType != type {
             switch type {
-            case .Email:
+            case .email:
                 view.image = UIImage(named: "LoginMail")
-            case .PhoneNumber:
+            case .phoneNumber:
                 view.image = UIImage(named: "LoginTelephone")
-            case .ID:
+            case .id:
                 view.image = UIImage(named: "LoginUser")
             default:
                 break
@@ -354,7 +354,7 @@ extension LoginViewController: UITextFieldDelegate {
         }
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField === usernameTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField === passwordTextField {

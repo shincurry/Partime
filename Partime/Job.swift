@@ -9,7 +9,7 @@
 import Foundation
 
 class Job: NSObject {
-    init(named title: String, on time: NSDate) {
+    init(named title: String, on time: Date) {
         self.title = title
         self.time = time
     }
@@ -17,7 +17,7 @@ class Job: NSObject {
     var title: String
     var salary: String?
     var location: String?
-    var time: NSDate
+    var time: Date
     var rate: Int?
     var jobContent: String?
     var company: Company?

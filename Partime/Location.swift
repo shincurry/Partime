@@ -13,10 +13,10 @@ import SwiftyJSON
 class Location: NSObject {
     
     static var allPlaces: JSON = {
-        let jsonPath = NSBundle.mainBundle().pathForResource("address", ofType: "json")
+        let jsonPath = Bundle.main.path(forResource: "address", ofType: "json")
         let jsonString = try! String(contentsOfFile: jsonPath!)
         
-        let dataFromString = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+        let dataFromString = jsonString.data(using: String.Encoding.utf8, allowLossyConversion: false)!
         return JSON(data: dataFromString)
     }()
     
@@ -26,17 +26,17 @@ class Location: NSObject {
     lazy var manager = CLLocationManager()
     
     static func getCurrentCounties() -> [JSON] {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let provincePath = defaults.integerForKey("CurrentProvincePath")
-        let cityPath = defaults.integerForKey("CurrentCityPath")
+        let defaults = UserDefaults.standard
+        let provincePath = defaults.integer(forKey: "CurrentProvincePath")
+        let cityPath = defaults.integer(forKey: "CurrentCityPath")
         return allPlaces.array![provincePath]["sub"].array![cityPath]["sub"].array!
     }
     
     static func getCounty(byCode code: String) -> JSON? {
         print(code)
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let provincePath = defaults.integerForKey("CurrentProvincePath")
-        let cityPath = defaults.integerForKey("CurrentCityPath")
+        let defaults = UserDefaults.standard
+        let provincePath = defaults.integer(forKey: "CurrentProvincePath")
+        let cityPath = defaults.integer(forKey: "CurrentCityPath")
         let result = allPlaces.array![provincePath]["sub"].array![cityPath]["sub"].array!.filter({ county in
             return (county["code"].stringValue == code)
         })

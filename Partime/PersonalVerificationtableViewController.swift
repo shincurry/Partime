@@ -15,10 +15,10 @@ class PersonalVerificationtableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let selection = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(selection, animated: true)
+            tableView.deselectRow(at: selection, animated: true)
         }
     }
     
@@ -36,7 +36,7 @@ class PersonalVerificationtableViewController: UITableViewController {
     var positiveIDCardBase64String: String?
     var negativeIDCardBase64String: String?
     
-    @IBAction func submit(sender: UIBarButtonItem) {
+    @IBAction func submit(_ sender: UIBarButtonItem) {
         nameTextField.resignFirstResponder()
         idNumberTextField.resignFirstResponder()
         
@@ -53,37 +53,37 @@ class PersonalVerificationtableViewController: UITableViewController {
             return
         }
         
-        let datas = ["access_token": API.token!.dataUsingEncoding(NSUTF8StringEncoding)!,
-                     "certificatedname": name.dataUsingEncoding(NSUTF8StringEncoding)!,
-                     "identification": idNumber.dataUsingEncoding(NSUTF8StringEncoding)!,
+        let datas = ["access_token": API.token!.data(using: String.Encoding.utf8)!,
+                     "certificatedname": name.data(using: String.Encoding.utf8)!,
+                     "identification": idNumber.data(using: String.Encoding.utf8)!,
                      "idA": UIImagePNGRepresentation(IDCardAImage)!,
                      "idB": UIImagePNGRepresentation(IDCardBImage)!
                     ]
         
 
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         api.verifyPersonalNew(datas) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 print(res)
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
     
     
-    private func convertImageToBase64String(image: UIImage) -> String {
+    fileprivate func convertImageToBase64String(_ image: UIImage) -> String {
         let imageData = UIImagePNGRepresentation(image)!
-        return imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+        return imageData.base64EncodedString(options: .lineLength64Characters)
     }
     
 }
 
 extension PersonalVerificationtableViewController {
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 1:
             showImagePicker(positiveIDCardImagePicker)
@@ -96,31 +96,31 @@ extension PersonalVerificationtableViewController {
 }
 
 extension PersonalVerificationtableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func showImagePicker(imagePicker: UIImagePickerController) {
+    func showImagePicker(_ imagePicker: UIImagePickerController) {
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        let sheet = UIAlertController(title: "选择", message: "选择从哪里获取图片", preferredStyle: .ActionSheet)
-        let takeAPhotoButtonAction = UIAlertAction(title: "拍照", style: .Default, handler: { _ in
-            imagePicker.sourceType = .Camera
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        let sheet = UIAlertController(title: "选择", message: "选择从哪里获取图片", preferredStyle: .actionSheet)
+        let takeAPhotoButtonAction = UIAlertAction(title: "拍照", style: .default, handler: { _ in
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
         })
-        let photoLibraryButtonAction = UIAlertAction(title: "从照片库选取图片", style: .Default, handler: { _ in
-            imagePicker.sourceType = .PhotoLibrary
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        let photoLibraryButtonAction = UIAlertAction(title: "从照片库选取图片", style: .default, handler: { _ in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
         })
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: { _ in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { _ in
             if let selection = self.tableView.indexPathForSelectedRow {
-                self.tableView.deselectRowAtIndexPath(selection, animated: true)
+                self.tableView.deselectRow(at: selection, animated: true)
             }
         })
         
         sheet.addAction(takeAPhotoButtonAction)
         sheet.addAction(photoLibraryButtonAction)
         sheet.addAction(cancelAction)
-        self.presentViewController(sheet, animated: true, completion: nil)
+        self.present(sheet, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
 
         switch picker {
@@ -133,7 +133,7 @@ extension PersonalVerificationtableViewController: UIImagePickerControllerDelega
         default:
             break
         }
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
         
         
         

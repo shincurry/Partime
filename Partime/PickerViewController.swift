@@ -9,17 +9,17 @@
 import UIKit
 
 enum PickerType {
-    case Gender
-    case Location
+    case gender
+    case location
 }
 
 class PickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         switch type {
-        case .Some(.Gender):
+        case .some(.gender):
             navigationItem.title = "选择性别"
-        case .Some(.Location):
+        case .some(.location):
             navigationItem.title = "选择位置"
         default:
             break
@@ -37,30 +37,30 @@ class PickerViewController: UIViewController {
 
 // MARK: - Picker Delegate and Datasource
 extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch type {
-        case .Some(.Gender):
+        case .some(.gender):
             return 1
-        case .Some(.Location):
+        case .some(.location):
             return 3
         default:
             return 0
         }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch type {
-        case .Some(.Gender):
+        case .some(.gender):
             return 2
-        case .Some(.Location):
-            let selectInComponent0 = pickerView.selectedRowInComponent(0)
+        case .some(.location):
+            let selectInComponent0 = pickerView.selectedRow(inComponent: 0)
             
             let provinces = Location.allPlaces.array!
             if component == 0 {
                 return provinces.count
             }
             let cities = provinces[selectInComponent0]["sub"].array!
-            let selectInComponent1 = pickerView.selectedRowInComponent(1)
+            let selectInComponent1 = pickerView.selectedRow(inComponent: 1)
             if component == 1 {
                 return cities.count
             }
@@ -71,18 +71,18 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch type {
-        case .Some(.Gender):
+        case .some(.gender):
             return gender[row]
-        case .Some(.Location):
-            let selectInComponent0 = pickerView.selectedRowInComponent(0)
+        case .some(.location):
+            let selectInComponent0 = pickerView.selectedRow(inComponent: 0)
             
             let province = Location.allPlaces.array!
             if component == 0 {
                 return province[row]["value"]["name"].stringValue
             }
-            let selectInComponent1 = pickerView.selectedRowInComponent(1)
+            let selectInComponent1 = pickerView.selectedRow(inComponent: 1)
             let city = province[selectInComponent0]["sub"].array!
             if component == 1 {
                 return city[row]["value"]["name"].stringValue
@@ -97,14 +97,14 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch type {
-        case .Some(.Gender):
+        case .some(.gender):
             superLabel.text = gender[row]
-        case .Some(.Location):
-            let selectInComponent0 = pickerView.selectedRowInComponent(0)
-            let selectInComponent1 = pickerView.selectedRowInComponent(1)
-            let selectInComponent2 = pickerView.selectedRowInComponent(2)
+        case .some(.location):
+            let selectInComponent0 = pickerView.selectedRow(inComponent: 0)
+            let selectInComponent1 = pickerView.selectedRow(inComponent: 1)
+            let selectInComponent2 = pickerView.selectedRow(inComponent: 2)
             if component == 0 {
                 pickerView.selectRow(0, inComponent: 1, animated: true)
                 pickerView.reloadComponent(1)

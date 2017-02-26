@@ -17,7 +17,7 @@ import UIKit
      
      - returns: height of menu-view's body-view
      */
-    optional func heightForBodyView(menuView: YXMenuView) -> CGFloat
+    @objc optional func heightForBodyView(_ menuView: YXMenuView) -> CGFloat
     
     /**
     Tells the delegate that the specified row is now selected.
@@ -25,7 +25,7 @@ import UIKit
     - parameter menuView:  The menu-view object asking for the title.
     - parameter indexPath: indexPath of current selected row
     */
-    optional func menuView(menuView: YXMenuView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    @objc optional func menuView(_ menuView: YXMenuView, didSelectRowAtIndexPath indexPath: IndexPath)
 }
 
 //MARK: - YXMenuView DataSource
@@ -38,7 +38,7 @@ import UIKit
      
      - returns: number of sections
      */
-    func numberOfSectionsInYXMenuView(menuView: YXMenuView) -> Int
+    func numberOfSectionsInYXMenuView(_ menuView: YXMenuView) -> Int
     
     /**
      Tells the data source to return the number of rows in a given section of a menu view.
@@ -48,7 +48,7 @@ import UIKit
      
      - returns: The number of rows in section.
      */
-    func menuView(menuView: YXMenuView, numberOfRowsInSection section: Int) -> Int
+    func menuView(_ menuView: YXMenuView, numberOfRowsInSection section: Int) -> Int
     
     /**
      set header title of section
@@ -58,7 +58,7 @@ import UIKit
      
      - returns: title of section
      */
-    func menuView(menuView: YXMenuView,  titleForHeaderInSection section: Int) -> String
+    func menuView(_ menuView: YXMenuView,  titleForHeaderInSection section: Int) -> String
     
     /**
      Set row title of section
@@ -68,7 +68,7 @@ import UIKit
      
      - returns: title of row
      */
-    func menuView(menuView: YXMenuView,  titleForRowAtIndexPath indexPath: NSIndexPath) -> String
+    func menuView(_ menuView: YXMenuView,  titleForRowAtIndexPath indexPath: IndexPath) -> String
     
     /**
     Asks the delegate for custom image-view
@@ -77,5 +77,5 @@ import UIKit
     
     - returns: custom image-view
     */
-    optional func imageForSectionView(menuView: YXMenuView) -> UIImage?
+    @objc optional func imageForSectionView(_ menuView: YXMenuView) -> UIImage?
 }

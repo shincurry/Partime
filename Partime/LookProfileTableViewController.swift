@@ -21,9 +21,9 @@ class LookProfileTableViewController: UITableViewController {
     
     var id: (user: String, job: String)? {
         didSet {
-            api.getEmployeeProfile(["userID": self.id!.user]) { response in
+            api.getEmployeeProfile(["userID": self.id!.user as AnyObject]) { response in
                 switch response {
-                case .Success:
+                case .success:
                     let res = JSON(data: response.value!)
                     print(res)
                     if res["status"] == "success" {
@@ -31,7 +31,7 @@ class LookProfileTableViewController: UITableViewController {
                     } else if res["status"] == "failure" {
                         print("failure")
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
             }
@@ -51,35 +51,35 @@ class LookProfileTableViewController: UITableViewController {
     @IBOutlet weak var profileTelephoneLabel: UILabel!
     @IBOutlet weak var profileIntroduction: UITextView!
     
-    @IBAction func accept(sender: UIButton) {
-        let params: [String: AnyObject] = ["access_token": API.token!,
-                                           "ptID": id!.job,
-                                           "userID": id!.user]
+    @IBAction func accept(_ sender: UIButton) {
+        let params: [String: AnyObject] = ["access_token": API.token! as AnyObject,
+                                           "ptID": id!.job as AnyObject,
+                                           "userID": id!.user as AnyObject]
         self.api.dealRequest(params) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 if res["status"] == "success" {
-                    self.performSegueWithIdentifier("UnwindLookProfileToMemberEditing", sender: self)
+                    self.performSegue(withIdentifier: "UnwindLookProfileToMemberEditing", sender: self)
                 } else if res["status"] == "failure" {
                     print("failure")
                 }
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
         
         
     }
     
-    @IBAction func refuse(sender: UIButton) {
+    @IBAction func refuse(_ sender: UIButton) {
     }
     
-    func setInfo(data: JSON) {
+    func setInfo(_ data: JSON) {
         print(data)
         if let imgUrl = data["protrait"].string {
-            profileImageView.sd_setImageWithURL(api.getImageUrl(imgUrl))
+            profileImageView.sd_setImage(with: api.getImageUrl(imgUrl))
         }
         profileNameLabel.text = data["realname"].stringValue
         profileGenderLabel.text = data["gender"].stringValue

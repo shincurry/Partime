@@ -17,19 +17,19 @@ class PublishEditingTableViewController: UITableViewController {
         salary = 0
         salaryTypeCode = 14
         
-        contactLabel.text = defaults.objectForKey("ProfileRealname") as? String
-        telephoneLabel.text = defaults.objectForKey("ProfileTelephone") as? String
+        contactLabel.text = defaults.object(forKey: "ProfileRealname") as? String
+        telephoneLabel.text = defaults.object(forKey: "ProfileTelephone") as? String
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        clearsSelectionOnViewWillAppear NOT WORK on device
         if let selection = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(selection, animated: true)
+            tableView.deselectRow(at: selection, animated: true)
         }
     }
     
     let api = API.shared
-    let defaults = NSUserDefaults(suiteName: "ProfileDefaults")!
+    let defaults = UserDefaults(suiteName: "ProfileDefaults")!
     
     @IBOutlet weak var jobNameLabel: UILabel!
     @IBOutlet weak var jobTypeLabel: UILabel!
@@ -75,60 +75,60 @@ class PublishEditingTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             
             switch identifier {
             case "ShowDateFromSegue":
-                let controller = segue.destinationViewController as! PublishDateTimePickerViewController
+                let controller = segue.destination as! PublishDateTimePickerViewController
                 controller.superLabel = beginDateLabel
-                controller.type = .DateFrom
+                controller.type = .dateFrom
             case "ShowDateToSegue":
-                let controller = segue.destinationViewController as! PublishDateTimePickerViewController
+                let controller = segue.destination as! PublishDateTimePickerViewController
                 controller.superLabel = endDateLabel
-                controller.type = .DateTo
+                controller.type = .dateTo
             case "ShowTimeFromSegue":
-                let controller = segue.destinationViewController as! PublishDateTimePickerViewController
+                let controller = segue.destination as! PublishDateTimePickerViewController
                 controller.superLabel = beginTimeLabel
-                controller.type = .TimeFrom
+                controller.type = .timeFrom
             case "ShowTimeToSegue":
-                let controller = segue.destinationViewController as! PublishDateTimePickerViewController
+                let controller = segue.destination as! PublishDateTimePickerViewController
                 controller.superLabel = endTimeLabel
-                controller.type = .TimeTo
+                controller.type = .timeTo
             case "ShowTextEditingSegue":
                 let indexPath = tableView.indexPathForSelectedRow!
-                let cell = tableView.cellForRowAtIndexPath(indexPath)!
-                let controller = segue.destinationViewController as! PublishEditingTextViewController
+                let cell = tableView.cellForRow(at: indexPath)!
+                let controller = segue.destination as! PublishEditingTextViewController
                 controller.name = cell.textLabel!.text
                 controller.detailsName = cell.detailTextLabel!.text
                 controller.superLabel = cell.detailTextLabel
                 
             case "ShowGenderRequireSegue":
-                let controller = segue.destinationViewController as! PublishGeneralPickerViewController
+                let controller = segue.destination as! PublishGeneralPickerViewController
                 controller.superLabel = genderRequireLabel
                 controller.superController = self
-                controller.type = .GenderRequire
+                controller.type = .genderRequire
             case "ShowLocationSegue":
-                let controller = segue.destinationViewController as! PublishGeneralPickerViewController
+                let controller = segue.destination as! PublishGeneralPickerViewController
                 controller.superLabel = locationLabel
                 controller.superController = self
-                controller.type = .Location
+                controller.type = .location
             case "ShowJobTypeSegue":
-                let controller = segue.destinationViewController as! PublishGeneralPickerViewController
+                let controller = segue.destination as! PublishGeneralPickerViewController
                 controller.superLabel = jobTypeLabel
                 controller.superController = self
-                controller.type = .JobType
+                controller.type = .jobType
             case "ShowPaymentTypeSegue":
-                let controller = segue.destinationViewController as! PublishGeneralPickerViewController
+                let controller = segue.destination as! PublishGeneralPickerViewController
                 controller.superLabel = paymentTypeLabel
                 controller.superController = self
-                controller.type = .PaymentType
+                controller.type = .paymentType
             case "ShowSalarySegue":
-                let controller = segue.destinationViewController as! PublishSalaryViewController
+                let controller = segue.destination as! PublishSalaryViewController
                 controller.superLabel = salaryLabel
                 controller.superController = self
             case "UnwindPublishJobToProfileSegue":
-                let controller = segue.destinationViewController as! MyJobsTableViewController
+                let controller = segue.destination as! MyJobsTableViewController
                 controller.getEmployerJobs()
             default:
                 break
@@ -140,24 +140,24 @@ class PublishEditingTableViewController: UITableViewController {
 
 extension PublishEditingTableViewController {
 
-    @IBAction func finishEditing(sender: UIBarButtonItem) {
+    @IBAction func finishEditing(_ sender: UIBarButtonItem) {
         if !jobNameLabel.text!.isEmpty
         && !jobTypeLabel.text!.isEmpty
         && !contactLabel.text!.isEmpty
         && !telephoneLabel.text!.isEmpty {
-            let sheet = UIAlertController(title: "完成", message: "发布兼职工作", preferredStyle: .ActionSheet)
-            let saveJobAction = UIAlertAction(title: "保存这个工作", style: .Default, handler: { _ in
+            let sheet = UIAlertController(title: "完成", message: "发布兼职工作", preferredStyle: .actionSheet)
+            let saveJobAction = UIAlertAction(title: "保存这个工作", style: .default, handler: { _ in
                 self.saveJob(andPublish: false)
             })
-            let saveAndPublishJobAction = UIAlertAction(title: "保存工作并直接发布", style: .Default, handler: { _ in
+            let saveAndPublishJobAction = UIAlertAction(title: "保存工作并直接发布", style: .default, handler: { _ in
                 self.saveJob(andPublish: true)
             })
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             
             sheet.addAction(saveJobAction)
             sheet.addAction(saveAndPublishJobAction)
             sheet.addAction(cancelAction)
-            self.presentViewController(sheet, animated: true, completion: nil)
+            self.present(sheet, animated: true, completion: nil)
             
             
             
@@ -166,93 +166,93 @@ extension PublishEditingTableViewController {
             let alertTitle = "缺失相关内容"
             let alertMessage = "请完善需要填写的内容"
             
-            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-            let OKAction = UIAlertAction(title: "知道了", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "知道了", style: .default, handler: nil)
             alertController.addAction(OKAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
-    private func saveJob(andPublish doPublish: Bool) {
+    fileprivate func saveJob(andPublish doPublish: Bool) {
         
-        var params: [String: AnyObject] = ["access_token": API.token!,
-                                           "title": jobNameLabel.text!,
-                                           "type": jobTypeCode!,
-                                           "contactName": contactLabel.text!,
-                                           "contactPhone": telephoneLabel.text!
+        var params: [String: AnyObject] = ["access_token": API.token! as AnyObject,
+                                           "title": jobNameLabel.text! as AnyObject,
+                                           "type": jobTypeCode! as AnyObject,
+                                           "contactName": contactLabel.text! as AnyObject,
+                                           "contactPhone": telephoneLabel.text! as AnyObject
         ]
         
         if doPublish {
-            params["directPost"] = 1
+            params["directPost"] = 1 as AnyObject?
         }
         
         if let text = beginDateLabel.text {
-            params["dateBegin"] = text
+            params["dateBegin"] = text as AnyObject?
         }
         if let text = endDateLabel.text {
-            params["dateEnd"] = text
+            params["dateEnd"] = text as AnyObject?
         }
         if let text = beginTimeLabel.text {
-            params["timeBegin"] = text
+            params["timeBegin"] = text as AnyObject?
         }
         if let text = endTimeLabel.text {
-            params["timeEnd"] = text
+            params["timeEnd"] = text as AnyObject?
         } else {
             
         }
         if let sal = salary {
-            params["salary"] = sal
+            params["salary"] = sal as AnyObject?
         }
         if let code = salaryTypeCode {
-            params["salaryType"] = code
+            params["salaryType"] = code as AnyObject?
         }
         
         if let code = paymentTypeCode {
-            params["salaryWhen"] = code
+            params["salaryWhen"] = code as AnyObject?
         }
         if let count = Int(memberCountLabel.text!) {
-            params["amount"] = count
+            params["amount"] = count as AnyObject?
         }
         if let code = genderRequireCode {
-            params["genderNeed"] = code
+            params["genderNeed"] = code as AnyObject?
         }
         
         if let code = districtCode {
-            params["districtid"] = code
+            params["districtid"] = code as AnyObject?
         }
         
         if let text = jobRequireTextView.text {
-            params["description"] = text
+            params["description"] = text as AnyObject?
         }
         if let text = jobContentTextView.text {
-            params["detailAndDemand"] = text
+            params["detailAndDemand"] = text as AnyObject?
         }
         
         
         print(params)
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         api.postAJob(params) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 print(res)
                 if res["status"].stringValue == "success" {
-                    let alertController = UIAlertController(title: "成功", message: "发布兼职成功", preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: "完成", style: .Default, handler: { _ in
-                        self.performSegueWithIdentifier("UnwindPublishJobToProfileSegue", sender: self)
+                    let alertController = UIAlertController(title: "成功", message: "发布兼职成功", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "完成", style: .default, handler: { _ in
+                        self.performSegue(withIdentifier: "UnwindPublishJobToProfileSegue", sender: self)
                     
                     })
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
     
-    private func checkInfo() -> Bool {
+    fileprivate func checkInfo() -> Bool {
         if jobNameLabel.text!.isEmpty || jobTypeLabel.text!.isEmpty {
             return false
         }
@@ -262,7 +262,7 @@ extension PublishEditingTableViewController {
 }
 
 extension PublishEditingTableViewController {
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):// 职位名称
             showTextEditingView()
@@ -307,7 +307,7 @@ extension PublishEditingTableViewController {
         }
     }
     
-    private func showTextEditingView() {
-        performSegueWithIdentifier("ShowTextEditingSegue", sender: self)
+    fileprivate func showTextEditingView() {
+        performSegue(withIdentifier: "ShowTextEditingSegue", sender: self)
     }
 }

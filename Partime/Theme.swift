@@ -28,6 +28,6 @@ class Theme {
 
 extension UIColor {
     func translucent() -> UIColor {
-        return self.colorWithAlphaComponent(0.7)
+        return self.withAlphaComponent(0.7)
     }
 }

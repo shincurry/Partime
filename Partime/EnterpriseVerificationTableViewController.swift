@@ -35,7 +35,7 @@ class EnterpriseVerificationTableViewController: UITableViewController {
     @IBOutlet weak var negativeIDCardImageView: UIImageView!
     
     
-    @IBAction func submit(sender: UIBarButtonItem) {
+    @IBAction func submit(_ sender: UIBarButtonItem) {
         nameTextField.resignFirstResponder()
         idNumberTextField.resignFirstResponder()
         enterpriseNameTextField.resignFirstResponder()
@@ -69,41 +69,41 @@ class EnterpriseVerificationTableViewController: UITableViewController {
             return
         }
         
-        let datas = ["access_token": API.token!.dataUsingEncoding(NSUTF8StringEncoding)!,
-                     "legalperson": name.dataUsingEncoding(NSUTF8StringEncoding)!,
-                     "legalpersonid": idNumber.dataUsingEncoding(NSUTF8StringEncoding)!,
+        let datas = ["access_token": API.token!.data(using: String.Encoding.utf8)!,
+                     "legalperson": name.data(using: String.Encoding.utf8)!,
+                     "legalpersonid": idNumber.data(using: String.Encoding.utf8)!,
                      "legalpersonidA": UIImagePNGRepresentation(IDCardAImage)!,
                      "legalpersonidB": UIImagePNGRepresentation(IDCardBImage)!,
                      
                      "license": UIImagePNGRepresentation(businessLicenseImage)!,
-                     "enterprisename": enterpriseName.dataUsingEncoding(NSUTF8StringEncoding)!,
-                     "enterprisecode": registerCode.dataUsingEncoding(NSUTF8StringEncoding)!,
-                     "enterpriseaddress": enterpriseLocation.dataUsingEncoding(NSUTF8StringEncoding)!
+                     "enterprisename": enterpriseName.data(using: String.Encoding.utf8)!,
+                     "enterprisecode": registerCode.data(using: String.Encoding.utf8)!,
+                     "enterpriseaddress": enterpriseLocation.data(using: String.Encoding.utf8)!
                      ]
         
         
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         api.verifyPersonalNew(datas) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 print(res)
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
         
     }
-    private func convertImageToBase64String(image: UIImage) -> String {
+    fileprivate func convertImageToBase64String(_ image: UIImage) -> String {
         let imageData = UIImagePNGRepresentation(image)!
-        return imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+        return imageData.base64EncodedString(options: .lineLength64Characters)
     }
     
 }
 
 extension EnterpriseVerificationTableViewController {
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 1:
             showImagePicker(businessLicenseImagePicker)
@@ -118,32 +118,32 @@ extension EnterpriseVerificationTableViewController {
 }
 
 extension EnterpriseVerificationTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func showImagePicker(imagePicker: UIImagePickerController) {
+    func showImagePicker(_ imagePicker: UIImagePickerController) {
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        let sheet = UIAlertController(title: "选择", message: "选择从哪里获取图片", preferredStyle: .ActionSheet)
-        let takeAPhotoButtonAction = UIAlertAction(title: "拍照", style: .Default, handler: { _ in
-            imagePicker.sourceType = .Camera
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        let sheet = UIAlertController(title: "选择", message: "选择从哪里获取图片", preferredStyle: .actionSheet)
+        let takeAPhotoButtonAction = UIAlertAction(title: "拍照", style: .default, handler: { _ in
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
         })
-        let photoLibraryButtonAction = UIAlertAction(title: "从照片库选取图片", style: .Default, handler: { _ in
-            imagePicker.sourceType = .PhotoLibrary
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        let photoLibraryButtonAction = UIAlertAction(title: "从照片库选取图片", style: .default, handler: { _ in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
         })
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: { _ in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { _ in
             if let selection = self.tableView.indexPathForSelectedRow {
-                self.tableView.deselectRowAtIndexPath(selection, animated: true)
+                self.tableView.deselectRow(at: selection, animated: true)
             }
         })
         
         sheet.addAction(takeAPhotoButtonAction)
         sheet.addAction(photoLibraryButtonAction)
         sheet.addAction(cancelAction)
-        self.presentViewController(sheet, animated: true, completion: nil)
+        self.present(sheet, animated: true, completion: nil)
         
         
     }
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         switch picker {
@@ -156,7 +156,7 @@ extension EnterpriseVerificationTableViewController: UIImagePickerControllerDele
         default:
             break
         }
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
         
         
         

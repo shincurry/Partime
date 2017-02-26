@@ -16,7 +16,7 @@ class LocationHotCitiesTableViewCell: UITableViewCell {
         initialHotCitiesCollection()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
@@ -32,27 +32,27 @@ extension LocationHotCitiesTableViewCell: UICollectionViewDelegate, UICollection
 //        hotCitiesCollection.backgroundColor = UIColor.whiteColor()
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Location.hotCities.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HotCitiesCollectionCell", forIndexPath: indexPath) as! LocationHotCitiesCollectionViewCell
-        cell.hotCityButton.setTitle(Location.hotCities[indexPath.row], forState: .Normal)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotCitiesCollectionCell", for: indexPath) as! LocationHotCitiesCollectionViewCell
+        cell.hotCityButton.setTitle(Location.hotCities[indexPath.row], for: UIControlState())
         cell.hotCityButton.tag = indexPath.row
         cell.clipsToBounds = true
         cell.layer.cornerRadius = cell.frame.size.width / 10.0
         cell.layer.borderWidth = 0.3
-        cell.layer.borderColor = UIColor.lightGrayColor().CGColor
+        cell.layer.borderColor = UIColor.lightGray.cgColor
         
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellHeight = CGFloat(32)
         let cellWidth = collectionView.frame.width / 3.0 - 8.0
         return CGSize(width: cellWidth, height: cellHeight)

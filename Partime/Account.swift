@@ -27,7 +27,7 @@ class Account: NSObject {
     var about : String?;
     
 
-    static func verify(username username : String, password : String) -> Bool {
+    static func verify(username : String, password : String) -> Bool {
         // TODO
         return false;
     }

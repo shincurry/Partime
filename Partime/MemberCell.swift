@@ -23,7 +23,7 @@ class MemberCell: UITableViewCell {
 }
 
 extension MemberCell {
-    private func initialStyle() {
+    fileprivate func initialStyle() {
         imgView.tintColor = Theme.mainColor
         
         statusLabel.textColor = Theme.mainColor

@@ -16,11 +16,11 @@ class SettingsTableViewController: UITableViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        clearsSelectionOnViewWillAppear NOT WORK on device
         if let selection = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(selection, animated: true)
+            tableView.deselectRow(at: selection, animated: true)
         }
     }
     

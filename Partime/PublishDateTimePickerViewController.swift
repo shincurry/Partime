@@ -9,11 +9,11 @@
 import UIKit
 
 enum DateTimePickerType {
-    case DateFrom
-    case DateTo
-    case TimeFrom
-    case TimeTo
-    case None
+    case dateFrom
+    case dateTo
+    case timeFrom
+    case timeTo
+    case none
 }
 
 class PublishDateTimePickerViewController: UIViewController {
@@ -29,36 +29,36 @@ class PublishDateTimePickerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    var type: DateTimePickerType = .None
+    var type: DateTimePickerType = .none
     
-    var dateFormatter = NSDateFormatter()
+    var dateFormatter = DateFormatter()
     var superLabel: UILabel!
     @IBOutlet weak var pickerView: UIDatePicker!
     
-    @IBAction func dateChanged(sender: UIDatePicker) {
+    @IBAction func dateChanged(_ sender: UIDatePicker) {
         setLabel()
     }
     
-    private func initPicker() {
+    fileprivate func initPicker() {
         switch type {
-        case .DateFrom:
+        case .dateFrom:
             fallthrough
-        case .DateTo:
-            pickerView.datePickerMode = .Date
+        case .dateTo:
+            pickerView.datePickerMode = .date
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            pickerView.minimumDate = NSDate()
-        case .TimeFrom:
+            pickerView.minimumDate = Date()
+        case .timeFrom:
             fallthrough
-        case .TimeTo:
-            pickerView.datePickerMode = .Time
+        case .timeTo:
+            pickerView.datePickerMode = .time
             dateFormatter.dateFormat = "HH:mm"
         default:
             break
         }
     }
     
-    private func setLabel() {
-        superLabel.text = dateFormatter.stringFromDate(pickerView.date)
+    fileprivate func setLabel() {
+        superLabel.text = dateFormatter.string(from: pickerView.date)
     }
 
 }

@@ -10,8 +10,8 @@ import UIKit
 
 class HalfHomeNavigatorCollectionViewCell: UICollectionViewCell {
     
-    override func didAddSubview(subview: UIView) {
-        backgroundColor = UIColor.whiteColor()
+    override func didAddSubview(_ subview: UIView) {
+        backgroundColor = UIColor.white
     }
     
     @IBOutlet weak var icon: UIImageView!

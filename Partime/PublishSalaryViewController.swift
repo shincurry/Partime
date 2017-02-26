@@ -27,8 +27,8 @@ class PublishSalaryViewController: UIViewController {
     
     let salaryType = ["天", "小时", "次", "个", "件"]
 
-    @IBAction func editingEnd(sender: UITextField) {
-        let selectedRow = pickerView.selectedRowInComponent(0)
+    @IBAction func editingEnd(_ sender: UITextField) {
+        let selectedRow = pickerView.selectedRow(inComponent: 0)
         superLabel.text = editTextField.text! + "元/" + salaryType[selectedRow]
         superController.salary = Int(editTextField.text!)
         superController.salaryTypeCode = selectedRow+14
@@ -37,19 +37,19 @@ class PublishSalaryViewController: UIViewController {
 }
 
 extension PublishSalaryViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return salaryType.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return salaryType[row]
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         superLabel.text = editTextField.text! + "元/" + salaryType[row]
         superController.salary = Int(editTextField.text!)
         superController.salaryTypeCode = row+14

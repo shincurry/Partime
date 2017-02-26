@@ -1,48 +1,50 @@
 PODS:
-  - Alamofire (3.1.4)
+  - Alamofire (4.3.0)
   - DGActivityIndicatorView (2.0)
-  - KeychainAccess (2.3.5)
-  - MBProgressHUD (0.9.2)
+  - KeychainAccess (3.0.1)
+  - MBProgressHUD (1.0.0)
   - MJRefresh (3.1.0)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - Spring (1.0.3)
-  - SwiftyJSON (2.3.2)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0)
+  - Alamofire (~> 4.3)
   - DGActivityIndicatorView
-  - KeychainAccess
-  - MBProgressHUD (~> 0.9.2)
+  - KeychainAccess (from `https://github.com/kishikawakatsumi/KeychainAccess.git`)
+  - MBProgressHUD (~> 1.0.0)
   - MJRefresh
-  - SDWebImage (~> 3.7)
-  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift2`)
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - SDWebImage (~> 3.8)
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
+  - SwiftyJSON
 
 EXTERNAL SOURCES:
+  KeychainAccess:
+    :git: https://github.com/kishikawakatsumi/KeychainAccess.git
   Spring:
-    :branch: swift2
+    :branch: swift3
     :git: https://github.com/MengTo/Spring.git
-  SwiftyJSON:
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  KeychainAccess:
+    :commit: 3bf435d89d70f6b78956d5f13239048b21014eef
+    :git: https://github.com/kishikawakatsumi/KeychainAccess.git
   Spring:
-    :commit: 18d5c7b74489de8044e34767f856d1e574f0820e
+    :commit: 3a9227c6e9157e7b47f5ac1ee5abab2a56b50002
     :git: https://github.com/MengTo/Spring.git
-  SwiftyJSON:
-    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
-  KeychainAccess: e283c1981a6c5655e1984cd411c6faf16fa165ae
-  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  KeychainAccess: 017ea25e313a49eda10bb19b0bb0760fb1edfe1a
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 9026be6aafa2d50a204febfba8c6c482ecfa4aea
+
+COCOAPODS: 1.2.0

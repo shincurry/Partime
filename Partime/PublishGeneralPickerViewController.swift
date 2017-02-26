@@ -10,11 +10,11 @@ import UIKit
 import SwiftyJSON
 
 enum GenderalPickerType {
-    case GenderRequire
-    case Location
-    case JobType
-    case PaymentType
-    case None
+    case genderRequire
+    case location
+    case jobType
+    case paymentType
+    case none
 }
 
 class PublishGeneralPickerViewController: UIViewController {
@@ -23,26 +23,26 @@ class PublishGeneralPickerViewController: UIViewController {
         super.viewDidLoad()
         
         
-        pickerView.multipleTouchEnabled = false
-        pickerView.exclusiveTouch = true
+        pickerView.isMultipleTouchEnabled = false
+        pickerView.isExclusiveTouch = true
         switch type {
-        case .GenderRequire:
+        case .genderRequire:
             navigationItem.title = "选择性别"
             superLabel.text = gender[0].0
             superController.genderRequireCode = 13
-        case .Location:
+        case .location:
             navigationItem.title = "选择位置"
             superLabel.text = "北京市 东城区"
             superController.districtCode = "110101"
-            defaultLocation = (Array(count: maxProvince, repeatedValue: ""),
-                               Array(count: maxCity, repeatedValue: ""),
-                               Array(count: maxCounty, repeatedValue: ""))
+            defaultLocation = (Array(repeating: "", count: maxProvince),
+                               Array(repeating: "", count: maxCity),
+                               Array(repeating: "", count: maxCounty))
             locations = getLocationList(0, 0)
-        case .JobType:
+        case .jobType:
             navigationItem.title = "选择职位类型"
             superLabel.text = jobType[0]
             superController.jobTypeCode = 1
-        case .PaymentType:
+        case .paymentType:
             navigationItem.title = "选择结算方式"
             superLabel.text = paymentType[0]
             superController.paymentTypeCode = 19
@@ -62,21 +62,21 @@ class PublishGeneralPickerViewController: UIViewController {
     
     var locations: SelectionLocations = ([], [], [])
     
-    func getLocationList(provinceIndex: Int, _ cityIndex: Int) -> SelectionLocations {
+    func getLocationList(_ provinceIndex: Int, _ cityIndex: Int) -> SelectionLocations {
         var tempLocations = defaultLocation
         let provinces = Location.allPlaces.array!
-        provinces.enumerate().forEach() { (index, province) in
-            tempLocations.provinces[index] = province["value"]["name"].stringValue
+        provinces.enumerated().forEach() { (index, province) in
+            tempLocations!.provinces[index] = province["value"]["name"].stringValue
         }
         let cities = provinces[provinceIndex]["sub"].array!
-        cities.enumerate().forEach() { (index, city) in
-            tempLocations.cities[index] = city["value"]["name"].stringValue
+        cities.enumerated().forEach() { (index, city) in
+            tempLocations!.cities[index] = city["value"]["name"].stringValue
         }
         let counties = cities[cityIndex]["sub"].array!
-        counties.enumerate().forEach() { (index, county) in
-            tempLocations.counties[index] = county["name"].stringValue
+        counties.enumerated().forEach() { (index, county) in
+            tempLocations!.counties[index] = county["name"].stringValue
         }
-        return tempLocations
+        return tempLocations!
     }
     
     
@@ -84,7 +84,7 @@ class PublishGeneralPickerViewController: UIViewController {
     var superController: PublishEditingTableViewController!
     var superLabel: UILabel!
     
-    var type: GenderalPickerType = .None
+    var type: GenderalPickerType = .none
     
     
     // DataSource
@@ -104,30 +104,30 @@ class PublishGeneralPickerViewController: UIViewController {
 
 // MARK: - Picker Delegate and Datasource
 extension PublishGeneralPickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch type {
-        case .GenderRequire:
+        case .genderRequire:
             return 1
-        case .Location:
+        case .location:
             return 3
-        case .JobType:
+        case .jobType:
             return 1
-        case .PaymentType:
+        case .paymentType:
             return 1
         default:
             return 0
         }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch type {
-        case .GenderRequire:
+        case .genderRequire:
             return gender.count
-        case .JobType:
+        case .jobType:
             return jobType.count
-        case .PaymentType:
+        case .paymentType:
             return paymentType.count
-        case .Location:
+        case .location:
 //            switch component {
 //            case 0:
 //                return maxProvince
@@ -138,14 +138,14 @@ extension PublishGeneralPickerViewController: UIPickerViewDelegate, UIPickerView
 //            default:
 //                return 0
 //            }
-            let selectInComponent0 = pickerView.selectedRowInComponent(0)
+            let selectInComponent0 = pickerView.selectedRow(inComponent: 0)
             
             let provinces = Location.allPlaces.array!
             if component == 0 {
                 return provinces.count
             }
             let cities = provinces[selectInComponent0]["sub"].array!
-            let selectInComponent1 = pickerView.selectedRowInComponent(1)
+            let selectInComponent1 = pickerView.selectedRow(inComponent: 1)
             if component == 1 {
                 if maxCity < cities.count {
                 }
@@ -160,15 +160,15 @@ extension PublishGeneralPickerViewController: UIPickerViewDelegate, UIPickerView
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch type {
-        case .GenderRequire:
+        case .genderRequire:
             return gender[row].0
-        case .JobType:
+        case .jobType:
             return jobType[row]
-        case .PaymentType:
+        case .paymentType:
             return paymentType[row]
-        case .Location:
+        case .location:
 //            let selectInComponent0 = pickerView.selectedRowInComponent(0)
 //            let selectInComponent1 = pickerView.selectedRowInComponent(1)
 //            let selectInComponent2 = pickerView.selectedRowInComponent(2)
@@ -204,21 +204,21 @@ extension PublishGeneralPickerViewController: UIPickerViewDelegate, UIPickerView
         
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch type {
-        case .GenderRequire:
+        case .genderRequire:
             superLabel.text = gender[row].0
             superController.genderRequireCode = gender[row].1
-        case .JobType:
+        case .jobType:
             superLabel.text = jobType[row]
             superController.jobTypeCode = row+1
-        case .PaymentType:
+        case .paymentType:
             superLabel.text = paymentType[row]
             superController.paymentTypeCode = row+19
-        case .Location:
-            let selectInComponent0 = pickerView.selectedRowInComponent(0)
-            let selectInComponent1 = pickerView.selectedRowInComponent(1)
-            let selectInComponent2 = pickerView.selectedRowInComponent(2)
+        case .location:
+            let selectInComponent0 = pickerView.selectedRow(inComponent: 0)
+            let selectInComponent1 = pickerView.selectedRow(inComponent: 1)
+            let selectInComponent2 = pickerView.selectedRow(inComponent: 2)
             
             locations = getLocationList(selectInComponent0, selectInComponent1)
 
@@ -248,7 +248,7 @@ extension PublishGeneralPickerViewController: UIPickerViewDelegate, UIPickerView
                 let district = city["sub"].array![selectInComponent2]
                 
                 superLabel.text = "\(city["value"]["name"].stringValue) \(district["name"].stringValue)"
-                print(superLabel?.text)
+                print(superLabel?.text ?? "")
                 superController.provinceCode = province["code"].stringValue
                 superController.cityCode = city["code"].stringValue
                 superController.districtCode = district["code"].stringValue

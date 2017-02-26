@@ -40,111 +40,111 @@ class JobCell: UITableViewCell {
     @IBOutlet weak var salaryLabel: UILabel?
     @IBOutlet weak var jobButton: UIButton?
     
-    @IBAction func cancelJob(sender: UIButton) {
-        let alertController = UIAlertController(title: "取消申请工作", message: "确定要取消申请这个工作吗？", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+    @IBAction func cancelJob(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "取消申请工作", message: "确定要取消申请这个工作吗？", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        let OKAction = UIAlertAction(title: "确定", style: .Default) { (action) in
-            let params: [String: AnyObject] = ["access_token": API.token!,
-                                               "requestID": self.id!.request]
-            MBProgressHUD.showHUDAddedTo(self.superController!.view, animated: true)
+        let OKAction = UIAlertAction(title: "确定", style: .default) { (action) in
+            let params: [String: AnyObject] = ["access_token": API.token! as AnyObject,
+                                               "requestID": self.id!.request as AnyObject]
+            MBProgressHUD.showAdded(to: self.superController!.view, animated: true)
             self.api.cancelAJobRequest(params) { response in
                 switch response {
-                case .Success:
+                case .success:
                     let res = JSON(data: response.value!)
                     if res["status"] == "success" {
                         if let controller = self.superController {
                             controller.getEmployeeJobs()
-                            let alertController = UIAlertController(title: "成功", message: "成功撤销兼职工作申请", preferredStyle: .Alert)
-                            let OKAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Default, handler: { action in
-                                MBProgressHUD.hideHUDForView(self.superController!.view, animated: true)
+                            let alertController = UIAlertController(title: "成功", message: "成功撤销兼职工作申请", preferredStyle: .alert)
+                            let OKAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                                MBProgressHUD.hide(for: self.superController!.view, animated: true)
                             })
                             alertController.addAction(OKAction)
-                            controller.presentViewController(alertController, animated: true, completion: nil)
+                            controller.present(alertController, animated: true, completion: nil)
                         }
                     } else if res["status"] == "failure" {
                         print("failure")
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
-                MBProgressHUD.hideHUDForView(self.superController!.view, animated: true)
+                MBProgressHUD.hide(for: self.superController!.view, animated: true)
                 
             }
         }
         alertController.addAction(OKAction)
-        superController!.presentViewController(alertController, animated: true, completion: nil)
+        superController!.present(alertController, animated: true, completion: nil)
     }
-    @IBAction func rateJob(sender: UIButton) {
+    @IBAction func rateJob(_ sender: UIButton) {
         print("rate")
     }
-    @IBAction func startAJob(sender: UIButton) {
-        let alertController = UIAlertController(title: "开始报名", message: "确定要开启报名吗？", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+    @IBAction func startAJob(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "开始报名", message: "确定要开启报名吗？", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
-        let OKAction = UIAlertAction(title: "确定", style: .Default) { (action) in
-            MBProgressHUD.showHUDAddedTo(self.superController!.view, animated: true)
-            self.api.startAJob(["access_token": API.token!, "ptID": "\(self.id!.job)"]) { response in
+        let OKAction = UIAlertAction(title: "确定", style: .default) { (action) in
+            MBProgressHUD.showAdded(to: self.superController!.view, animated: true)
+            self.api.startAJob(["access_token": API.token! as AnyObject, "ptID": "\(self.id!.job)" as AnyObject]) { response in
                 switch response {
-                case .Success:
+                case .success:
                     let res = JSON(data: response.value!)
                     if res["status"].stringValue == "success" {
                         if let controller = self.superController {
-                            let alertController = UIAlertController(title: "成功", message: "成功开始报名", preferredStyle: .Alert)
-                            let OKAction = UIAlertAction(title: "完成", style: .Default, handler: { action in
+                            let alertController = UIAlertController(title: "成功", message: "成功开始报名", preferredStyle: .alert)
+                            let OKAction = UIAlertAction(title: "完成", style: .default, handler: { action in
                                 controller.getEmployerJobs()
-                                MBProgressHUD.hideHUDForView(self.superController!.view, animated: true)
+                                MBProgressHUD.hide(for: self.superController!.view, animated: true)
                             })
                             alertController.addAction(OKAction)
-                            self.superController!.presentViewController(alertController, animated: true, completion: nil)
+                            self.superController!.present(alertController, animated: true, completion: nil)
                         }
                     }
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
-                MBProgressHUD.hideHUDForView(self.superController!.view, animated: true)
+                MBProgressHUD.hide(for: self.superController!.view, animated: true)
             }
         }
         alertController.addAction(OKAction)
-        superController!.presentViewController(alertController, animated: true, completion: nil)
+        superController!.present(alertController, animated: true, completion: nil)
     }
     
-    var type: (account: AccountType, jobs: MyJobsType) = (.None, .None) {
+    var type: (account: AccountType, jobs: MyJobsType) = (.none, .none) {
         didSet {
-            if type.account == .Employee {
+            if type.account == .employee {
                 switch type.jobs {
-                case .Request:
-                    jobButton?.setTitle("我要撤销", forState: .Normal)
-                    jobButton?.addTarget(self, action: #selector(cancelJob), forControlEvents: .TouchUpInside)
-                case .Hire:
-                    jobButton?.setTitle("已录用", forState: .Normal)
-                case .Working:
-                    jobButton?.setTitle("等待支付", forState: .Normal)
-                case .Rate:
-                    jobButton?.setTitle("我要评价", forState: .Normal)
-                    jobButton?.addTarget(self, action: #selector(rateJob), forControlEvents: .TouchUpInside)
-                case .Done:
-                    jobButton?.setTitle("评价完成", forState: .Normal)
+                case .request:
+                    jobButton?.setTitle("我要撤销", for: UIControlState())
+                    jobButton?.addTarget(self, action: #selector(cancelJob), for: .touchUpInside)
+                case .hire:
+                    jobButton?.setTitle("已录用", for: UIControlState())
+                case .working:
+                    jobButton?.setTitle("等待支付", for: UIControlState())
+                case .rate:
+                    jobButton?.setTitle("我要评价", for: UIControlState())
+                    jobButton?.addTarget(self, action: #selector(rateJob), for: .touchUpInside)
+                case .done:
+                    jobButton?.setTitle("评价完成", for: UIControlState())
                 default:
                     jobButton?.titleLabel?.text = ""
                 }
-            } else if type.account == .Employer {
+            } else if type.account == .employer {
                 switch type.jobs {
-                case .Request:
+                case .request:
                     //未发布
                     if status! == 22 {
-                        jobButton?.setTitle("开始报名", forState: .Normal)
-                        jobButton?.addTarget(self, action: #selector(startAJob), forControlEvents: .TouchUpInside)
+                        jobButton?.setTitle("开始报名", for: UIControlState())
+                        jobButton?.addTarget(self, action: #selector(startAJob), for: .touchUpInside)
                     } else if status! == 23 {
-                        jobButton?.setTitle("已发布", forState: .Normal)
+                        jobButton?.setTitle("已发布", for: UIControlState())
                     } else {
-                        jobButton?.setTitle("", forState: .Normal)
+                        jobButton?.setTitle("", for: UIControlState())
                     }
-                case .Hire:
+                case .hire:
                     fallthrough
-                case .Working:
-                    jobButton?.setTitle("", forState: .Normal)
-                    jobButton?.enabled = false
+                case .working:
+                    jobButton?.setTitle("", for: UIControlState())
+                    jobButton?.isEnabled = false
                 default:
                     break
                 }
@@ -154,7 +154,7 @@ class JobCell: UITableViewCell {
 }
 
 extension JobCell {
-    private func initialStyle() {
+    fileprivate func initialStyle() {
         locationImage.tintColor = Theme.mainColor
         timeImage.tintColor = Theme.mainColor
         salaryTypeImage.tintColor = Theme.mainColor

@@ -13,10 +13,10 @@ import MJRefresh
 import MBProgressHUD
 
 enum QuickAccess: Int {
-    case LSJJ = 5
-    case CXDG = 2
-    case CDFF = 1
-    case OTHER = 10
+    case lsjj = 5
+    case cxdg = 2
+    case cdff = 1
+    case other = 10
 }
 
 class AllJobsViewController: UIViewController {
@@ -26,14 +26,14 @@ class AllJobsViewController: UIViewController {
         menuView.delegate = self
         menuView.dataSource = self
         
-        jobsTableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
+//        jobsTableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(loadNewData))
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        clearsSelectionOnViewWillAppear NOT WORK on device
         if let selection = jobsTableView.indexPathForSelectedRow {
-            jobsTableView.deselectRowAtIndexPath(selection, animated: true)
+            jobsTableView.deselectRow(at: selection, animated: true)
         }
         currentCounties = ["不限"] + Location.getCurrentCounties().map({ county in return county["name"].stringValue })
         menuView.reloadBody()
@@ -59,26 +59,26 @@ class AllJobsViewController: UIViewController {
     var jobsData: [JSON] = []
     
     func loadNewData() {
-        var params: [String: AnyObject] = ["type":"",
-                                           "date": "",
-                                           "districtid": "",
-                                           "page": currentPage+1]
+        var params: [String: AnyObject] = ["type":"" as AnyObject,
+                                           "date": "" as AnyObject,
+                                           "districtid": "" as AnyObject,
+                                           "page": currentPage+1 as AnyObject]
         
         if currentSelection[0] == 0 {
-            params["type"] = ""
+            params["type"] = "" as AnyObject?
         } else {
-            params["type"] = "\(currentSelection[0])"
+            params["type"] = "\(currentSelection[0])" as AnyObject
         }
         
         if currentSelection[1] == 0 {
-            params["districtid"] = ""
+            params["districtid"] = "" as AnyObject?
         } else {
-            params["districtid"] = Location.getCurrentCounties()[currentSelection[1]-1]["code"].stringValue
+            params["districtid"] = Location.getCurrentCounties()[currentSelection[1]-1]["code"].stringValue as AnyObject
         }
 //        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         api.getJobs(params) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 if res["status"] == "success" {
                     self.jobsData += res["result"].array!
@@ -89,40 +89,40 @@ class AllJobsViewController: UIViewController {
                     print("failure")
                 }
                 
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
 //            MBProgressHUD.hideHUDForView(self.view, animated: true)
         }
     }
     
-    func quickAccess(type: QuickAccess) {
+    func quickAccess(_ type: QuickAccess) {
         currentPage = 1
         currentSelection[0] = type.rawValue
         filtersJob()
     }
     
     func filtersJob() {
-        var params: [String: AnyObject] = ["type":"",
-                                           "date": "",
-                                           "districtid": "",
-                                           "page": currentPage]
+        var params: [String: AnyObject] = ["type":"" as AnyObject,
+                                           "date": "" as AnyObject,
+                                           "districtid": "" as AnyObject,
+                                           "page": currentPage as AnyObject]
         
         if currentSelection[0] == 0 {
-            params["type"] = ""
+            params["type"] = "" as AnyObject?
         } else {
-            params["type"] = "\(currentSelection[0])"
+            params["type"] = "\(currentSelection[0])" as AnyObject
         }
         
         if currentSelection[1] == 0 {
-            params["districtid"] = ""
+            params["districtid"] = "" as AnyObject?
         } else {
-            params["districtid"] = Location.getCurrentCounties()[currentSelection[1]-1]["code"].stringValue
+            params["districtid"] = Location.getCurrentCounties()[currentSelection[1]-1]["code"].stringValue as AnyObject
         }
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         api.getJobs(params) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 if res["status"] == "success" {
                     self.jobsData = res["result"].array!
@@ -131,21 +131,21 @@ class AllJobsViewController: UIViewController {
                     print("failure")
                 }
                 
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
 }
 
 
 extension AllJobsViewController {
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case "ShowJobDetailsSegue":
-                let controller = segue.destinationViewController as! JobDetailsTableViewController
+                let controller = segue.destination as! JobDetailsTableViewController
                 let selectedRow = jobsTableView.indexPathForSelectedRow!.row
                 controller.id = jobsData[selectedRow]["ptID"].intValue
             default:
@@ -157,7 +157,7 @@ extension AllJobsViewController {
 }
 
 extension AllJobsViewController {
-    private func initialViewStyle() {
+    fileprivate func initialViewStyle() {
         automaticallyAdjustsScrollViewInsets = false
         if let navigator = navigationController {
             navigator.navigationBar.barTintColor = Theme.mainColor
@@ -168,19 +168,19 @@ extension AllJobsViewController {
 
 
 extension AllJobsViewController: YXMenuViewDelegate, YXMenuViewDataSource {
-    func numberOfSectionsInYXMenuView(menuView: YXMenuView) -> Int {
+    func numberOfSectionsInYXMenuView(_ menuView: YXMenuView) -> Int {
         return titleForSections.count
     }
-    func menuView(menuView: YXMenuView, numberOfRowsInSection section: Int) -> Int {
+    func menuView(_ menuView: YXMenuView, numberOfRowsInSection section: Int) -> Int {
         return titleForRows[section].count
     }
-    func menuView(menuView: YXMenuView, titleForHeaderInSection section: Int) -> String {
+    func menuView(_ menuView: YXMenuView, titleForHeaderInSection section: Int) -> String {
         return titleForSections[section]
     }
-    func menuView(menuView: YXMenuView, titleForRowAtIndexPath indexPath: NSIndexPath) -> String {
+    func menuView(_ menuView: YXMenuView, titleForRowAtIndexPath indexPath: IndexPath) -> String {
         return titleForRows[indexPath.section][indexPath.row]
     }
-    func menuView(menuView: YXMenuView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func menuView(_ menuView: YXMenuView, didSelectRowAtIndexPath indexPath: IndexPath) {
         currentSelection[indexPath.section] = indexPath.row
         currentPage = 1
         
@@ -189,16 +189,16 @@ extension AllJobsViewController: YXMenuViewDelegate, YXMenuViewDataSource {
 }
 
 extension AllJobsViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return jobsData.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("JobCell", forIndexPath: indexPath) as! JobCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "JobCell", for: indexPath) as! JobCell
 
         let data = jobsData[indexPath.row]
         if !data["district"].stringValue.isEmpty {

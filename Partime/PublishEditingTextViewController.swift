@@ -37,10 +37,10 @@ class PublishEditingTextViewController: UIViewController {
     func initView() {
         switch name {
         case "招聘人数":
-            editTextField.keyboardType = .NumberPad
+            editTextField.keyboardType = .numberPad
             alertMessageLabel.text = "请输入数字"
         case "联系电话 *":
-            editTextField.keyboardType = .PhonePad
+            editTextField.keyboardType = .phonePad
             alertMessageLabel.text = "请输入11位的电话号码"
         default:
             break
@@ -48,7 +48,7 @@ class PublishEditingTextViewController: UIViewController {
 
         
         if name.characters.last == "*" {
-            let text = name.componentsSeparatedByString(" ")[0]
+            let text = name.components(separatedBy: " ")[0]
             editNameLabel.text = text
             navigationItem.title = "修改" + text
         } else {
@@ -58,7 +58,7 @@ class PublishEditingTextViewController: UIViewController {
         
         editTextField.text = detailsName
     }
-    @IBAction func editingEnd(sender: UITextField) {
+    @IBAction func editingEnd(_ sender: UITextField) {
         superLabel.text = editTextField.text
     }
 }

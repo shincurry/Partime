@@ -13,9 +13,9 @@ import MBProgressHUD
 import KeychainAccess
 
 enum RegisterType {
-    case Register
-    case ForgotPassword
-    case None
+    case register
+    case forgotPassword
+    case none
 }
 
 class RegisterViewController: UIViewController {
@@ -25,26 +25,26 @@ class RegisterViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         switch type {
-        case .Register:
+        case .register:
             navigationItem.title = "注册"
-        case .ForgotPassword:
+        case .forgotPassword:
             navigationItem.title = "重设密码"
         default:
             break
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         addKeyboardNotification()
         if let tab = tabBarController {
-            tab.tabBar.hidden = true
+            tab.tabBar.isHidden = true
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         removeKeyboardNotification()
         if let tab = tabBarController {
-            tab.tabBar.hidden = false
+            tab.tabBar.isHidden = false
         }
     }
 
@@ -56,7 +56,7 @@ class RegisterViewController: UIViewController {
     let api = API.shared
     let alert = YXAlert()
     
-    var type: RegisterType = .None
+    var type: RegisterType = .none
     
     
     var isPhoneNumberOK = false
@@ -75,20 +75,20 @@ class RegisterViewController: UIViewController {
 
     func addKeyboardNotification() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillChangeFrame(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func removeKeyboardNotification() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillChangeFrameNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case "UnwindRegisterToProfileSegue":
-                let controller = segue.destinationViewController as! ProfileTableViewController
+                let controller = segue.destination as! ProfileTableViewController
                 controller.updateLoginStatus()
             default:
                 break
@@ -99,96 +99,96 @@ class RegisterViewController: UIViewController {
     
     
     
-    @IBAction func phoneNumberDidEndEdit(sender: SpringTextField) {
+    @IBAction func phoneNumberDidEndEdit(_ sender: SpringTextField) {
         sender.layer.borderWidth = 1
         sender.layer.cornerRadius = 8
         sender.layer.masksToBounds = true
         if sender.text?.characters.count == 11 {
-            sender.layer.borderColor = UIColor.clearColor().CGColor
+            sender.layer.borderColor = UIColor.clear.cgColor
             isPhoneNumberOK = true
         } else {
-            sender.layer.borderColor = UIColor.redColor().CGColor
+            sender.layer.borderColor = UIColor.red.cgColor
             isPhoneNumberOK = false
             seTextFieldAnimation(sender)
         }
     }
-    @IBAction func passwordDidEndEdit(sender: SpringTextField) {
+    @IBAction func passwordDidEndEdit(_ sender: SpringTextField) {
         sender.layer.borderWidth = 1
         sender.layer.cornerRadius = 8
         sender.layer.masksToBounds = true
         if confirmPasswordTextField.text == passwordTextField.text && !passwordTextField.text!.isEmpty  {
-            sender.layer.borderColor = UIColor.clearColor().CGColor
+            sender.layer.borderColor = UIColor.clear.cgColor
             isPasswordOK = true
         } else {
-            sender.layer.borderColor = UIColor.redColor().CGColor
+            sender.layer.borderColor = UIColor.red.cgColor
             isPasswordOK = false
             seTextFieldAnimation(sender)
         }
     }
-    @IBAction func validateCodeDidEndEdit(sender: SpringTextField) {
+    @IBAction func validateCodeDidEndEdit(_ sender: SpringTextField) {
         sender.layer.borderWidth = 1
         sender.layer.cornerRadius = 8
         sender.layer.masksToBounds = true
         if !sender.text!.isEmpty {
             isValidateCodeOK = true
-            sender.layer.borderColor = UIColor.clearColor().CGColor
+            sender.layer.borderColor = UIColor.clear.cgColor
         } else {
             isValidateCodeOK = false
-            sender.layer.borderColor = UIColor.redColor().CGColor
+            sender.layer.borderColor = UIColor.red.cgColor
             seTextFieldAnimation(sender)
         }
         
     }
 
-    @IBAction func getValidateCode(sender: UIButton) {
+    @IBAction func getValidateCode(_ sender: UIButton) {
         if let phoneNumber = phoneNumberTextField.text {
-            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            MBProgressHUD.showAdded(to: self.view, animated: true)
             
-            var params: [String: AnyObject] = ["phonenumber": phoneNumber]
-            if type == .ForgotPassword {
-                params["isforgot"] = 1
+            var params: [String: AnyObject] = ["phonenumber": phoneNumber as AnyObject]
+            if type == .forgotPassword {
+                params["isforgot"] = 1 as AnyObject?
             }
             print(params)
             api.getValidateCode(params) { response in
                 
                 switch response {
-                case .Success:
+                case .success:
                     let res = JSON(data: response.value!)
                     print(res)
                     if res["status"].stringValue == "success" {
                         self.validateCodeID = res["validatecodeid"].stringValue
-                        let alertController = UIAlertController(title: "成功", message: "成功获取验证码", preferredStyle: .Alert)
-                        let OKAction = UIAlertAction(title: "好的", style: .Default, handler: nil)
+                        let alertController = UIAlertController(title: "成功", message: "成功获取验证码", preferredStyle: .alert)
+                        let OKAction = UIAlertAction(title: "好的", style: .default, handler: nil)
                         alertController.addAction(OKAction)
-                        self.presentViewController(alertController, animated: true, completion: nil)
-                        sender.enabled = false
-                        sender.backgroundColor = UIColor.lightGrayColor()
+                        self.present(alertController, animated: true, completion: nil)
+                        sender.isEnabled = false
+                        sender.backgroundColor = UIColor.lightGray
                     }
                     
                     if res["status"].stringValue == "failure" {
                         self.alert.showNotificationAlert("失败", message: "获取验证码失败", sender: self, completion: nil)
                     }
                     
-                case .Failure(let error):
-                    let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                case .failure(let error):
+                    let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
             }
         }
         
     }
     
-    @IBAction func confirmSignUp(sender: UIButton) {
+    @IBAction func confirmSignUp(_ sender: UIButton) {
         confirmPasswordTextField.resignFirstResponder()
         
         guard isPhoneNumberOK && isPasswordOK && isValidateCodeOK else {
-            let alertController = UIAlertController(title: "Information Error", message: "Information you input is wrong", preferredStyle: .Alert)
-            let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Information Error", message: "Information you input is wrong", preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
             alertController.addAction(OKAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             return
         }
         let params = ["phonenumber": phoneNumberTextField.text!,
@@ -198,9 +198,9 @@ class RegisterViewController: UIViewController {
         ]
         
         switch type {
-        case .Register:
+        case .register:
             register(params)
-        case .ForgotPassword:
+        case .forgotPassword:
             forgotPassword(params)
         default:
             break
@@ -209,12 +209,12 @@ class RegisterViewController: UIViewController {
         
     }
     
-    func register(params: [String: String]) {
+    func register(_ params: [String: String]) {
         
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        api.register(params) { response in
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        api.register(params as [String : AnyObject]) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 if res["status"].stringValue == "success" {
                     let keychain = Keychain(service: "com.windisco.Partime")
@@ -224,65 +224,65 @@ class RegisterViewController: UIViewController {
                     keychain["username"] = self.phoneNumberTextField.text
                     keychain["password"] = self.passwordTextField.text
                     
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    let alertController = UIAlertController(title: "成功", message: "注册账号成功", preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: "好的", style: .Default, handler: { _ in
-                        self.performSegueWithIdentifier("UnwindRegisterToProfileSegue", sender: self)
-                        self.superController!.performSegueWithIdentifier("UnwindLoginOKToProfileTableViewController", sender: self)
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    let alertController = UIAlertController(title: "成功", message: "注册账号成功", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "好的", style: .default, handler: { _ in
+                        self.performSegue(withIdentifier: "UnwindRegisterToProfileSegue", sender: self)
+                        self.superController!.performSegue(withIdentifier: "UnwindLoginOKToProfileTableViewController", sender: self)
                     })
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
                 
                 if res["status"].stringValue == "failure" {
-                    let alertController = UIAlertController(title: "失败", message: "注册失败", preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+                    let alertController = UIAlertController(title: "失败", message: "注册失败", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
                 
-            case .Failure(let error):
-                let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .Alert)
-                let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+            case .failure(let error):
+                let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
                 alertController.addAction(OKAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
     
-    func forgotPassword(params: [String: String]) {
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        api.forgotPassword(params) { response in
+    func forgotPassword(_ params: [String: String]) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        api.forgotPassword(params as [String : AnyObject]) { response in
             switch response {
-            case .Success:
+            case .success:
                 let res = JSON(data: response.value!)
                 if res["status"].stringValue == "success" {
                     API.token = res["access_token"].stringValue
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
-                    let alertController = UIAlertController(title: "成功", message: "重设密码成功", preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: "好的", style: .Default, handler: { _ in
-                        self.performSegueWithIdentifier("UnwindRegisterToLoginSegue", sender: self)
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    let alertController = UIAlertController(title: "成功", message: "重设密码成功", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "好的", style: .default, handler: { _ in
+                        self.performSegue(withIdentifier: "UnwindRegisterToLoginSegue", sender: self)
                     })
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                     
                 }
                 
                 if res["status"].stringValue == "failure" {
-                    let alertController = UIAlertController(title: "失败", message: "重设密码出错", preferredStyle: .Alert)
-                    let OKAction = UIAlertAction(title: "好的", style: .Default, handler: nil)
+                    let alertController = UIAlertController(title: "失败", message: "重设密码出错", preferredStyle: .alert)
+                    let OKAction = UIAlertAction(title: "好的", style: .default, handler: nil)
                     alertController.addAction(OKAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
                 
-            case .Failure(let error):
-                let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .Alert)
-                let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
+            case .failure(let error):
+                let alertController = UIAlertController(title: "Get validate code error", message: error.localizedDescription, preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil)
                 alertController.addAction(OKAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
             }
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
     
@@ -290,7 +290,7 @@ class RegisterViewController: UIViewController {
 
 // MARK: - View Animation
 extension RegisterViewController {
-    func seTextFieldAnimation(sender: SpringTextField) {
+    func seTextFieldAnimation(_ sender: SpringTextField) {
         sender.animation = "shake"
         sender.force = 0.3
         sender.duration = 0.4
